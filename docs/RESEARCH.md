@@ -7,7 +7,7 @@ of truth**; the files below are the working artifacts that produced it.
 
 ## 1. The source of truth — Postgres
 
-Hetzner, container `r88oogo8w4k4ooow0ckog808`, DB `multiverseschool`.
+Hetzner, container `$AIPI_PG_CONTAINER`, DB `$AIPI_DB`.
 
 | Table | Owner | What it holds |
 |---|---|---|
@@ -22,7 +22,7 @@ Hetzner, container `r88oogo8w4k4ooow0ckog808`, DB `multiverseschool`.
 
 Read the current state any time:
 ```bash
-ssh hetzner "docker exec -i r88oogo8w4k4ooow0ckog808 psql -U campus -d multiverseschool -c \
+ssh "$AIPI_SSH_HOST" "docker exec -i $AIPI_PG_CONTAINER psql -U campus -d $AIPI_DB -c \
   \"SELECT score_state, count(*) FROM real_issues GROUP BY 1 ORDER BY 2 DESC;\""
 ```
 

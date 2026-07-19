@@ -11,13 +11,21 @@
 #
 # Flags:  --dry-run   build + validate, do not write to the DB
 #
-# Requires: ssh alias `hetzner`, python3, node (for JS syntax check; optional)
+# Requires: ssh access to the db host, python3, node (for JS syntax check; optional)
 # ---------------------------------------------------------------------------
 set -euo pipefail
 
+# ---- config -------------------------------------------------------------
+# Real values are NOT committed. Set them via environment, or drop a local
+# .aipi.env next to this script (gitignored). See .env.example.
+[ -f "$(dirname "$0")/.aipi.env" ] && . "$(dirname "$0")/.aipi.env"
+
 WORKDIR="${AIPI_WORKDIR:-$HOME/backups/ai-risk-db-factcheck}"
-PGC="r88oogo8w4k4ooow0ckog808"          # postgres container
-DB="multiverseschool"
+SSH_HOST="${AIPI_SSH_HOST:?set AIPI_SSH_HOST (ssh alias of the db host)}"
+PGC="${AIPI_PG_CONTAINER:?set AIPI_PG_CONTAINER (postgres container name)}"
+DB="${AIPI_DB:?set AIPI_DB (database name)}"
+PAGES_ROLE="${AIPI_PAGES_ROLE:-school}"   # owns the `pages` table
+KB_ROLE="${AIPI_KB_ROLE:-campus}"         # owns real_issues / research_library
 DRY_RUN=0
 
 for a in "$@"; do [ "$a" = "--dry-run" ] && DRY_RUN=1; done
@@ -29,10 +37,10 @@ c_err(){ printf '\033[31m✗\033[0m %s\n' "$*" >&2; }
 die(){ c_err "$*"; exit 1; }
 
 psql_as(){ # psql_as <role> ; reads SQL from stdin
-  ssh hetzner "docker exec -i $PGC psql -U $1 -d $DB -q"
+  ssh "$SSH_HOST" "docker exec -i $PGC psql -U $1 -d $DB -q"
 }
 psql_q(){ # psql_q <role> <sql>  → single value
-  ssh hetzner "docker exec -i $PGC psql -U $1 -d $DB -At -c \"$2\""
+  ssh "$SSH_HOST" "docker exec -i $PGC psql -U $1 -d $DB -At -c \"$2\""
 }
 
 # canonical hand-maintained pages: slug|file (built by hand, published as-is)
@@ -75,10 +83,10 @@ print(f"UPDATE pages SET content_html=${tag}${h}${tag}$, updated_at=now() WHERE 
 print(f"SELECT length(content_html) AS bytes FROM pages WHERE slug='{slug}';")
 print("COMMIT;")
 PY
-  psql_as school < "$WORKDIR/.deploy_apply.sql" >/dev/null
+  psql_as "$PAGES_ROLE" < "$WORKDIR/.deploy_apply.sql" >/dev/null
   rm -f "$WORKDIR/.deploy_apply.sql"
 
-  local live; live=$(psql_q school "SELECT length(content_html) FROM pages WHERE slug='$slug';" | tr -d ' \r')
+  local live; live=$(psql_q "$PAGES_ROLE" "SELECT length(content_html) FROM pages WHERE slug='$slug';" | tr -d ' \r')
   [ -n "$live" ] || die "publish failed: $slug not found in pages"
   c_ok "published $slug  ($live bytes live)"
 }
@@ -100,7 +108,7 @@ PY
 # ---------------------------------------------------------------------------
 do_dump(){
   c_info "dumping real_issues (+ score_* + sources) → atlas_issues.json"
-  ssh hetzner "docker exec -i $PGC psql -U campus -d $DB -At -c \"
+  ssh "$SSH_HOST" "docker exec -i $PGC psql -U $KB_ROLE -d $DB -At -c \"
     SELECT json_agg(t ORDER BY t.title) FROM (
       SELECT i.id,i.title,i.status,i.icon,i.summary,i.description,i.why_it_matters,i.what_being_done,
              i.score_state,i.score_trend,i.score_conf,i.score_note,i.score_markers,
@@ -163,7 +171,7 @@ do_verify(){
   for s in "${slugs[@]}"; do
     local code len
     code=$(curl -s -o /dev/null -w '%{http_code}' -L --max-time 25 "https://themultiverse.school/x/$s")
-    len=$(psql_q school "SELECT length(content_html) FROM pages WHERE slug='$s';" | tr -d ' \r')
+    len=$(psql_q "$PAGES_ROLE" "SELECT length(content_html) FROM pages WHERE slug='$s';" | tr -d ' \r')
     if [ "$code" = "200" ] && [ "${len:-0}" -gt 2000 ]; then
       c_ok "$s  (HTTP $code, ${len} bytes)"
     else

@@ -9,3 +9,6 @@
 *.swp
 __pycache__/
 *.pyc
+
+# local config (never commit)
+.aipi.env

@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
-"""Render the threat scoreboard into index_live.html from the school-owned
+"""[RETIRED — the front-page scoreboard was replaced by the Risk Atlas scorecard.]
+Render the threat scoreboard into index_live.html from the school-owned
 `risk_scoreboard` DB table. The DB is the source of truth; this only injects
 the SCORE array between the /*SCOREBOARD-START*/.../*SCOREBOARD-END*/ markers."""
-import json, subprocess, sys
+import json, os, subprocess, sys
 
 SQL = ("SELECT json_agg(json_build_object("
        "'name',name,'state',state,'trend',trend,'conf',conf,'go',go_tab,'why',why) "
        "ORDER BY ord) FROM risk_scoreboard;")
 raw = subprocess.check_output([
-    "ssh","hetzner",
-    "docker exec -i r88oogo8w4k4ooow0ckog808 psql -U school -d multiverseschool -At -c \"%s\"" % SQL
+    "ssh", os.environ.get("AIPI_SSH_HOST","hetzner"),
+    "docker exec -i %s psql -U %s -d %s -At -c \"%s\"" % (
+        os.environ["AIPI_PG_CONTAINER"], os.environ.get("AIPI_PAGES_ROLE","school"),
+        os.environ["AIPI_DB"], SQL)
 ], text=True).strip()
 rows = json.loads(raw)
 assert rows and len(rows) >= 10, "unexpected row count: %r" % (len(rows) if rows else 0)

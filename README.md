@@ -37,7 +37,7 @@ these builders read it and emit the published HTML.
 | Thing | Location |
 |---|---|
 | Live site | `https://themultiverse.school/x/<slug>` |
-| CMS + data | Postgres on Hetzner, container `r88oogo8w4k4ooow0ckog808`, DB `multiverseschool` |
+| CMS + data | Postgres on Hetzner, container `$AIPI_PG_CONTAINER`, DB `$AIPI_DB` |
 | Page HTML | table `pages` (`content_html`) — owned by **`school`** |
 | Risk data | tables `real_issues`, `real_issues_sources` — owned by **`campus`** |
 | Research library | table `research_library` — owned by **`campus`** |
@@ -49,7 +49,7 @@ these builders read it and emit the published HTML.
 
 Publish pattern:
 ```bash
-ssh hetzner "docker exec -i r88oogo8w4k4ooow0ckog808 psql -U school -d multiverseschool -q" < apply_X.sql
+ssh "$AIPI_SSH_HOST" "docker exec -i $AIPI_PG_CONTAINER psql -U school -d $AIPI_DB -q" < apply_X.sql
 ```
 `apply_X.sql` sets `content_html` via a dollar-quoted string
 (`UPDATE pages SET content_html=$tag$…$tag$ WHERE slug='…'`). Choose a `$tag$` that does not
@@ -201,7 +201,7 @@ Everything is DB-driven: builders read a JSON dump and emit `content_html`.
 cd ~/backups/ai-risk-db-factcheck
 
 # 1) dump WITH all score_* columns + sources
-ssh hetzner "docker exec -i r88oogo8w4k4ooow0ckog808 psql -U campus -d multiverseschool -At -c \"
+ssh "$AIPI_SSH_HOST" "docker exec -i $AIPI_PG_CONTAINER psql -U campus -d $AIPI_DB -At -c \"
   SELECT json_agg(t ORDER BY t.title) FROM (
     SELECT i.id,i.title,i.status,i.icon,i.summary,i.description,i.why_it_matters,i.what_being_done,
            i.score_state,i.score_trend,i.score_conf,i.score_note,i.score_markers,
