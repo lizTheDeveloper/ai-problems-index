@@ -1,0 +1,2176 @@
+<nav class="xnav" aria-label="AI Problems Index — jump to any page">
+<style>
+  .xnav{ --xl:var(--color-border,#2a2f36); --xmut:var(--color-text-muted,#8b94a0);
+    --xpanel:var(--color-bg-card,#1c1f24); --xink:var(--color-text,#eef2f6);
+    --xpri:var(--color-primary,#34a58e); --xbg:var(--color-bg,#0c0d10);
+    font-family:var(--font-primary,system-ui,-apple-system,sans-serif);
+    display:block; background:var(--xpanel); border:1px solid var(--xl); border-radius:14px;
+    padding:11px 13px; margin:0 0 22px; }
+  .xnav *{box-sizing:border-box}
+  .xnav .xrow{ display:flex; align-items:center; gap:12px; }
+  .xnav .xhome{ flex:0 0 auto; display:inline-flex; align-items:center; gap:8px; text-decoration:none;
+    font-weight:800; font-size:.9rem; letter-spacing:-.01em; color:var(--xink);
+    background:color-mix(in srgb,var(--xpri) 15%,transparent); border:1px solid color-mix(in srgb,var(--xpri) 45%,transparent);
+    border-radius:10px; padding:8px 13px; white-space:nowrap; transition:all .12s; }
+  .xnav .xhome:hover{ background:var(--xpri); color:var(--xbg); border-color:var(--xpri); }
+  .xnav .xhome i{ color:var(--xpri); transition:color .12s }
+  .xnav .xhome:hover i{ color:var(--xbg) }
+  .xnav .xlbl{ flex:0 0 auto; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.09em;
+    color:var(--xmut); font-family:ui-monospace,monospace; }
+  .xnav .xchips{ display:flex; gap:6px; overflow-x:auto; scrollbar-width:thin; padding:3px 2px 5px; flex:1;
+    -webkit-overflow-scrolling:touch; scroll-snap-type:x proximity; }
+  .xnav .xchips::-webkit-scrollbar{height:5px}
+  .xnav .xchips::-webkit-scrollbar-thumb{background:var(--xl);border-radius:3px}
+  .xnav .xchips a{ flex:0 0 auto; scroll-snap-align:start; display:inline-flex; align-items:center; gap:6px;
+    text-decoration:none; font-size:.8rem; font-weight:600; color:var(--xmut);
+    background:var(--xbg); border:1px solid var(--xl); border-radius:999px; padding:6px 12px; white-space:nowrap;
+    transition:all .12s; }
+  .xnav .xchips a:hover{ color:var(--xink); border-color:var(--xmut); transform:translateY(-1px); }
+  .xnav .xchips a i{ font-size:.85em; opacity:.85 }
+  .xnav .xchips a[aria-current="page"]{ color:var(--xbg); background:var(--xpri); border-color:var(--xpri);
+    font-weight:700; cursor:default; }
+  .xnav .xchips a[aria-current="page"] i{ opacity:1 }
+  @media(max-width:640px){
+    .xnav .xrow{ flex-wrap:wrap; gap:9px }
+    .xnav .xchips{ order:3; flex-basis:100%; }
+  }
+  /* When this page is embedded inside the AI Problems Index SPA shell, the shell's
+     own tab bar handles navigation — hide this strip so it doesn't duplicate. */
+  .apx .xnav{ display:none !important }
+</style>
+  <div class="xrow">
+    <a class="xhome" href="/x/ai-problems-index"><i class="fas fa-compass"></i> AI Problems Index</a>
+    <span class="xlbl">Jump to</span>
+    <div class="xchips">
+      <a href="/x/ai-risk-atlas"><i class="fas fa-triangle-exclamation"></i>Risk Atlas</a>
+      <a href="/x/ai-environmental-impact"><i class="fas fa-leaf"></i>Environment</a>
+      <a href="/x/ai-datacenter-action"><i class="fas fa-bullhorn"></i>Local Action</a>
+      <a href="/x/ai-consciousness"><i class="fas fa-brain"></i>Consciousness</a>
+      <a href="/x/ai-moral-patienthood"><i class="fas fa-scale-balanced"></i>Moral Patienthood</a>
+      <a href="/x/ai-fallacies"><i class="fas fa-comment-slash"></i>Fallacies</a>
+      <a href="/x/ai-creativity"><i class="fas fa-palette"></i>Creativity</a>
+      <a href="/x/ai-copyright"><i class="fas fa-copyright"></i>Copyright</a>
+      <a href="/x/ai-benefits"><i class="fas fa-hand-holding-heart"></i>Benefits</a>
+      <a href="/x/ai-non-problems"><i class="fas fa-ban"></i>Non-Problems</a>
+      <a href="/x/ai-safety-research"><i class="fas fa-flask"></i>Research</a>
+      <a href="/x/agentic-ai-security-map"><i class="fas fa-map-location-dot"></i>Accountability</a>
+    </div>
+  </div>
+<script>
+(function(){
+  var navs=document.querySelectorAll('nav.xnav');
+  var here=(location.pathname||'').replace(/\/+$/,'');
+  navs.forEach(function(nav){
+    nav.querySelectorAll('.xchips a, .xhome').forEach(function(a){
+      var href=(a.getAttribute('href')||'').replace(/\/+$/,'');
+      if(href && here.slice(-href.length)===href){ a.setAttribute('aria-current','page'); a.removeAttribute('href'); }
+    });
+  });
+})();
+</script>
+</nav>
+<style>
+  .env2{ --l:var(--color-border,#dde3e8); --mut:var(--color-text-muted,#66727e); --panel:var(--color-bg-card,#fff);
+    --ink:var(--color-text,#16202a); --pri:var(--color-primary,#0f9d8a); --ai:#0f9d8a; --alt:#e0741c; --warn:#d64545;
+    --acc:var(--color-accent,#e0741c); --bg:var(--color-bg,#0c0d10);
+    --crypto:#8b5cf6; --grid:color-mix(in srgb,var(--color-text-muted,#888) 22%,transparent); font-variant-numeric:tabular-nums;
+    font-family:var(--font-primary,system-ui,-apple-system,sans-serif);
+    background:var(--color-bg,#0c0d10); }
+  /* solid reading surface: keep dense text legible even on themes with busy animated backgrounds */
+  .env2 .lede,.env2 h2,.env2 h3,.env2 p{position:relative}
+  .env2 .lede{font-size:1.06rem;color:var(--mut);max-width:68ch;line-height:1.6}
+  .env2 em{font-style:normal;color:var(--ink);border-bottom:1.5px solid color-mix(in srgb,var(--pri) 55%,transparent)}
+  .env2 a{color:var(--pri)}
+  .env2 code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86em;
+    background:color-mix(in srgb,var(--mut) 14%,transparent);padding:1px 5px;border-radius:4px}
+  .env2 .toc{border:1px solid var(--l);border-radius:12px;padding:14px 18px;margin:20px 0;background:var(--panel);
+    font-size:.9rem;columns:2;column-gap:28px}
+  @media(max-width:560px){.env2 .toc{columns:1}}
+  .env2 .toc a{display:block;margin:3px 0;text-decoration:none;break-inside:avoid}
+  .env2 .toc a b{color:var(--mut);font-family:ui-monospace,monospace;font-size:.8rem;margin-right:7px}
+  .env2 .flag{border:1px solid var(--warn);border-left:3px solid var(--warn);border-radius:10px;padding:15px 17px;margin:18px 0;
+    background:color-mix(in srgb,var(--warn) 7%,transparent)}
+  .env2 .flag b{display:block;margin-bottom:4px}.env2 .flag p{margin:0 0 8px;font-size:.94rem;line-height:1.55}.env2 .flag p:last-child{margin-bottom:0}
+  .env2 h2{margin:44px 0 2px;font-size:1.02rem;font-family:ui-monospace,monospace;letter-spacing:.04em;text-transform:uppercase;
+    color:var(--pri);border-top:1px solid var(--l);padding-top:20px}
+  .env2 h3{margin:26px 0 4px;font-size:1.18rem;letter-spacing:-.01em}
+  .env2 p{line-height:1.62}
+  .env2 .fig{border:1px solid var(--l);border-radius:14px;padding:18px 20px;margin:14px 0;background:var(--panel)}
+  .env2 .fig .cap{font-size:.92rem;color:var(--mut);margin:0 0 12px;max-width:68ch;line-height:1.55}
+
+  /* ---- polished horizontal bars ---- */
+  .env2 .bhead{font-family:ui-monospace,monospace;font-size:.7rem;color:var(--mut);letter-spacing:.02em;
+    margin:0 0 11px;line-height:1.45}
+  .env2 .brow{display:grid;grid-template-columns:210px 1fr 128px;gap:10px;align-items:center;margin:9px 0}
+  @media(max-width:560px){.env2 .brow{grid-template-columns:104px 1fr 78px;gap:7px}}
+  .env2 .blab{font-size:.82rem;text-align:right;line-height:1.2}
+  @media(max-width:560px){.env2 .blab{font-size:.74rem}}
+  .env2 .btrack{height:26px;border-radius:7px;background:color-mix(in srgb,var(--mut) 11%,transparent);
+    position:relative;overflow:hidden}
+  .env2 .btrack.gl::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+    background:repeating-linear-gradient(90deg,transparent 0,transparent calc(25% - 1px),var(--grid) calc(25% - 1px),var(--grid) 25%)}
+  .env2 .bfill{position:absolute;left:0;top:0;height:100%;border-radius:7px;min-width:3px;box-shadow:inset 0 0 0 1px color-mix(in srgb,#000 8%,transparent)}
+  .env2 .bval{font-family:ui-monospace,monospace;font-size:.78rem;font-weight:600}
+  @media(max-width:560px){.env2 .bval{font-size:.69rem}}
+  .env2 .bchip{position:absolute;top:50%;right:7px;transform:translateY(-50%);z-index:2;
+    font-family:ui-monospace,monospace;font-size:.66rem;font-weight:700;letter-spacing:.01em;white-space:nowrap;
+    padding:1px 7px;border-radius:20px;background:color-mix(in srgb,var(--panel) 86%,transparent);border:1px solid var(--l)}
+
+  /* ---- stacked proportion bars (c-water-sector, c-waste-sys) ---- */
+  .env2 .sbar{display:flex;height:36px;border-radius:9px;overflow:hidden;border:1px solid var(--l);margin:2px 0}
+  .env2 .sseg{position:relative;display:flex;align-items:center;justify-content:center;min-width:0;overflow:hidden}
+  .env2 .sseg .on{font-family:ui-monospace,monospace;font-size:.7rem;font-weight:700;padding:0 6px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.42)}
+  .env2 .submark{position:absolute;left:5px;top:5px;bottom:5px;width:4px;border-radius:2px;
+    background:color-mix(in srgb,#000 30%,transparent)}
+  .env2 .sleg{display:flex;flex-wrap:wrap;gap:6px 16px;margin:10px 0 0;font-size:.8rem;color:var(--mut)}
+  .env2 .sleg span{display:inline-flex;align-items:center;gap:6px;line-height:1.3}
+  .env2 .sleg i{width:11px;height:11px;border-radius:3px;flex:0 0 auto}
+  .env2 .sleg b{color:var(--ink)}
+  .env2 .ncap{font-size:.84rem;color:var(--mut);line-height:1.5;margin:10px 0 0}
+  .env2 .ncap b{color:var(--ink)}
+
+  /* ---- AI sliver callout (c-waste-sys) ---- */
+  .env2 .slivwrap{margin:14px 0 0}
+  .env2 .slivtrack{position:relative;height:16px;border-radius:5px;overflow:visible;
+    background:color-mix(in srgb,var(--mut) 11%,transparent);border:1px solid var(--l)}
+  .env2 .slivfill{position:absolute;left:0;top:0;bottom:0;width:0.2%;min-width:3px;border-radius:5px 0 0 5px}
+  .env2 .slivptr{position:absolute;left:12px;top:50%;transform:translateY(-50%);
+    font-family:ui-monospace,monospace;font-size:.68rem;font-weight:700;color:var(--crypto);white-space:nowrap}
+  @media(max-width:560px){.env2 .slivptr{font-size:.62rem;white-space:normal;left:12px;right:4px;line-height:1.2}}
+
+  /* ---- nested shares (c-nest) ---- */
+  .env2 .nctx,.env2 .nzoom{position:relative;height:32px;border-radius:8px;overflow:hidden;border:1px solid var(--l);
+    background:color-mix(in srgb,var(--mut) 11%,transparent);margin:2px 0}
+  .env2 .nmark{position:absolute;left:0;top:0;bottom:0;width:6px;border-radius:8px 0 0 8px}
+  .env2 .nmark.n2{left:6px;width:4px;border-radius:0}
+  .env2 .nseg{position:absolute;top:0;bottom:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .env2 .nseg .on{font-family:ui-monospace,monospace;font-size:.72rem;font-weight:700;color:#fff;
+    text-shadow:0 1px 2px rgba(0,0,0,.42);white-space:nowrap}
+  .env2 .nseg.nother{background:color-mix(in srgb,var(--mut) 18%,transparent)}
+  .env2 .nseg.nother span{font-size:.68rem;color:var(--mut);padding:0 8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .env2 .nzoomlab{font-family:ui-monospace,monospace;font-size:.72rem;color:var(--mut);margin:9px 0 5px}
+  .env2 .nfoot{font-size:.86rem;line-height:1.5;margin:10px 0 0}
+
+  /* ---- diverging ledger (c-ledger) ---- */
+  .env2 .dvrow{display:grid;grid-template-columns:118px 1fr;gap:10px;align-items:center;margin:8px 0}
+  @media(max-width:560px){.env2 .dvrow{grid-template-columns:88px 1fr;gap:7px}}
+  .env2 .dvlab{font-size:.8rem;text-align:right;line-height:1.2}
+  @media(max-width:560px){.env2 .dvlab{font-size:.72rem}}
+  .env2 .dvtrack{position:relative;height:26px;border-radius:7px;
+    background:color-mix(in srgb,var(--mut) 9%,transparent)}
+  .env2 .dvzero{position:absolute;left:50%;top:-4px;bottom:-4px;width:2px;transform:translateX(-1px);
+    background:var(--mut);opacity:.55;z-index:1}
+  .env2 .dvbar{position:absolute;top:3px;bottom:3px;border-radius:5px;box-shadow:inset 0 0 0 1px color-mix(in srgb,#000 8%,transparent)}
+  .env2 .dvval{font-family:ui-monospace,monospace;font-size:.72rem;font-weight:700;white-space:nowrap}
+  @media(max-width:560px){.env2 .dvval{font-size:.64rem}}
+  .env2 .dvval.deb{position:absolute;top:50%;transform:translateY(-50%);text-align:right}
+  .env2 .dvbar.cred .dvval{position:absolute;right:8px;top:50%;transform:translateY(-50%);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.42)}
+  @media(max-width:560px){.env2 .dvbar.cred .dvval{right:5px;font-size:.56rem}}
+
+  .env2 .brow{position:relative}
+  .env2 .btrack{height:26px;border-radius:7px;background:color-mix(in srgb,var(--mut) 11%,transparent);position:relative;overflow:hidden}
+
+  .env2 .twrap{overflow-x:auto;margin:14px 0;border:1px solid var(--l);border-radius:12px;background:var(--panel)}
+  .env2 table.hw{border-collapse:collapse;width:100%;min-width:640px;font-size:.86rem}
+  .env2 table.hw th,.env2 table.hw td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--l);vertical-align:top}
+  .env2 table.hw th{font-family:ui-monospace,monospace;font-size:.72rem;text-transform:uppercase;letter-spacing:.03em;
+    color:var(--mut);font-weight:700;background:color-mix(in srgb,var(--mut) 6%,transparent)}
+  .env2 table.hw td:first-child{font-weight:600;color:var(--ink)}
+  .env2 table.hw tr:last-child td{border-bottom:none}
+  .env2 table.hw .num{font-family:ui-monospace,monospace;white-space:nowrap}
+  .env2 table.hw .bat{color:var(--ai);font-weight:600}
+  .env2 svg.chart{display:block;width:100%;height:auto;overflow:visible}
+  .env2 .tick{font-family:ui-monospace,monospace;fill:var(--mut);font-size:11px}
+  .env2 .vlab{font-family:ui-monospace,monospace;font-size:12px;font-weight:600;fill:var(--ink)}
+  .env2 .annot{font-family:ui-monospace,monospace;font-size:11px;fill:var(--mut)}
+  .env2 .src{font-family:ui-monospace,monospace;font-size:.7rem;color:var(--mut);margin:12px 0 0;letter-spacing:.02em;line-height:1.5}
+  .env2 .deepseek{border:1px solid var(--l);border-radius:14px;padding:18px 20px;margin:18px 0;
+    background:linear-gradient(135deg,color-mix(in srgb,var(--pri) 12%,transparent),transparent 72%)}
+  .env2 .deepseek h3{margin-top:6px}
+  .env2 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:14px 0}
+  .env2 .sc{border:1px solid var(--l);border-radius:11px;padding:14px;background:var(--panel);text-align:center}
+  .env2 .sc .big{font-family:ui-monospace,monospace;font-size:1.5rem;font-weight:700;color:var(--pri);line-height:1}
+  .env2 .sc p{margin:7px 0 0;font-size:.82rem;color:var(--mut)}
+  .env2 .caveat{border-left:3px solid var(--alt);padding-left:12px;margin:14px 0;font-size:.9rem;color:var(--mut);line-height:1.55}
+  .env2 .caveat b{color:var(--ink)}
+  .env2 .core{border:1px solid var(--pri);border-radius:14px;padding:4px 20px 16px;margin:20px 0;
+    background:color-mix(in srgb,var(--pri) 6%,transparent)}
+  .env2 .interest{border:1px dashed var(--alt);border-radius:11px;padding:14px 16px;margin:16px 0;
+    background:color-mix(in srgb,var(--alt) 6%,transparent);font-size:.9rem;line-height:1.55}
+  .env2 .interest b{display:block;margin-bottom:4px;color:var(--alt)}
+  .env2 .bottom{border-radius:13px;padding:18px 20px;margin:22px 0;border:1px solid var(--l);
+    background:color-mix(in srgb,var(--pri) 8%,transparent)}
+  .env2 .bottom b{display:block;margin-bottom:6px}.env2 .bottom p{margin:0 0 10px;font-size:.95rem;line-height:1.62}.env2 .bottom p:last-child{margin-bottom:0}
+  .env2 ul.srcs{list-style:none;padding:0;margin:8px 0 0;columns:2;font-size:.8rem}
+  @media(max-width:560px){.env2 ul.srcs{columns:1}}
+  .env2 ul.srcs li{margin:0 0 6px;break-inside:avoid;line-height:1.4}
+  .env2 .tag{display:inline-block;font-family:ui-monospace,monospace;font-size:.62rem;font-weight:700;padding:1px 6px;border-radius:4px;
+    vertical-align:middle;margin-left:2px;letter-spacing:.03em}
+  .env2 .tag.v{background:color-mix(in srgb,var(--ai) 20%,transparent);color:var(--ai)}
+  .env2 .tag.d{background:color-mix(in srgb,var(--crypto) 20%,transparent);color:var(--crypto)}
+  .env2 .tag.e{background:color-mix(in srgb,var(--alt) 18%,transparent);color:var(--alt)}
+  .env2 ul.notes{font-size:.94rem;line-height:1.5;color:var(--mut);max-width:72ch}.env2 ul.notes li{margin:7px 0}
+  .env2 ul.notes b{color:var(--ink)}
+  @media (prefers-reduced-motion:reduce){.env2 *{transition:none!important}}
+</style>
+
+<div class="env2">
+  <style>
+    .env2 .ehero{margin:6px 0 2px}
+    .env2 .ehero .eeyebrow{font-family:ui-monospace,monospace;font-size:.7rem;font-weight:800;letter-spacing:.14em;
+      text-transform:uppercase;color:var(--pri);display:flex;align-items:center;gap:9px}
+    .env2 .ehero .eeyebrow::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--pri),transparent)}
+    .env2 .etabwrap{margin:14px 0 12px}
+    .env2 .etablabel{font-family:ui-monospace,monospace;font-size:.68rem;font-weight:700;letter-spacing:.08em;
+      text-transform:uppercase;color:var(--mut);margin:0 0 8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .env2 .etablabel b{color:var(--ink)} .env2 .etablabel i{color:var(--pri)}
+    .env2 .etablabel .sw{color:var(--pri);margin-left:auto;font-size:.62rem;letter-spacing:.04em}
+    .env2 .etabscroll{position:relative}
+    .env2 .etabbar{display:flex;gap:8px;overflow-x:auto;scrollbar-width:thin;-webkit-overflow-scrolling:touch;
+      padding:9px;scroll-snap-type:x proximity;background:var(--bg);border:1px solid var(--l);border-radius:15px}
+    .env2 .etabbar::-webkit-scrollbar{height:6px}.env2 .etabbar::-webkit-scrollbar-thumb{background:var(--l);border-radius:3px}
+    .env2 .etabfade{position:absolute;top:1px;bottom:1px;right:1px;width:46px;pointer-events:none;border-radius:0 14px 14px 0;
+      background:linear-gradient(90deg,transparent,var(--bg) 82%)}
+    .env2 .etab-btn{flex:0 0 auto;scroll-snap-align:start;display:inline-flex;align-items:center;gap:8px;cursor:pointer;
+      font-family:inherit;border:1px solid var(--l);background:var(--panel);color:var(--ink);border-radius:10px;
+      padding:11px 16px;font-size:.86rem;font-weight:700;white-space:nowrap;transition:all .13s;letter-spacing:-.01em}
+    .env2 .etab-btn i{font-size:.92em;color:var(--pri)}
+    .env2 .etab-btn:hover{border-color:var(--pri);transform:translateY(-1px)}
+    .env2 .etab-btn.on{color:var(--bg);background:var(--pri);border-color:var(--pri);
+      box-shadow:0 6px 16px -8px color-mix(in srgb,var(--pri) 70%,transparent)}
+    .env2 .etab-btn.on i{color:var(--bg)}
+    .env2 .etab{display:none}
+    .env2 .etab.on{display:block;animation:etfade .26s ease}
+    @keyframes etfade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+    @media(prefers-reduced-motion:reduce){.env2 .etab.on{animation:none}}
+    .env2 .etab>h2:first-child{margin-top:6px;border-top:none;padding-top:0}
+    .env2 .etabfoot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:26px;
+      padding-top:14px;border-top:1px dashed var(--l)}
+    .env2 .etabfoot button{font-family:inherit;font-size:.84rem;font-weight:700;cursor:pointer;background:var(--panel);
+      color:var(--pri);border:1px solid var(--l);border-radius:10px;padding:8px 14px;display:inline-flex;align-items:center;gap:8px}
+    .env2 .etabfoot button:hover{border-color:var(--pri)}
+    .env2 .etabfoot button.prev{color:var(--mut)}
+    .env2 .etabfoot .sp{flex:1}
+    /* --- clearer multi-section nav + sticky --- */
+    .env2 .etabwrap{position:sticky;top:0;z-index:30;background:var(--color-bg,#0c0d10);padding:8px 0 10px}
+    .env2 .etab-n{display:inline-flex;align-items:center;justify-content:center;width:19px;height:19px;border-radius:6px;
+      background:color-mix(in srgb,var(--pri) 20%,transparent);color:var(--pri);font-family:ui-monospace,monospace;
+      font-size:.66rem;font-weight:800;flex:0 0 auto}
+    .env2 .etab-btn.on .etab-n{background:color-mix(in srgb,var(--bg) 30%,transparent);color:var(--bg)}
+    .env2 .etabdots{display:inline-flex;gap:5px;align-items:center}
+    .env2 .etabdots i{width:7px;height:7px;border-radius:50%;background:var(--l);transition:all .16s}
+    .env2 .etabdots i.on{background:var(--pri);transform:scale(1.3)}
+    /* sticky "next section" bar — fixed to bottom so it works in every scroll context
+       (the page wrapper's overflow makes top-sticky unreliable). Centered pill on desktop,
+       full-width on mobile. */
+    .env2 .etabmini{display:flex;position:fixed;z-index:60;bottom:calc(12px + env(safe-area-inset-bottom,0px));
+      left:50%;transform:translateX(-50%);width:min(560px,calc(100vw - 20px));
+      align-items:stretch;gap:7px;background:var(--panel);border:1px solid var(--l);border-radius:14px;
+      padding:7px;box-shadow:0 12px 34px -10px rgba(0,0,0,.72)}
+    .env2 .em-prev{flex:0 0 auto;width:44px;border-radius:10px;border:1px solid var(--l);background:var(--bg);
+      color:var(--pri);font-size:.95rem;display:grid;place-items:center;cursor:pointer;font-family:inherit}
+    .env2 .em-prev[disabled]{opacity:.3;pointer-events:none}
+    .env2 .em-next{flex:1;min-width:0;display:flex;align-items:center;justify-content:space-between;gap:10px;
+      background:var(--pri);color:var(--bg);border:none;border-radius:10px;padding:9px 15px;cursor:pointer;font-family:inherit}
+    .env2 .em-next[disabled]{opacity:.45;pointer-events:none;background:var(--panel);color:var(--mut)}
+    .env2 .em-next .eml{display:flex;flex-direction:column;align-items:flex-start;min-width:0;line-height:1.15}
+    .env2 .em-next .eml small{font-size:.56rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;opacity:.85}
+    .env2 .em-next .eml b{font-size:.93rem;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:60vw}
+    .env2 .em-next .emar{flex:0 0 auto;font-size:1rem}
+    .env2 .etabs{padding-bottom:82px}
+    @media(max-width:640px){ .env2 .etabwrap{position:static} }
+  </style>
+
+  <div class="ehero"><div class="eeyebrow"><i class="fas fa-map"></i> AI &amp; the environment — a field guide</div></div>
+  <p class="lede">If AI's environmental impact worries you — enough to raise it with friends, or to feel a small pang every time
+  you open a chatbot — this page is for you. The concern is legitimate, and the instinct to ask "what is this costing?" is the
+  right one. The trouble is that most of the widely-shared numbers ("a single query drinks a bottle of water") trace back to one
+  or two 2023 estimates, and the fuller picture is both more reassuring and more interesting. Here it is from the engineering up:
+  what's measurable and genuinely small, what's real but bounded, and — where the actual stakes are — the part almost nobody has
+  calculated yet.</p>
+
+  <style>
+    .env2 details.gloss{border:1px solid var(--l);border-radius:12px;background:var(--panel);margin:12px 0 0}
+    .env2 details.gloss summary{cursor:pointer;padding:12px 15px;font-family:ui-monospace,monospace;font-size:.76rem;font-weight:700;
+      letter-spacing:.03em;color:var(--pri);list-style:none;display:flex;align-items:center;gap:9px}
+    .env2 details.gloss summary::-webkit-details-marker{display:none}
+    .env2 details.gloss summary .chev{margin-left:auto;transition:transform .18s;color:var(--mut)}
+    .env2 details.gloss[open] summary .chev{transform:rotate(180deg)}
+    .env2 details.gloss[open] summary{border-bottom:1px solid var(--l)}
+    .env2 details.gloss .gg{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px 20px;padding:14px 16px}
+    .env2 details.gloss .gg div{font-size:.83rem;line-height:1.48;color:var(--mut)}
+    .env2 details.gloss .gg b{color:var(--ink);font-family:ui-monospace,monospace;font-size:.79rem;margin-right:6px;white-space:nowrap}
+  </style>
+  <details class="gloss">
+    <summary><i class="fas fa-book"></i> Acronyms &amp; units — every abbreviation on this page, defined <i class="fas fa-chevron-down chev"></i></summary>
+    <div class="gg">
+      <div><b>Wh · kWh · TWh</b>watt-hour · kilowatt-hour (1,000 Wh) · terawatt-hour (a billion kWh — country-scale)</div>
+      <div><b>GW</b>gigawatt — a unit of <em>power</em> (capacity), not energy</div>
+      <div><b>PUE</b>Power Usage Effectiveness — total facility energy ÷ computing energy (1.0 = zero overhead)</div>
+      <div><b>WUE</b>Water Usage Effectiveness — liters of water per kilowatt-hour</div>
+      <div><b>TDP</b>Thermal Design Power — a chip's rated power draw, in watts</div>
+      <div><b>GPU · TPU</b>Graphics Processing Unit · Tensor Processing Unit (Google's custom AI chip)</div>
+      <div><b>MoE</b>Mixture of Experts — only part of the model runs for each token, cutting compute</div>
+      <div><b>HBM · HBM3e</b>High-Bandwidth Memory — fast memory stacked onto the chip package</div>
+      <div><b>CoWoS</b>Chip-on-Wafer-on-Substrate — TSMC's advanced packaging that fuses the GPU die and its HBM</div>
+      <div><b>FP8 · FP16 · BF16</b>8- or 16-bit number formats — fewer bits = less memory and energy per calculation</div>
+      <div><b>LCA</b>Life-Cycle Assessment — counts impacts across the whole supply chain, not just operation</div>
+      <div><b>LLM</b>Large Language Model</div>
+      <div><b>ARM · MLX</b>a low-power chip architecture (Apple Silicon, Graviton) · Apple's on-device ML framework</div>
+      <div><b>NAS</b>Neural Architecture Search — an automated, once energy-heavy model-design method</div>
+      <div><b>CO₂e</b>carbon-dioxide equivalent — all greenhouse gases expressed as CO₂</div>
+      <div><b>NCII · CSAM</b>Non-Consensual Intimate Imagery · Child Sexual Abuse Material</div>
+      <div><b>IEA · FAO · USGS</b>Int'l Energy Agency · UN Food &amp; Agriculture Org · US Geological Survey</div>
+      <div><b>JLARC · PUCO</b>Virginia's legislative audit commission · Public Utilities Commission of Ohio</div>
+    </div>
+  </details>
+
+  
+  <div class="etabwrap">
+    <div class="etablabel"><i class="fas fa-layer-group"></i> <b>7 sections</b> — you're on <span id="etabcount" style="color:var(--pri)">1 of 7</span> <span class="etabdots" id="etabdots" aria-hidden="true"></span> <span class="sw">swipe / tap →</span></div>
+    <div class="etabscroll">
+      <div class="etabbar" id="etabbar" role="tablist">
+        <button class="etab-btn" data-tab="et-narr" role="tab"><i class="fas fa-newspaper"></i><span class="etab-n">1</span>The narrative</button>
+        <button class="etab-btn" data-tab="et-perq" role="tab"><i class="fas fa-bolt"></i><span class="etab-n">2</span>Per-query cost</button>
+        <button class="etab-btn" data-tab="et-build" role="tab"><i class="fas fa-industry"></i><span class="etab-n">3</span>The buildout</button>
+        <button class="etab-btn" data-tab="et-eff" role="tab"><i class="fas fa-gauge-high"></i><span class="etab-n">4</span>Efficiency</button>
+        <button class="etab-btn" data-tab="et-water" role="tab"><i class="fas fa-droplet"></i><span class="etab-n">5</span>Water &amp; proportion</button>
+        <button class="etab-btn" data-tab="et-count" role="tab"><i class="fas fa-scale-balanced"></i><span class="etab-n">6</span>What nobody counts</button>
+        <button class="etab-btn" data-tab="et-disc" role="tab"><i class="fas fa-comments"></i><span class="etab-n">7</span>Discourse &amp; harms</button>
+      </div>
+      <span class="etabfade" aria-hidden="true"></span>
+    </div>
+  </div>
+
+  <div class="etabmini" id="etabmini">
+    <button class="em-prev" id="em-prev" type="button" aria-label="Previous section"><i class="fas fa-arrow-left"></i></button>
+    <button class="em-next" id="em-next" type="button">
+      <span class="eml"><small id="em-count">Section 1 of 7</small><b id="em-nextname">Per-query cost</b></span>
+      <i class="fas fa-arrow-right emar"></i>
+    </button>
+  </div>
+  <div class="etabs">
+  <section class="etab" id="et-narr" role="tabpanel">
+<style>
+    .env2 .narrwrap{border:1px solid var(--l);border-radius:16px;padding:18px 20px;margin:18px 0;
+      background:linear-gradient(160deg,color-mix(in srgb,var(--warn) 7%,var(--panel)),var(--panel) 62%)}
+    .env2 .narr-head{font-family:ui-monospace,monospace;font-size:.82rem;font-weight:800;letter-spacing:.06em;color:var(--warn);text-transform:uppercase}
+    .env2 .narr-head span{color:var(--mut);font-weight:600}
+    .env2 .narr-lead{font-size:.98rem;line-height:1.6;color:var(--ink);margin:8px 0 4px;max-width:66ch}
+    .env2 .hlwall{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:9px;margin:14px 0}
+    .env2 .hlcard{border:1px solid var(--l);border-left:3px solid var(--warn);border-radius:0 10px 10px 0;padding:10px 12px;
+      background:var(--panel);display:flex;flex-direction:column;gap:5px}
+    .env2 .hlcard .hl{font-size:.86rem;line-height:1.35;color:var(--ink);font-weight:600}
+    .env2 .hlcard .hlsrc{font-size:.7rem;color:var(--mut);font-family:ui-monospace,monospace;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+    .env2 .hlcard .root{color:var(--acc)}
+    .env2 .tell{border:1px dashed var(--acc);border-radius:12px;padding:14px 16px;margin:14px 0;background:color-mix(in srgb,var(--acc) 6%,transparent)}
+    .env2 .tell>b{color:var(--acc)}
+    .env2 .countries{display:flex;flex-wrap:wrap;gap:8px;margin:11px 0}
+    .env2 .cchip{border:1px solid var(--l);border-radius:999px;padding:6px 13px;background:var(--panel);font-size:.86rem;font-weight:700;color:var(--ink);
+      display:inline-flex;align-items:baseline;gap:7px}
+    .env2 .cchip em{font-style:normal;font-size:.68rem;color:var(--mut);font-family:ui-monospace,monospace;font-weight:600}
+    .env2 .tell .same{font-size:.84rem;color:var(--mut);line-height:1.5;margin:4px 0 0}
+    .env2 .tell .same b{color:var(--ink)}
+    .env2 .critics{margin:16px 0 4px}
+    .env2 .crhead{font-size:.9rem;font-weight:700;color:var(--ai);margin-bottom:9px}
+    .env2 .crgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:9px}
+    .env2 a.crcard{border:1px solid var(--l);border-left:3px solid var(--ai);border-radius:0 10px 10px 0;padding:10px 12px;
+      background:var(--panel);text-decoration:none;display:flex;flex-direction:column;gap:3px}
+    .env2 a.crcard .cr-t{font-size:.85rem;font-weight:700;color:var(--ink);line-height:1.3}
+    .env2 a.crcard .cr-a{font-size:.72rem;color:var(--ai);font-family:ui-monospace,monospace}
+    .env2 a.crcard .cr-q{font-size:.76rem;color:var(--mut);line-height:1.4;font-style:italic}
+    .env2 .pickapart{border-top:1px solid var(--l);margin-top:16px;padding-top:12px;font-size:.9rem;line-height:1.6;color:var(--ink)}
+    .env2 .pickapart b{color:var(--warn)}.env2 .pickapart a{font-weight:700}
+  </style>
+
+  <div class="narrwrap">
+    <div class="narr-head">The narrative <span>— and the tell</span></div>
+    <p class="narr-lead">Open almost any outlet's coverage and the verdict is settled: AI is an environmental catastrophe — boiling
+    the planet, draining the reservoirs, one guilty query at a time. The framing is remarkably uniform, and it is <em>everywhere</em>.
+    Here's a representative sample — real headlines, verbatim:</p>
+    <div class="hlwall">
+      <div class="hlcard"><div class="hl">"A.I. Could Soon Need as Much Electricity as an Entire Country"</div>
+        <div class="hlsrc"><span>New York Times, 2023</span><span class="root">← de Vries 2023</span></div></div>
+      <div class="hlcard"><div class="hl">"ChatGPT 'drinks' a bottle of fresh water for every 20 to 50 questions we ask"</div>
+        <div class="hlsrc"><span>Euronews, 2023</span><span class="root">← Li et al. 2023</span></div></div>
+      <div class="hlcard"><div class="hl">"Warning AI industry could use as much energy as the Netherlands"</div>
+        <div class="hlsrc"><span>BBC News, 2023</span><span class="root">← de Vries 2023</span></div></div>
+      <div class="hlcard"><div class="hl">"AI Could Use as Much Water as 1.3 Billion People by 2030"</div>
+        <div class="hlsrc"><span>TIME, 2026</span><span class="root">← UN report</span></div></div>
+      <div class="hlcard"><div class="hl">"Data centers powering AI could use more electricity than entire cities"</div>
+        <div class="hlsrc"><span>CNBC, 2024</span><span class="root">← demand projections</span></div></div>
+      <div class="hlcard"><div class="hl">"Global data centres expected to consume more electricity than Japan by 2030"</div>
+        <div class="hlsrc"><span>World Economic Forum, 2025</span><span class="root">← IEA 2025</span></div></div>
+      <div class="hlcard"><div class="hl">"Revealed: Big tech's new datacentres will take water from the world's driest areas"</div>
+        <div class="hlsrc"><span>The Guardian, 2025</span><span class="root">← investigation</span></div></div>
+      <div class="hlcard"><div class="hl">"Artificial intelligence technology behind ChatGPT was built in Iowa — with a lot of water"</div>
+        <div class="hlsrc"><span>Associated Press, 2023</span><span class="root">← Li et al. 2023</span></div></div>
+    </div>
+
+    <div class="tell">
+      <b>The tell.</b> Watch the "as much as a whole country" claim — it never lands on the <em>same</em> country twice:
+      <div class="countries">
+        <span class="cchip">🇳🇱 Netherlands <em>BBC</em></span>
+        <span class="cchip">🇸🇪 Sweden <em>Data Center Dynamics</em></span>
+        <span class="cchip">🇦🇷 Argentina <em>Energy Central</em></span>
+        <span class="cchip">🇯🇵 Japan <em>WEF / IEA</em></span>
+        <span class="cchip">🇮🇪 Ireland <em>Guardian</em></span>
+      </div>
+      <p class="same">The first three — Netherlands, Sweden, Argentina — are the <b>same single 2023 study</b> (de Vries, <em>Joule</em>),
+      reported by three outlets as three different countries. When one estimate can be a small country <em>or</em> a mid-sized one,
+      the tell is that the underlying number is soft — a projection with wide error bars, not a measurement. (Japan is a separate
+      study; Ireland is a within-country comparison.) The <em>volume</em> of coverage makes it feel like overwhelming evidence;
+      trace the footnotes and it collapses to <b>two 2023 papers</b> — Li et al. ("bottle of water") and de Vries ("country of
+      electricity") — echoing across a thousand articles. Repetition isn't replication.</p>
+    </div>
+
+    <style>
+  .env2 .telx-fan{
+    --telx-src: var(--pri);
+    background: var(--panel);
+    border: 1px solid var(--l);
+    border-radius: 14px;
+    padding: clamp(16px, 3vw, 26px);
+    color: var(--ink);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-sizing: border-box;
+  }
+  .env2 .telx-fan *{ box-sizing: border-box; }
+  .env2 .telx-eyebrow{
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    font-size: 11px;
+    color: var(--mut);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+  }
+  .env2 .telx-eyebrow i{ color: var(--telx-src); }
+  .env2 .telx-title{
+    margin: -8px 0 0 0;
+    font-size: clamp(17px, 2.4vw, 21px);
+    font-weight: 650;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+  .env2 .telx-title b{ color: var(--telx-src); font-weight: 650; }
+
+  /* SOURCE NODE */
+  .env2 .telx-src{
+    align-self: center;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    border: 1px solid color-mix(in srgb, var(--telx-src) 45%, var(--l));
+    background: color-mix(in srgb, var(--telx-src) 12%, var(--panel));
+    border-radius: 14px;
+    padding: 14px 18px;
+    position: relative;
+  }
+  .env2 .telx-src-tag{
+    font-family: ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--telx-src);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--telx-src) 16%, transparent);
+    border: 1px solid color-mix(in srgb, var(--telx-src) 40%, transparent);
+  }
+  .env2 .telx-src-cite{
+    margin: 9px 0 2px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .env2 .telx-src-cite span{ color: var(--mut); font-weight: 400; }
+  .env2 .telx-src-num{
+    font-family: ui-monospace, monospace;
+    font-size: clamp(20px, 3.4vw, 26px);
+    font-weight: 700;
+    color: var(--telx-src);
+    line-height: 1.1;
+    margin-top: 6px;
+  }
+  .env2 .telx-src-num small{ font-size: .55em; color: var(--mut); font-weight: 500; letter-spacing: .02em; }
+  .env2 .telx-src-sub{ font-size: 11px; color: var(--mut); margin-top: 4px; }
+
+  /* CONNECTOR FAN */
+  .env2 .telx-wire{
+    width: 100%;
+    height: 62px;
+    display: block;
+    color: color-mix(in srgb, var(--telx-src) 60%, transparent);
+    margin: -6px 0 -8px;
+  }
+
+  /* COUNTRY CARDS */
+  .env2 .telx-grid{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .env2 .telx-card{
+    border: 1px solid var(--l);
+    background: var(--bg);
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+    overflow: hidden;
+  }
+  .env2 .telx-card::before{
+    content:"";
+    position:absolute; inset:0 auto 0 0; width:3px;
+    background: var(--telx-src);
+    opacity:.85;
+  }
+  .env2 .telx-flag{ font-size: 30px; line-height: 1; }
+  .env2 .telx-country{ font-size: 16px; font-weight: 650; color: var(--ink); }
+  .env2 .telx-outlet{
+    font-family: ui-monospace, monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--mut);
+  }
+  .env2 .telx-claim{ font-size: 12px; color: var(--mut); line-height: 1.4; margin-top: 2px; }
+  .env2 .telx-claim b{ color: var(--ink); font-weight: 600; }
+
+  /* PUNCHLINE */
+  .env2 .telx-punch{
+    display: flex; gap: 10px; align-items: flex-start;
+    border-radius: 12px;
+    padding: 11px 14px;
+    background: color-mix(in srgb, var(--telx-src) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--telx-src) 30%, transparent);
+    font-size: 12.5px; line-height: 1.5; color: var(--ink);
+  }
+  .env2 .telx-punch i{ color: var(--telx-src); margin-top: 2px; }
+  .env2 .telx-punch b{ color: var(--telx-src); }
+
+  /* ASIDE — different sources */
+  .env2 .telx-aside{
+    border: 1px dashed color-mix(in srgb, var(--alt) 45%, var(--l));
+    border-radius: 12px;
+    padding: 13px 14px;
+    background: color-mix(in srgb, var(--alt) 7%, transparent);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .env2 .telx-aside-h{
+    font-family: ui-monospace, monospace;
+    font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--alt); display: flex; align-items: center; gap: 7px;
+  }
+  .env2 .telx-aside-row{ display: flex; flex-wrap: wrap; gap: 10px; }
+  .env2 .telx-mini{
+    flex: 1 1 220px;
+    display: flex; gap: 10px; align-items: flex-start;
+    border: 1px solid var(--l);
+    background: var(--panel);
+    border-radius: 10px;
+    padding: 9px 11px;
+  }
+  .env2 .telx-mini .telx-flag{ font-size: 22px; }
+  .env2 .telx-mini-body{ display:flex; flex-direction:column; gap:2px; min-width:0; }
+  .env2 .telx-mini-top{ font-size: 13px; font-weight: 600; color: var(--ink); }
+  .env2 .telx-mini-top span{
+    font-family: ui-monospace, monospace; font-size: 9.5px; color: var(--mut);
+    text-transform: uppercase; letter-spacing:.06em; margin-left: 4px;
+  }
+  .env2 .telx-mini-body p{ margin:0; font-size: 11.5px; color: var(--mut); line-height: 1.4; }
+  .env2 .telx-mini-body p b{ color: var(--ink); font-weight: 600; }
+
+  @media (max-width: 560px){
+    .env2 .telx-grid{ grid-template-columns: 1fr; }
+    .env2 .telx-wire{ height: 30px; }
+  }
+</style>
+
+<div class="telx-fan">
+  <p class="telx-eyebrow"><i class="fa-solid fa-code-fork"></i> One study, many countries</p>
+  <h3 class="telx-title">One soft estimate, reported as <b>three different whole countries</b></h3>
+
+  <!-- SOURCE NODE -->
+  <div class="telx-src">
+    <span class="telx-src-tag"><i class="fa-solid fa-flask"></i> One study · one number</span>
+    <p class="telx-src-cite">de Vries (2023) <span>· “The growing energy footprint of AI,” <em>Joule</em></span></p>
+    <div class="telx-src-num">85–134 TWh/yr <small>projected · by 2027</small></div>
+    <p class="telx-src-sub">A single projection with wide error bars — not a measurement</p>
+  </div>
+
+  <!-- FAN CONNECTORS -->
+  <svg class="telx-wire" viewBox="0 0 300 62" preserveAspectRatio="none" aria-hidden="true">
+    <g fill="none" stroke="currentColor" stroke-width="1.5" vector-effect="non-scaling-stroke">
+      <path d="M150 2 C 150 30, 50 22, 50 60"/>
+      <path d="M150 2 C 150 34, 150 30, 150 60"/>
+      <path d="M150 2 C 150 30, 250 22, 250 60"/>
+    </g>
+    <circle cx="150" cy="2" r="3.2" fill="currentColor" stroke="none"/>
+    <g fill="currentColor" stroke="none">
+      <circle cx="50" cy="60" r="2.6"/>
+      <circle cx="150" cy="60" r="2.6"/>
+      <circle cx="250" cy="60" r="2.6"/>
+    </g>
+  </svg>
+
+  <!-- COUNTRY CARDS -->
+  <div class="telx-grid">
+    <div class="telx-card">
+      <span class="telx-flag">🇳🇱</span>
+      <span class="telx-country">Netherlands</span>
+      <span class="telx-outlet">Reported by · BBC</span>
+      <p class="telx-claim">“AI could use as much power as <b>the Netherlands</b>.”</p>
+    </div>
+    <div class="telx-card">
+      <span class="telx-flag">🇸🇪</span>
+      <span class="telx-country">Sweden</span>
+      <span class="telx-outlet">Reported by · Data Center Dynamics</span>
+      <p class="telx-claim">Same figure framed as <b>Sweden’s</b> electricity use.</p>
+    </div>
+    <div class="telx-card">
+      <span class="telx-flag">🇦🇷</span>
+      <span class="telx-country">Argentina</span>
+      <span class="telx-outlet">Reported by · Energy Central</span>
+      <p class="telx-claim">Same figure framed as <b>Argentina’s</b> electricity use.</p>
+    </div>
+  </div>
+
+  <!-- PUNCHLINE -->
+  <div class="telx-punch">
+    <i class="fa-solid fa-circle-info"></i>
+    <div>When one estimate can be “a small country <b>or</b> a mid-sized one,” the number is soft. <b>Repetition isn’t replication</b> — three headlines, one projection.</div>
+  </div>
+
+  <!-- ASIDE: DIFFERENT SOURCES -->
+  <div class="telx-aside">
+    <div class="telx-aside-h"><i class="fa-solid fa-diagram-predecessor"></i> Different sources — not part of the fan</div>
+    <div class="telx-aside-row">
+      <div class="telx-mini">
+        <span class="telx-flag">🇯🇵</span>
+        <div class="telx-mini-body">
+          <div class="telx-mini-top">Japan <span>IEA 2025 · via WEF</span></div>
+          <p>A separate <b>data-centre total</b> comparison from the IEA “Energy and AI” report — not de Vries.</p>
+        </div>
+      </div>
+      <div class="telx-mini">
+        <span class="telx-flag">🇮🇪</span>
+        <div class="telx-mini-body">
+          <div class="telx-mini-top">Ireland <span>The Guardian</span></div>
+          <p>A <b>within-country</b> comparison — Irish data centres vs Irish homes. A different flavour again.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="critics">
+      <div class="crhead">The coverage you didn't see: the people who actually ran the numbers</div>
+      <div class="crgrid">
+        <a class="crcard" href="https://blog.andymasley.com/p/the-ai-water-issue-is-fake" target="_blank" rel="noopener">
+          <span class="cr-a">Andy Masley</span><span class="cr-t">"The AI water issue is fake"</span>
+          <span class="cr-q">the "bottle of water per prompt" figure is a miscalculation, traced step by step</span></a>
+        <a class="crcard" href="https://arstechnica.com/ai/2026/06/when-it-comes-to-total-water-use-ai-data-centers-are-a-drop-in-the-bucket" target="_blank" rel="noopener">
+          <span class="cr-a">Ars Technica</span><span class="cr-t">"AI data centers are a drop in the bucket"</span>
+          <span class="cr-q">"…even moderately sized data centers can have an outsized local impact"</span></a>
+        <a class="crcard" href="https://hannahritchie.substack.com/p/carbon-footprint-chatgpt" target="_blank" rel="noopener">
+          <span class="cr-a">Hannah Ritchie · Sustainability by Numbers</span><span class="cr-t">"What's the carbon footprint of using ChatGPT?"</span>
+          <span class="cr-q">"Very small compared to most of the other stuff you do."</span></a>
+        <a class="crcard" href="https://www.technologyreview.com/2025/11/06/1127579/ai-footprint" target="_blank" rel="noopener">
+          <span class="cr-a">MIT Technology Review</span><span class="cr-t">"Stop worrying about your AI footprint. Look at the big picture instead."</span>
+          <span class="cr-q">policing individual use is a distraction from the energy system and large companies</span></a>
+      </div>
+    </div>
+
+    <div class="pickapart"><b>So this page takes the narrative apart, claim by claim.</b> The per-query "bottle of water"
+      (<a href="#water">§07</a>) and energy figures (<a href="#run">§01</a>); the "as much as a country" aggregate and its soft
+      projections (<a href="#agg">§04</a>); the crypto-and-cloud load quietly folded into "AI" (<a href="#notai">§03</a>); and the
+      recurring pattern where an alarming number goes viral and the correction never travels (<a href="#framing">§11</a>). None of
+      this means AI's footprint is zero — the real, local harms are in <a href="#framing">§11</a>. It means the <em>story</em> is
+      built for clicks, not calibration.</p>
+  </div>
+
+  
+<div class="flag"><b>Confidence tags, because the whole point is showing your work</b>
+    <p><span class="tag v">MEASURED</span> metered on real hardware and published.
+    <span class="tag d">DERIVED</span> arithmetic from published hardware specs (GPU TDP, model size) — checkable by anyone with
+    the card. <span class="tag e">ESTIMATE</span> from memory or a source we couldn't open this session; stated as a range,
+    never hardened into a fact.</p></div>
+
+  
+    <div class="etabfoot"><span class="sp"></span><button data-go="et-perq">Per-query cost<i class="fas fa-arrow-right"></i></button></div>
+  </section>
+  <section class="etab" id="et-perq" role="tabpanel">
+<h2 id="run">01 · Run it yourself — per-query energy is hardware arithmetic</h2>
+  <p>You do not have to <em>estimate</em> what a query costs. Open-weight frontier-class models — Llama-3, Qwen-72B,
+  DeepSeek-V3, Mistral — download from HuggingFace and run on servers you can rent by the hour or buy outright. The energy per
+  query is then just physics:</p>
+  <p class="core" style="border-color:var(--pri);font-family:ui-monospace,monospace;font-size:.95rem;text-align:center;padding:16px 20px;background:color-mix(in srgb,var(--pri) 8%,transparent)">
+    Wh/query = (GPUs in node × rated TDP watts × seconds per query) ÷ (queries served concurrently) ÷ 3600 × PUE</p>
+  <p>Every term is knowable. GPU TDP is a published NVIDIA spec. The GPU count is fixed by the model's weight memory
+  (<code>params × 2 bytes</code> for bf16, ÷2 for fp8/int8, ÷4 for 4-bit). Seconds-per-query and concurrency you read straight
+  off <code>nvidia-smi</code> while <code>vLLM</code> serves. Here is that math for four real open models:</p>
+  <div class="twrap">
+    <table class="hw">
+      <thead><tr><th>Open model (from HF)</th><th>Weights</th><th>Runs on (buyable)</th><th>Node draw</th>
+        <th>1 user, no batching</th><th>Served, batched</th></tr></thead>
+      <tbody>
+        <tr><td>Llama-3.1-8B</td><td class="num">16 GB bf16</td><td>1× A100-80GB</td><td class="num">~0.4 kW</td>
+          <td class="num">~0.3–1 Wh</td><td class="num bat">~0.01–0.05 Wh</td></tr>
+        <tr><td>Llama-3.3-70B</td><td class="num">140 GB bf16</td><td>2× A100 / 2× H100</td><td class="num">~0.8–1.4 kW</td>
+          <td class="num">~2–10 Wh</td><td class="num bat">~0.05–0.3 Wh</td></tr>
+        <tr><td>DeepSeek-V3 (671B MoE, 37B active)</td><td class="num">~670 GB fp8</td><td>8× H200</td><td class="num">~5.6 kW</td>
+          <td class="num">~5–20 Wh</td><td class="num bat">~0.1–0.4 Wh</td></tr>
+        <tr><td>Llama-3.1-405B</td><td class="num">~405 GB fp8</td><td>8× H100</td><td class="num">~5.6 kW</td>
+          <td class="num">~20–60 Wh</td><td class="num bat">~0.3–1 Wh</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="src">GPU TDP (A100-SXM 400 W, H100/H200-SXM 700 W) — NVIDIA published spec <span class="tag v">MEASURED</span> · weight
+  memory + throughput → Wh — standard vLLM serving arithmetic <span class="tag d">DERIVED</span> · assumes ~500-token response,
+  PUE ~1.1–1.2</p>
+
+  <div class="core">
+    <h3>The one variable that runs the whole show: batching</h3>
+    <p>Look at the last two columns. Same model, same silicon — <em>the per-query energy moves 10–50×</em> depending only on
+    whether you serve one user or a full batch. A GPU running a single request wastes most of its ALUs waiting on memory;
+    continuous batching (<code>vLLM</code>, <code>TGI</code>, <code>SGLang</code>) packs 32–64 concurrent requests onto the same
+    card and fills it. <em>Every production system batches.</em> That's why the honest at-scale number is the low green column,
+    and why the hobbyist running one prompt on a home rig sees the high one — they're both right; they're different workloads.</p>
+    <p style="margin:0 0 0">This is exactly the term the closed-model estimates have to <em>guess</em> — Epoch's ChatGPT figure
+    literally assumes "10% utilization"; Google's Gemini disclosure quietly assumes near-full batching. You don't have to pick a
+    side. Stand up the open model and <em>read the meter.</em></p>
+  </div>
+
+<section class="blx" aria-label="Batching is the lever: GPU utilization comparison">
+  <style>
+  .env2 .blx{background:var(--panel);border:1px solid var(--l);border-radius:14px;padding:20px;color:var(--ink);font-family:ui-sans-serif,system-ui,-apple-system,sans-serif}
+  .env2 .blx *{box-sizing:border-box}
+  .env2 .blx-eyebrow{font:600 11px/1 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--ai);display:flex;align-items:center;gap:8px;margin:0 0 10px}
+  .env2 .blx-eyebrow i{color:var(--ai)}
+  .env2 .blx-h{margin:0 0 6px;font-size:20px;font-weight:700;letter-spacing:-.01em}
+  .env2 .blx-sub{margin:0 0 18px;color:var(--mut);font-size:13.5px;line-height:1.5;max-width:62ch}
+  .env2 .blx-sub b{color:var(--ink);font-weight:600}
+
+  .env2 .blx-stage{display:flex;flex-wrap:wrap;align-items:stretch;gap:14px}
+  .env2 .blx-gpu{flex:1 1 250px;min-width:0;border:1px solid var(--l);border-radius:12px;padding:14px;background:color-mix(in srgb,var(--bg) 55%,transparent);display:flex;flex-direction:column;transition:transform .18s ease,border-color .18s ease}
+  .env2 .blx-gpu:hover{transform:translateY(-2px)}
+  .env2 .blx-gpu.is-hi{border-color:color-mix(in srgb,var(--warn) 40%,var(--l))}
+  .env2 .blx-gpu.is-lo{border-color:color-mix(in srgb,var(--ai) 42%,var(--l))}
+
+  .env2 .blx-cap{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+  .env2 .blx-chip{font:600 10.5px/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;padding:5px 8px;border-radius:6px;display:inline-flex;align-items:center;gap:6px}
+  .env2 .is-hi .blx-chip{color:var(--warn);background:color-mix(in srgb,var(--warn) 15%,transparent);border:1px solid color-mix(in srgb,var(--warn) 30%,transparent)}
+  .env2 .is-lo .blx-chip{color:var(--ai);background:color-mix(in srgb,var(--ai) 14%,transparent);border:1px solid color-mix(in srgb,var(--ai) 32%,transparent)}
+  .env2 .blx-conc{margin-left:auto;font:600 11px/1 ui-monospace,Menlo,monospace;color:var(--mut)}
+  .env2 .blx-conc b{color:var(--ink)}
+
+  .env2 .blx-die{margin:12px 0 4px;padding:9px;border-radius:9px;background:color-mix(in srgb,var(--bg) 60%,transparent);border:1px solid var(--l)}
+  .env2 .blx-dielabel{font:600 9px/1 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);display:flex;justify-content:space-between;margin-bottom:8px}
+  .env2 .blx-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:3px}
+  .env2 .blx-grid i{aspect-ratio:1/1;border-radius:3px;background:color-mix(in srgb,var(--mut) 12%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--mut) 8%,transparent)}
+  .env2 .is-hi .blx-grid i.on{background:var(--warn);box-shadow:0 0 7px color-mix(in srgb,var(--warn) 70%,transparent)}
+  .env2 .is-lo .blx-grid i.on{background:var(--ai);box-shadow:0 0 5px color-mix(in srgb,var(--ai) 55%,transparent)}
+
+  .env2 .blx-util{display:flex;align-items:baseline;gap:6px;margin:11px 0 8px}
+  .env2 .blx-util .n{font:700 15px/1 ui-monospace,Menlo,monospace}
+  .env2 .is-hi .blx-util .n{color:var(--warn)}
+  .env2 .is-lo .blx-util .n{color:var(--ai)}
+  .env2 .blx-util .t{font-size:11.5px;color:var(--mut)}
+
+  .env2 .blx-power{display:flex;align-items:center;gap:8px;font:600 10.5px/1.3 ui-monospace,Menlo,monospace;color:var(--mut);padding:8px 0;border-top:1px dashed var(--l);border-bottom:1px dashed var(--l);margin:2px 0 10px}
+  .env2 .blx-power .bar{flex:1;height:7px;border-radius:4px;background:linear-gradient(90deg,var(--alt),var(--warn));min-width:40px;position:relative;overflow:hidden}
+  .env2 .blx-power .div{color:var(--ink);white-space:nowrap}
+  .env2 .blx-power .div b{color:var(--acc)}
+
+  .env2 .blx-tag{margin-top:auto;border-radius:9px;padding:10px 11px}
+  .env2 .is-hi .blx-tag{background:color-mix(in srgb,var(--warn) 12%,transparent);border:1px solid color-mix(in srgb,var(--warn) 26%,transparent)}
+  .env2 .is-lo .blx-tag{background:color-mix(in srgb,var(--ai) 11%,transparent);border:1px solid color-mix(in srgb,var(--ai) 28%,transparent)}
+  .env2 .blx-tag .k{font:600 9.5px/1 ui-monospace,Menlo,monospace;letter-spacing:.11em;text-transform:uppercase;color:var(--mut)}
+  .env2 .blx-tag .v{margin-top:5px;font:700 15px/1.1 ui-monospace,Menlo,monospace}
+  .env2 .is-hi .blx-tag .v{color:var(--warn)}
+  .env2 .is-lo .blx-tag .v{color:var(--ai)}
+  .env2 .blx-tag .u{font-size:11px;color:var(--mut);margin-top:3px}
+
+  .env2 .blx-lever{flex:0 1 132px;min-width:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:6px}
+  .env2 .blx-lever .arrow{color:var(--ai);opacity:.5}
+  .env2 .blx-lever .mult{font:800 30px/1 ui-monospace,Menlo,monospace;color:var(--ai);letter-spacing:-.02em}
+  .env2 .blx-lever .lbl{font:600 9.5px/1.35 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+  .env2 .blx-lever .lbl b{color:var(--ink)}
+
+  .env2 .blx-formula{margin-top:16px;border-radius:11px;padding:13px 15px;background:color-mix(in srgb,var(--acc) 8%,transparent);border:1px solid color-mix(in srgb,var(--acc) 22%,transparent)}
+  .env2 .blx-formula .fl{font:600 9.5px/1 ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--acc);margin-bottom:9px}
+  .env2 .blx-eq{font:600 13px/1.7 ui-monospace,Menlo,monospace;color:var(--ink);overflow-x:auto;white-space:nowrap;padding-bottom:2px}
+  .env2 .blx-eq .mut{color:var(--mut)}
+  .env2 .blx-eq .lev{color:var(--acc);background:color-mix(in srgb,var(--acc) 16%,transparent);border:1px solid color-mix(in srgb,var(--acc) 34%,transparent);border-radius:5px;padding:2px 6px;font-weight:700}
+  .env2 .blx-formula .fn{margin:9px 0 0;font-size:12px;line-height:1.5;color:var(--mut)}
+  .env2 .blx-formula .fn b{color:var(--ink);font-weight:600}
+
+  .env2 .blx-both{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+  .env2 .blx-both div{flex:1 1 220px;min-width:0;font-size:12px;line-height:1.45;color:var(--mut);border:1px solid var(--l);border-radius:9px;padding:9px 11px;background:color-mix(in srgb,var(--bg) 45%,transparent)}
+  .env2 .blx-both div i{margin-right:7px}
+  .env2 .blx-both .home i{color:var(--warn)}
+  .env2 .blx-both .scale i{color:var(--ai)}
+  .env2 .blx-both b{color:var(--ink);font-weight:600}
+
+  @media (prefers-reduced-motion:no-preference){
+    .env2 .is-lo .blx-grid i.on{animation:blxpulse 3s ease-in-out infinite}
+    @keyframes blxpulse{0%,100%{opacity:1}50%{opacity:.82}}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .env2 .blx-gpu{transition:none}
+  }
+  </style>
+
+  <p class="blx-eyebrow"><i class="fa-solid fa-arrows-up-down-left-right" aria-hidden="true"></i>The lever</p>
+  <h3 class="blx-h">Batching is the lever</h3>
+  <p class="blx-sub">Same query, same GPU — but energy per query swings <b>10–50×</b> on one factor alone: how many requests share the card at that instant. The chip burns its full rated power either way; batching just splits that power across more useful work.</p>
+
+  <div class="blx-stage">
+    <!-- SINGLE USER -->
+    <div class="blx-gpu is-hi">
+      <div class="blx-cap">
+        <span class="blx-chip"><i class="fa-solid fa-user" aria-hidden="true"></i>Serving 1 user</span>
+        <span class="blx-conc">concurrency <b>1</b></span>
+      </div>
+      <div class="blx-die">
+        <div class="blx-dielabel"><span>GPU compute cells</span><span>1 GPU die</span></div>
+        <div class="blx-grid" role="img" aria-label="GPU compute grid, almost entirely idle: only 2 of 64 cells active"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+      <div class="blx-util"><span class="n">~3%</span><span class="t">of the die doing useful work — the rest idles, waiting on memory</span></div>
+      <div class="blx-power"><span>PWR</span><span class="bar" aria-hidden="true"></span><span class="div">÷ <b>1</b> query</span></div>
+      <div class="blx-tag">
+        <div class="k">Per-query energy</div>
+        <div class="v">2–10 Wh</div>
+        <div class="u">high — full-card power carried by one request</div>
+      </div>
+    </div>
+
+    <!-- LEVER -->
+    <div class="blx-lever" aria-hidden="true">
+      <div class="mult">10–50×</div>
+      <div class="lbl">less energy<br>per query</div>
+      <svg class="arrow" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+      <div class="lbl"><b>same GPU</b><br>same watts</div>
+    </div>
+
+    <!-- BATCHED -->
+    <div class="blx-gpu is-lo">
+      <div class="blx-cap">
+        <span class="blx-chip"><i class="fa-solid fa-layer-group" aria-hidden="true"></i>Continuous batching</span>
+        <span class="blx-conc">concurrency <b>32–64</b></span>
+      </div>
+      <div class="blx-die">
+        <div class="blx-dielabel"><span>GPU compute cells</span><span>1 GPU die</span></div>
+        <div class="blx-grid" role="img" aria-label="GPU compute grid, nearly full: 58 of 64 cells active with batched requests"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i class="on"></i></div>
+      </div>
+      <div class="blx-util"><span class="n">~90%</span><span class="t">of the die kept busy — 32–64 requests packed onto one card</span></div>
+      <div class="blx-power"><span>PWR</span><span class="bar" aria-hidden="true"></span><span class="div">÷ <b>64</b> queries</span></div>
+      <div class="blx-tag">
+        <div class="k">Per-query energy</div>
+        <div class="v">0.05–0.3 Wh</div>
+        <div class="u">low — same power split across the batch</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="blx-formula">
+    <div class="fl">Where the swing lives</div>
+    <div class="blx-eq">Wh/query <span class="mut">=</span> (GPUs × TDP × sec) <span class="mut">÷</span> <span class="lev">concurrent queries</span> <span class="mut">÷</span> 3600 <span class="mut">×</span> PUE</div>
+    <p class="fn">Every term but one is fixed by the hardware. The <b>concurrent-queries</b> divisor is the lever — push it from 1 to 64 and per-query energy falls by that factor. Numbers above are from the same 2×H100 running Llama-3.3-70B.</p>
+  </div>
+
+  <div class="blx-both">
+    <div class="home"><i class="fa-solid fa-house" aria-hidden="true"></i><b>Hobbyist, one prompt on a home rig:</b> concurrency 1 → the high number is real.</div>
+    <div class="scale"><i class="fa-solid fa-server" aria-hidden="true"></i><b>Production, always batched:</b> concurrency 32–64 → the low number is the honest at-scale figure.</div>
+  </div>
+</section>
+
+
+  <div class="fig">
+    <p class="cap">Independent confirmation that the arithmetic is right. Luccioni et al. (2023) <em>metered</em> ~88 open models
+    on an A100-80GB (AWS us-west-2, sequential/unbatched): small text models landed at ~0.047 Wh/query, image models averaged
+    ~2.9 Wh (Stable Diffusion XL ~11.5 Wh) — the same order the hardware math predicts.</p>
+    <div id="c-measured"></div>
+    <p class="src">Luccioni et al., "Power Hungry Processing," metered A100-80GB <span class="tag v">MEASURED</span> · Splitwise
+    (ISCA'24, arXiv 2311.18677): 9.4 Wh for an unbatched Llama-2-70B conversation (H100, P50; 7.9 Wh on A100) <span class="tag v">VERIFIED</span></p>
+  </div>
+
+  
+    <div class="etabfoot"><button class="prev" data-go="et-narr"><i class="fas fa-arrow-left"></i>The narrative</button><span class="sp"></span><button data-go="et-build">The buildout<i class="fas fa-arrow-right"></i></button></div>
+  </section>
+  <section class="etab" id="et-build" role="tabpanel">
+<h2 id="demand">02 · You are not the reason they build the data center</h2>
+  <p>Here's a piece of the causal picture that individual-responsibility framing usually misses. <b>H100s are not manufactured in
+  response to demand you can place.</b> The real bottleneck on accelerator supply is TSMC's CoWoS advanced-packaging line, and it's booked out by a
+  handful of hyperscalers — Microsoft, Meta, Google, Amazon, xAI, Oracle — placing multi-billion-dollar orders on multi-year
+  horizons. The data center gets built, the GPUs get bought, and the racks get powered on the basis of capital-allocation
+  cycles and capacity planning, committed long before — and regardless of — whether you personally ask anything.</p>
+  <p>And once the racks are spinning, your query is <em>inframarginal</em>: it drops into batch capacity that is already
+  running (§01). The dominant footprint of AI is the amortized <em>fixed</em> cost of the buildout — chip fab, construction,
+  and the baseline power to keep committed capacity available — not the tiny dynamic increment of one more prompt filling a
+  batch slot that was going to spin anyway. So attributing the buildout to any one person's queries points at the wrong node in
+  the causal graph: the lever is capex and the vendor-pipeline forecasting that inflates it (§04), decided in boardrooms — not
+  the individual deciding whether to hit enter.</p>
+
+  <style>
+    .env2 .supply{margin:18px 0}
+    .env2 .chain{display:flex;flex-direction:column;align-items:stretch;gap:0}
+    .env2 .cnode{border:1px solid var(--l);border-radius:14px;padding:13px 15px;background:var(--panel);position:relative;
+      display:grid;grid-template-columns:54px 1fr auto;gap:3px 15px;align-items:center}
+    .env2 .cnode .cn-step{grid-column:2;font-family:ui-monospace,monospace;font-size:.64rem;color:var(--mut);font-weight:700;letter-spacing:.04em}
+    .env2 .cnode .cn-ic{grid-column:1;grid-row:1/3;width:52px;height:52px;border-radius:13px;display:grid;place-items:center;
+      color:var(--pri);background:color-mix(in srgb,var(--pri) 13%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--pri) 22%,transparent)}
+    .env2 .cnode .cn-ic svg{width:34px;height:34px;display:block}
+    .env2 .cnode.bottleneck .cn-ic{background:color-mix(in srgb,var(--warn) 16%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--warn) 34%,transparent)}
+    .env2 .cnode.racks .cn-ic{background:color-mix(in srgb,var(--ai) 15%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ai) 30%,transparent)}
+    .env2 .cnode .cn-t{grid-column:2;font-size:.98rem;font-weight:700;line-height:1.2;color:var(--ink)}
+    .env2 .cnode .cn-fig{grid-column:3;grid-row:1/3;font-family:ui-monospace,monospace;font-size:1.05rem;font-weight:800;color:var(--pri);line-height:1;text-align:right;white-space:nowrap}
+    .env2 .cnode .cn-sub{grid-column:2;font-size:.78rem;color:var(--mut);line-height:1.4}
+    .env2 .cnode.bottleneck{border-color:var(--warn);border-width:2px;background:color-mix(in srgb,var(--warn) 8%,var(--panel))}
+    .env2 .cnode.bottleneck .cn-ic,.env2 .cnode.bottleneck .cn-fig{color:var(--warn)}
+    .env2 .cnode.bottleneck .cn-tag{position:absolute;top:-9px;left:14px;font-family:ui-monospace,monospace;font-size:.6rem;font-weight:800;
+      background:var(--warn);color:#fff;padding:2px 7px;border-radius:5px;letter-spacing:.03em}
+    .env2 .cnode.racks{border-color:var(--ai);background:color-mix(in srgb,var(--ai) 8%,var(--panel))}
+    .env2 .cnode.racks .cn-ic,.env2 .cnode.racks .cn-fig{color:var(--ai)}
+    .env2 .carrow{display:flex;align-items:center;padding-left:26px;margin:0}
+    .env2 .carrow span{display:block;width:4px;height:16px;border-radius:3px;background:color-mix(in srgb,var(--mut) 40%,transparent)}
+    .env2 .carrow.wide span{width:12px;margin-left:-4px;height:18px;background:color-mix(in srgb,var(--pri) 55%,transparent)}
+    .env2 .carrow.thin span{width:4px;background:color-mix(in srgb,var(--warn) 42%,transparent)}
+    .env2 .carrow .clab{font-family:ui-monospace,monospace;font-size:.58rem;color:var(--mut);margin-left:12px;letter-spacing:.03em;text-transform:uppercase}
+    @media(max-width:480px){.env2 .cnode .cn-fig{font-size:.9rem}}
+    .env2 .youq{margin:10px 0 0;display:flex;align-items:center;gap:10px;border:1px dashed var(--pri);border-radius:12px;
+      padding:11px 14px;background:color-mix(in srgb,var(--pri) 6%,transparent);font-size:.9rem;line-height:1.45}
+    .env2 .youq .yq-dot{flex:0 0 auto;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;
+      background:color-mix(in srgb,var(--pri) 20%,transparent);color:var(--pri);font-size:.9rem}
+    .env2 .youq b{color:var(--ink)}
+    .env2 .capex{display:grid;grid-template-columns:78px 1fr 96px;gap:8px 12px;align-items:center;margin:14px 0 4px}
+    .env2 .capex .cx-l{text-align:right;font-size:.8rem;color:var(--mut);font-family:ui-monospace,monospace}
+    .env2 .capex .cx-t{height:22px;border-radius:6px;background:color-mix(in srgb,var(--mut) 12%,transparent);overflow:hidden}
+    .env2 .capex .cx-f{height:100%;border-radius:6px;background:linear-gradient(90deg,color-mix(in srgb,var(--pri) 60%,var(--warn)),var(--warn))}
+    .env2 .capex .cx-v{font-family:ui-monospace,monospace;font-size:.82rem;font-weight:700;color:var(--ink)}
+    .env2 .pull{border-left:3px solid var(--warn);padding:6px 0 6px 14px;margin:16px 0;font-size:1.02rem;line-height:1.5;font-style:italic;color:var(--ink)}
+    .env2 .pull span{display:block;font-style:normal;font-size:.74rem;color:var(--mut);font-family:ui-monospace,monospace;margin-top:6px}
+  </style>
+
+  <p style="font-size:.9rem;color:var(--mut);margin-bottom:6px">Here is the chain that actually produces a running AI data
+  center. Follow where the constraint is — and where <em>you</em> enter it:</p>
+  <div class="supply">
+    <div class="chain">
+      <div class="cnode"><span class="cn-step">STEP 1 · years ahead</span><span class="cn-ic"><svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><rect x="4" y="33" width="8" height="13" rx="1.5" fill="currentColor" stroke="none" opacity=".35"/><rect x="15" y="25" width="8" height="21" rx="1.5" fill="currentColor" stroke="none" opacity=".6"/><rect x="26" y="16" width="8" height="30" rx="1.5" fill="currentColor" stroke="none" opacity=".92"/><circle cx="40" cy="14" r="8.5"/><text x="40" y="18.6" font-size="12" font-weight="800" text-anchor="middle" fill="currentColor" stroke="none" font-family="ui-monospace,monospace">$</text></svg></span>
+        <span class="cn-t">Capital allocation</span><span class="cn-fig">~$725B</span>
+        <span class="cn-sub">Big-4 hyperscaler capex planned for 2026 (from ~$226B in 2024) — committed in boardrooms.</span></div>
+      <div class="carrow wide"><span></span><span class="clab">all the capital flows in ↓</span></div>
+      <div class="cnode bottleneck"><span class="cn-tag">SOLD OUT</span><span class="cn-step">STEP 2 · the real limit</span>
+        <span class="cn-ic"><svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 8h34" opacity=".55"/><path d="M14 8v3M22 8v4M30 8v4M38 8v3" opacity=".5"/><path d="M6 15h40L30 33v9h-8v-9Z" fill="currentColor" fill-opacity=".2"/><circle cx="26" cy="48" r="2.3" fill="currentColor" stroke="none"/></svg></span>
+        <span class="cn-t">TSMC CoWoS packaging</span><span class="cn-fig">~90%</span>
+        <span class="cn-sub">of AI-scale advanced packaging is one company's line — "sold out through 2025 into 2026." This is the bottleneck, not you.</span></div>
+      <div class="carrow thin"><span></span><span class="clab">throttled — everything downstream is rate-limited here ↓</span></div>
+      <div class="cnode"><span class="cn-step">STEP 3 · the widget</span><span class="cn-ic"><svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="10" y="10" width="32" height="32" rx="3"/><rect x="19" y="17" width="6" height="18" rx="1" fill="currentColor" stroke="none" opacity=".85"/><rect x="27" y="17" width="6" height="18" rx="1" fill="currentColor" stroke="none" opacity=".85"/><rect x="12.5" y="17" width="4" height="4"/><rect x="12.5" y="24" width="4" height="4"/><rect x="12.5" y="31" width="4" height="4"/><rect x="35.5" y="17" width="4" height="4"/><rect x="35.5" y="24" width="4" height="4"/><rect x="35.5" y="31" width="4" height="4"/><path d="M10 21H6M10 31H6M42 21h4M42 31h4M21 10V6M31 10V6M21 42v4M31 42v4" stroke-width="1.5" opacity=".55"/></svg></span>
+        <span class="cn-t">The accelerator</span><span class="cn-fig">208B</span>
+        <span class="cn-sub">transistors in one Nvidia B200 — dual die + 8 stacked HBM3e chips fused on that CoWoS interposer. Not a consumer part.</span></div>
+      <div class="carrow thin"><span></span></div>
+      <div class="cnode"><span class="cn-step">STEP 4 · years ahead</span><span class="cn-ic"><svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M17 47 26 6 35 47"/><path d="M13 47h26"/><path d="M14 19h24M16 30h20M19 40h14" stroke-width="1.7"/></svg></span>
+        <span class="cn-t">Build &amp; power</span><span class="cn-fig">5–10 yr</span>
+        <span class="cn-sub">grid-interconnection queues (N. Virginia ~7 yr; Dublin paused to 2028). Power is locked in long before launch.</span></div>
+      <div class="carrow thin"><span></span></div>
+      <div class="cnode racks"><span class="cn-step">STEP 5 · always on</span><span class="cn-ic"><svg viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><rect x="11" y="7" width="30" height="38" rx="3"/><path d="M11 17h30M11 26h30M11 35h30" stroke-width="1.5"/><circle cx="16" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="16" cy="21.5" r="1.6" fill="currentColor" stroke="none"/><circle cx="16" cy="30.5" r="1.6" fill="currentColor" stroke="none"/><circle cx="16" cy="40" r="1.6" fill="currentColor" stroke="none"/><path d="M22 12h13M22 21.5h13M22 30.5h13M22 40h13" stroke-width="1.4" opacity=".5"/></svg></span>
+        <span class="cn-t">Racks spin 24/7</span><span class="cn-fig">fixed cost</span>
+        <span class="cn-sub">Committed capacity draws power and batches requests whether or not you show up.</span></div>
+    </div>
+    <div class="youq"><span class="yq-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.5" r="3.4"/><path d="M5.5 19.5a6.5 6.5 0 0 1 13 0"/></svg></span>
+      <div><b>You enter here</b> — one prompt drops into a batch slot that was already going to run. Every capex, fab, and power
+      decision above was made <em>upstream</em> of you, on multi-year horizons. Your query is the last, smallest, inframarginal step.</div></div>
+  </div>
+
+  <p style="font-size:.9rem;color:var(--mut);margin:16px 0 2px">The scale of what's committed before any of us hits enter:</p>
+  <div class="capex">
+    <div class="cx-l">2024</div><div class="cx-t"><div class="cx-f" style="width:31%"></div></div><div class="cx-v">~$226B</div>
+    <div class="cx-l">2025</div><div class="cx-t"><div class="cx-f" style="width:57%"></div></div><div class="cx-v">~$410B</div>
+    <div class="cx-l">2026</div><div class="cx-t"><div class="cx-f" style="width:100%"></div></div><div class="cx-v">~$725B</div>
+  </div>
+  <p class="src">Big-4 (Amazon, Alphabet, Meta, Microsoft) combined capex, planned/actual <span class="tag v">VERIFIED</span> · CoWoS ~90% share + "sold out … into 2026" (TSMC C.C. Wei) <span class="tag v">VERIFIED</span> · B200 208B transistors <span class="tag v">VERIFIED</span> · interconnection queues 5–10 yr <span class="tag v">VERIFIED</span></p>
+
+  <p class="pull">"All the hyperscalers report that their markets are supply-constrained, rather than demand-constrained."
+    <span>— industry capex analysis, 2026. The thing holding AI back isn't too few users asking; it's too little packaging capacity and power. That is the opposite of a story where your individual query is the driver.</span></p>
+  <div class="interest"><b>The honest caveat — aggregate demand isn't causally inert</b>
+    At the population level, sustained real demand does eventually justify the next capex round; users are not <em>nothing</em>.
+    But two things stay true: (a) no individual query moves the fab, and (b) the buildout is driven by <em>projected and
+    speculative</em> demand and NVIDIA's order book, not your specific use. Guilt-tripping the person asking a question mistakes
+    a rounding error for the driver.</div>
+
+  
+<h2 id="notai">03 · "Data centers" ≠ "AI" — stop conflating them</h2>
+  <p>Here is the sleight almost every headline runs on. The famous anchor — "data centers are ~1–1.5% of global electricity" —
+  is <em>all data centers</em>: streaming, cloud storage, email, corporate IT, and crypto. <strong>AI is a slice of that
+  slice.</strong> Goldman Sachs put AI at ~14% of data-center load in 2023 (rising to ~27% by 2027). Do the multiplication:</p>
+  <div class="fig">
+    <p class="cap">Nesting the numbers. Global electricity → data centers (~1.5%) → AI's share of data centers (~14% in 2023).
+    Today's AI is on the order of <b>~0.2% of global electricity</b> — real, growing fast, but two orders of magnitude below the
+    "AI is boiling the planet" register.</p>
+    <div id="c-nest"></div>
+    <p class="src">Data centers ~1–1.5% of global electricity, IEA <span class="tag v">MEASURED</span> · AI ~14% of DC load 2023
+    → ~27% 2027, Goldman Sachs <span class="tag v">MEASURED</span> · product = ~0.2% of global electricity <span class="tag d">DERIVED</span></p>
+  </div>
+  <p>Whenever you see "data centers will double by 2026 to ~1,000 TWh," note what's inside: the IEA bundles
+  <em>data centers + AI + crypto</em> into one figure and provides <b>no clean AI-only carve-out</b>. Crypto alone was ~110 TWh
+  in 2022 (Bitcoin ~120–200 TWh by itself) — <em>larger</em> than the AI-specific slice at the time. Reporting the whole bundle
+  as "AI's appetite" annexes a crypto load the size of Thailand's national grid.</p>
+
+  
+<h2 id="agg">04 · Where the operational numbers actually land (and why the scary ones are shaky)</h2>
+  <p>Disambiguated honestly: data-center electricity <em>is</em> growing fast — the IEA projects it "more than doubles by 2030
+  to around 945 TWh" (≈ Japan's total), and in the US data centers may drive nearly half of demand growth to 2030. That's a
+  real grid-planning and interconnection problem. But the truly alarming numbers are 2030 extrapolations built on vendor sales
+  pipelines, not measurements.</p>
+  <div class="fig">
+    <p class="cap">Global data-center electricity (all uses, not just AI), IEA "Energy and AI" 2025. Real growth — and note the
+    y-axis ceiling is ~3% of world electricity, not a fifth of it.</p>
+    <svg class="chart" id="c-grid" viewBox="0 0 640 260" role="img" aria-label="Global data-center electricity ~415 TWh in 2024 rising to 945 TWh by 2030"></svg>
+    <p class="src">IEA "Energy and AI" 2025: 945 TWh by 2030 ≈ Japan <span class="tag v">MEASURED</span> · 2024 base ~415 TWh implied by "more than double" <span class="tag e">ESTIMATE</span></p>
+  </div>
+
+  <style>
+    .env2 .ctxbox{border:1px solid var(--l);border-radius:14px;padding:16px 18px;margin:14px 0;
+      background:color-mix(in srgb,var(--ai) 6%,var(--panel))}
+    .env2 .ctxbox .ctx-h{font-weight:700;color:var(--ai);margin-bottom:4px;font-size:.98rem}
+    .env2 .ctxbox p{font-size:.9rem;line-height:1.55;color:var(--ink);margin:0 0 10px}.env2 .ctxbox p:last-child{margin:0}
+    .env2 .ctxbox b{color:var(--ink)}
+    .env2 .cmp2{display:grid;grid-template-columns:118px 1fr auto;gap:8px 12px;align-items:center;margin:12px 0}
+    .env2 .cmp2 .c2l{text-align:right;font-size:.78rem;color:var(--mut);line-height:1.2}
+    .env2 .cmp2 .c2t{height:26px;border-radius:6px;background:color-mix(in srgb,var(--mut) 12%,transparent);overflow:hidden}
+    .env2 .cmp2 .c2f{height:100%;border-radius:6px;display:flex;align-items:center;padding:0 9px;font-size:.74rem;font-weight:700;color:var(--bg);white-space:nowrap}
+    .env2 .cmp2 .c2v{font-family:ui-monospace,monospace;font-size:.84rem;font-weight:700;color:var(--ink);white-space:nowrap}
+    .env2 .sharechips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 0}
+    .env2 .schip{border:1px solid var(--l);border-radius:9px;padding:7px 11px;background:var(--panel);font-size:.8rem;color:var(--mut);line-height:1.25}
+    .env2 .schip b{font-family:ui-monospace,monospace;font-size:1.05rem;color:var(--ai);display:block}
+  </style>
+  <div class="ctxbox">
+    <div class="ctx-h">"More than double" — now put it in perspective</div>
+    <p>"Doubling" is designed to alarm. But the whole projected increase is <b>~530 TWh spread over six years</b> (415→945). For
+    scale, the world's electricity demand grew by <b>~1,100 TWh (+4.3%) in 2024 <em>alone</em></b> — so the entire data-center build-out to
+    2030 is <b>less than half of one recent year</b> of ordinary grid growth, which we add for air-conditioning, EVs and
+    electrification regardless of AI.</p>
+    <div class="cmp2">
+      <div class="c2l">Global electricity growth, <b>2024 alone</b></div>
+      <div class="c2t"><div class="c2f" style="width:100%;background:var(--ai)">+1,100 TWh in one year</div></div>
+      <div class="c2v">1 yr</div>
+      <div class="c2l">All data-center growth, <b>2024→2030</b></div>
+      <div class="c2t"><div class="c2f" style="width:48%;background:var(--alt)">+530 TWh</div></div>
+      <div class="c2v">6 yrs</div>
+    </div>
+    <div class="sharechips">
+      <span class="schip"><b>~3%</b>of the world's electricity is <em>all</em> data centers in 2030 (from ~1.5% today)</span>
+      <span class="schip"><b>~0.5%</b>of the world's <em>total</em> energy (electricity + fuels) in 2030</span>
+      <span class="schip"><b>~0.3%</b>of today's total energy is the entire 2024→2030 increase</span>
+    </div>
+    <p class="src" style="margin-top:10px">Global electricity demand +1,100 TWh (+4.3%) in 2024 — IEA Global Energy Review 2025 <span class="tag v">MEASURED</span> · shares vs ~30,000 TWh electricity / ~170,000 TWh total primary energy <span class="tag d">DERIVED</span></p>
+  </div>
+
+  <p>Goldman's viral "<b>+165% by 2030</b>" is a compound extrapolation off 2023, and energy economist Jonathan Koomey names the
+  flaw: "usually what they're assuming is <em>NVIDIA's business plan is our growth forecast</em>." The precedent is the dot-com
+  scare — analysts claimed computing would hit 13% of all electricity; the real number came in at 3%. The data is so thin that
+  the <em>IEA's own estimate for 2022 moved 50%</em> between two 2024 reports. Treat the doubling/165%/21% figures as
+  upper-bound scenarios with a stated assumption stack, not facts. <span class="tag e">The "21% of electricity by 2030" line was
+  never primary-sourced — it's a projection, not a measurement, so it isn't a data point at all; treat it as one scenario's
+  assumption, not evidence.</span></p>
+
+  
+    <div class="etabfoot"><button class="prev" data-go="et-perq"><i class="fas fa-arrow-left"></i>Per-query cost</button><span class="sp"></span><button data-go="et-eff">Efficiency<i class="fas fa-arrow-right"></i></button></div>
+  </section>
+  <section class="etab" id="et-eff" role="tabpanel">
+<h2 id="batch">05 · Operator economics: batching &amp; PUE are the utilization levers</h2>
+  <p>It's easy to miss that <em>electricity is the operator's dominant operating cost</em> — so the incentive to raise
+  utilization points the same way as the environment. Two independent levers, both about not wasting watts:</p>
+  <div class="fig">
+    <p class="cap"><b>PUE</b> = total facility energy ÷ IT energy (1.0 = zero overhead). Google's 2025 fleet runs 1.09; the
+    industry average has been stuck near 1.5+ for a decade. Combined with batching (lever 1, §01) and custom silicon, this is
+    why measured production per-query energy is small.</p>
+    <div id="c-pue"></div>
+    <p class="src">Google fleet PUE 1.09 (2025) <span class="tag v">MEASURED</span> · industry avg ~1.54, Uptime Institute 2025 (via Google's citation) <span class="tag e">ESTIMATE</span></p>
+  </div>
+  <div class="stats">
+    <div class="sc"><div class="big">&gt;6×</div><p>Google compute per unit of electricity vs 5 yrs earlier (custom TPUs) <span class="tag v">MEASURED</span></p></div>
+    <div class="sc"><div class="big">33× / 44×</div><p>energy / carbon drop per median Gemini text prompt, one recent 12 mo <span class="tag v">MEASURED</span></p></div>
+    <div class="sc"><div class="big">0.24 Wh</div><p>Google's <em>comprehensive</em> per-prompt figure vs the flattering 0.10 Wh "active-chip-only" <span class="tag v">MEASURED</span></p></div>
+  </div>
+
+  <style>
+    .env2 .aoe-wrap{border:1px solid var(--l);border-radius:14px;padding:16px 18px;margin:14px 0;background:var(--panel)}
+    .env2 .aoe-wrap .cap{font-size:.9rem;color:var(--mut);margin:0 0 6px;line-height:1.5}
+    .env2 .aoe{display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap;padding:26px 4px 4px}
+    .env2 .aoe .sq{position:relative;flex:0 0 auto}
+    .env2 .aoe .sq .box{border-radius:7px;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ink) 12%,transparent)}
+    .env2 .aoe .sq .mx{position:absolute;left:50%;transform:translateX(-50%);bottom:100%;margin-bottom:6px;
+      font-family:ui-monospace,monospace;font-weight:800;font-size:1.05rem;white-space:nowrap}
+    .env2 .aoe .sq .dsc{font-size:.7rem;color:var(--mut);text-align:center;margin-top:7px;max-width:96px;line-height:1.3}
+    .env2 .aoe-note{font-size:.82rem;color:var(--mut);line-height:1.5;margin:12px 0 0;border-left:3px solid var(--pri);padding-left:12px}
+    .env2 .aoe-note b{color:var(--ink)}
+    /* before -> after "shrink" visual: the reduced footprint is literally smaller */
+    .env2 .shrink{display:flex;flex-direction:column;gap:20px;padding:20px 4px 6px}
+    .env2 .sh-row{display:grid;grid-template-columns:118px 1fr;gap:16px;align-items:center}
+    .env2 .sh-lab{font-family:ui-monospace,monospace;font-size:.78rem;font-weight:700;color:var(--ink);line-height:1.3}
+    .env2 .sh-lab small{display:block;font-weight:400;color:var(--mut);font-size:.72rem;margin-top:2px}
+    .env2 .sh-pair{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+    .env2 .sh-sq{display:flex;flex-direction:column;align-items:center;gap:6px}
+    .env2 .sh-box{border-radius:7px;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ink) 14%,transparent)}
+    .env2 .sh-when{font-size:.68rem;color:var(--mut);font-family:ui-monospace,monospace;white-space:nowrap}
+    .env2 .sh-arrow{color:var(--mut);font-size:1.2rem}
+    .env2 .sh-mx{font-family:ui-monospace,monospace;font-weight:800;font-size:1.05rem;white-space:nowrap;
+      display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;
+      background:color-mix(in srgb,var(--pri) 14%,transparent);color:var(--pri)}
+    @media(max-width:520px){.env2 .sh-row{grid-template-columns:1fr;gap:8px}}
+    /* year-by-year "shrink" progression: area of each square ∝ its Wh value */
+    .env2 .yts{display:flex;align-items:flex-end;gap:22px;flex-wrap:wrap;padding:30px 4px 6px}
+    .env2 .yr{display:flex;flex-direction:column;align-items:center;gap:0;flex:0 0 auto}
+    .env2 .yr-year{font-family:ui-monospace,monospace;font-weight:800;font-size:.82rem;color:var(--ink);margin-bottom:9px}
+    .env2 .yr-box{border-radius:7px;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ink) 14%,transparent)}
+    .env2 .yr-box.ghost{background:transparent!important;border:2px dashed color-mix(in srgb,var(--mut) 55%,transparent);
+      display:grid;place-items:center;color:var(--mut)}
+    .env2 .yr-wh{font-family:ui-monospace,monospace;font-weight:800;font-size:.9rem;margin-top:9px;white-space:nowrap}
+    .env2 .yr-tag{font-size:.58rem;font-weight:700;font-family:ui-monospace,monospace;text-transform:uppercase;
+      letter-spacing:.04em;margin-top:4px;padding:1px 6px;border-radius:5px;white-space:nowrap}
+    .env2 .yr-src{font-size:.63rem;color:var(--mut);margin-top:4px;text-align:center;max-width:92px;line-height:1.3}
+  </style>
+  <div class="aoe-wrap">
+    <p class="cap"><b>Energy per median text prompt, 2023 &rarr; now.</b> Each square's <b>area</b> is its watt-hours, so a
+    <em>smaller</em> square means <em>less</em> energy. These points come from <b>different models and methods</b> each year, so read
+    it as a trend, not one controlled measurement &mdash; but the direction is unmistakable.</p>
+    <div class="yts">
+      <div class="yr"><div class="yr-year">2023</div>
+        <div class="yr-box" style="width:108px;height:108px;background:color-mix(in srgb,var(--warn) 32%,transparent)"></div>
+        <div class="yr-wh" style="color:var(--warn)">~3 Wh</div>
+        <div class="yr-tag" style="background:color-mix(in srgb,var(--alt) 18%,transparent);color:var(--alt)">ESTIMATE</div>
+        <div class="yr-src">viral figure, now seen as high</div></div>
+      <div class="yr"><div class="yr-year">2024</div>
+        <div class="yr-box" style="width:34px;height:34px;background:color-mix(in srgb,var(--pri) 42%,transparent)"></div>
+        <div class="yr-wh" style="color:var(--pri)">~0.3 Wh</div>
+        <div class="yr-tag" style="background:color-mix(in srgb,var(--alt) 18%,transparent);color:var(--alt)">ESTIMATE</div>
+        <div class="yr-src">where estimates converged (Epoch, Ritchie)</div></div>
+      <div class="yr"><div class="yr-year">2025</div>
+        <div class="yr-box" style="width:31px;height:31px;background:var(--pri)"></div>
+        <div class="yr-wh" style="color:var(--pri)">0.24 Wh</div>
+        <div class="yr-tag" style="background:color-mix(in srgb,var(--ai) 20%,transparent);color:var(--ai)">MEASURED</div>
+        <div class="yr-src">Google, median Gemini text prompt</div></div>
+      <div class="yr"><div class="yr-year">now</div>
+        <div class="yr-box ghost" style="width:24px;height:24px"><span style="font-size:.85rem">&darr;</span></div>
+        <div class="yr-wh" style="color:var(--mut)">still falling</div>
+        <div class="yr-tag" style="background:color-mix(in srgb,var(--mut) 16%,transparent);color:var(--mut)">NO 2026 FIGURE</div>
+        <div class="yr-src">trend continues; no published number yet</div></div>
+    </div>
+    <p class="aoe-note"><b>Different methods, same direction: down.</b> The 2023 <b>~3&nbsp;Wh</b> is the viral GPT-3-era estimate
+    (widely judged too high); <b>~0.3&nbsp;Wh</b> is where independent 2024 estimates converged; <b>0.24&nbsp;Wh</b> is Google's own
+    2025 measurement of a median Gemini text prompt. Google separately measured that median prompt falling <b>33&times; in a single
+    year</b> (May 2024&rarr;May 2025), with carbon per prompt down <b>~44&times;</b> over the same span &mdash; driven by better silicon
+    (&gt;6&times; perf/watt in 5&nbsp;yr), batching, and a 1.09 PUE. The big caveat: these are <em>different models and workloads</em>,
+    so it's a directional trend, not an apples-to-apples series. <span class="tag v">MEASURED</span> <span class="tag e">ESTIMATE</span></p>
+  </div>
+
+  <p class="caveat"><b>Both directions, honestly.</b> The 33× is one workload (text prompt), software-driven, and Google says it does
+  "not represent … all prompts nor … future performance"; the 44× carbon bundles grid decarbonization with compute. The
+  <b>0.24 vs 0.10 Wh</b> disclosure is a vendor publishing the <em>less</em> flattering number — conceding most public estimates
+  undercount true at-scale load by ~2.4×. But Google is an interested party, and independent critics (e.g. de Vries-Gao, via
+  Data Center Dynamics) push back on the <em>boundary</em>: it's a <b>median</b> (heavier long-context prompts cost more), the
+  water counts only on-site cooling (not the water to <em>generate</em> the electricity), the carbon uses "market-based"
+  accounting (which clean-energy purchases flatter), and it isn't peer-reviewed. The internal math is sound; the scope is chosen.</p>
+
+  <div class="core" style="border-color:var(--ai)">
+    <h3 style="margin-top:6px">The counterfactual to a new data center isn't zero — it's old capacity running longer</h3>
+    <p style="margin:0;font-size:.95rem;line-height:1.62">Opposition tends to treat blocking a new build as the
+    <em>zero-impact</em> option. It isn't. The same demand served on <em>older</em> infrastructure costs <b>more</b> energy per unit
+    of work: legacy facilities sit near the decade-stale industry-average PUE of <b>~1.54</b> versus a new hyperscale campus at
+    <b>~1.09</b>, and older accelerators deliver a fraction of the compute-per-watt — Google's own silicon improved
+    <b>&gt;6× in five years</b>. Every generation you <em>don't</em> replace locks in the worse ratio. So "don't build" is not a
+    null choice; non-replacement has a real, if invisible, energy cost. This cuts against reflexive opposition <em>and</em> against
+    unchecked expansion: the honest goal is <em>efficient</em> capacity that actually retires the old stock — not more capacity
+    for its own sake, and not freezing the fleet at yesterday's efficiency.</p>
+    <div class="nrepl">
+      <style>
+        .env2 .nrepl{margin:16px 0 2px;border-top:1px dashed var(--l);padding-top:15px}
+        .env2 .nrepl-title{font-family:ui-monospace,monospace;font-size:.72rem;font-weight:800;letter-spacing:.05em;
+          text-transform:uppercase;color:var(--mut);margin-bottom:13px}
+        .env2 .nrepl-row{display:grid;grid-template-columns:158px 1fr;gap:12px;align-items:center;margin-bottom:11px}
+        .env2 .nrepl-lab{font-size:.82rem;font-weight:700;color:var(--ink);line-height:1.25}
+        .env2 .nrepl-lab small{display:block;font-weight:400;color:var(--mut);font-size:.71rem;margin-top:2px}
+        .env2 .nrepl-bar{display:flex;align-items:center;gap:11px}
+        .env2 .nrepl-bar .fill{height:28px;border-radius:6px;min-width:28px}
+        .env2 .nrepl-bar .fill.hi{background:color-mix(in srgb,var(--warn) 78%,transparent)}
+        .env2 .nrepl-bar .fill.lo{background:color-mix(in srgb,var(--pri) 78%,transparent)}
+        .env2 .nrepl-v{font-family:ui-monospace,monospace;font-weight:800;font-size:.86rem;white-space:nowrap}
+        .env2 .nrepl-note{font-size:.84rem;line-height:1.55;color:var(--mut);margin:11px 0 0}
+        .env2 .nrepl-note b{color:var(--ink)}
+        @media(max-width:520px){.env2 .nrepl-row{grid-template-columns:1fr;gap:5px}}
+      </style>
+      <div class="nrepl-title">Same demand &middot; two ways to serve it</div>
+      <div class="nrepl-row">
+        <div class="nrepl-lab">Legacy capacity<small>the &ldquo;don't build&rdquo; path &middot; PUE ~1.54, older silicon</small></div>
+        <div class="nrepl-bar"><div class="fill hi" style="width:100%"></div><span class="nrepl-v" style="color:var(--warn)">~6&times; energy</span></div>
+      </div>
+      <div class="nrepl-row">
+        <div class="nrepl-lab">Efficient new campus<small>retires old stock &middot; PUE ~1.09, &gt;6&times; compute/watt</small></div>
+        <div class="nrepl-bar"><div class="fill lo" style="width:16%"></div><span class="nrepl-v" style="color:var(--pri)">1&times;</span></div>
+      </div>
+      <p class="nrepl-note"><b>Blocking a build doesn't zero the demand &mdash; it serves it on the top bar.</b> The same work on
+      legacy hardware costs several times more energy (higher PUE &times; older accelerators). &ldquo;Don't build&rdquo; keeps
+      the tall bar running; the win is <em>efficient</em> capacity that retires the old stock. <span class="tag d">DERIVED &middot; PUE &times; compute-per-watt</span></p>
+    </div>
+  </div>
+
+  
+<h2 id="curve">06 · Small / local / MoE bend the curve — but Jevons bends it back</h2>
+  <p>Capacity forecasts hard-code 2025's model size, cost, and cloud-centric inference — every one of which is dropping fast.
+  DeepSeek-V3 hit frontier-competitive quality with <b>only 37B of its 671B params active per token</b> (MoE), so per-token
+  compute — and energy — is closer to a ~40B dense model despite the big memory footprint. Its final training run was
+  <b>2.788M H800-GPU-hours ≈ $5.576M</b>. Epoch measures fixed-performance inference price falling a median ~50×/yr (200×/yr
+  since 2024), and frontier quality now lands on a <b>sub-$2,500 consumer GPU within 6–12 months</b> — pushing real inference
+  off the cloud for models up to ~40B params.</p>
+
+  <div class="core" style="border-color:var(--ai)">
+    <h3 style="margin-top:6px">A lot of capable inference already runs on hardware you own — quietly, off the cloud</h3>
+    <p>The "AI = a warehouse of H100s" mental model skips how much inference is moving <em>local</em>. Today's <b>7B and 32B</b>
+    open models (Llama, Qwen, Mistral) run on a laptop or a single small GPU; even a <b>70B</b> model runs on a high-memory
+    <b>ARM</b> machine — Apple Silicon via <b>MLX</b> (Apple's on-device ML framework), or an Ampere/Graviton ARM server — or a
+    modest on-prem box. No data center required, and the smaller models are getting good enough for more and more tasks.</p>
+    <p style="margin:0"><b>Quantization compounds it.</b> Running a model in <b>FP8</b> (8-bit numbers) instead of the usual 16-bit
+    roughly <em>halves</em> the memory it needs — a 70B model drops from ~140&nbsp;GB to ~70&nbsp;GB — and moving fewer, smaller
+    numbers means <em>less energy and less silicon per token</em>. So the honest trend isn't only "bigger models in bigger data
+    centers"; it's also "good-enough models on small, efficient, local hardware" — a growing slice of inference that leaves the
+    data-center accounting entirely.</p>
+  </div>
+
+  <div class="deepseek">
+    <h3>Efficiency ≠ less total energy</h3>
+    <div class="stats">
+      <div class="sc"><div class="big">37B / 671B</div><p>DeepSeek-V3 active vs total params — MoE keeps per-token energy low <span class="tag v">MEASURED</span></p></div>
+      <div class="sc"><div class="big">$5.576M</div><p>V3 <em>final</em> training run (excl. R&amp;D, paper's own caveat) <span class="tag v">MEASURED</span></p></div>
+      <div class="sc"><div class="big">~50×/yr</div><p>fall in inference price at fixed performance (200×/yr since 2024) <span class="tag v">MEASURED</span></p></div>
+    </div>
+    <p style="margin:0;font-size:.95rem;line-height:1.62"><b>This is the Jevons paradox.</b> Cheaper per-token inference has
+    historically <em>expanded</em> total consumption — agents, reasoning-token blowups, always-on inference — faster than unit
+    cost fell; Satya Nadella invoked it by name the day of the DeepSeek sell-off. Meanwhile frontier training compute still
+    climbs ~5×/yr. The two forces partly cancel, so the honest position is <em>radical uncertainty about total demand</em>, not
+    "AI will need less." The unknown that swings every buildout forecast is the elasticity of demand to price.</p>
+  </div>
+
+  
+    <div class="etabfoot"><button class="prev" data-go="et-build"><i class="fas fa-arrow-left"></i>The buildout</button><span class="sp"></span><button data-go="et-water">Water &amp; proportion<i class="fas fa-arrow-right"></i></button></div>
+  </section>
+  <section class="etab" id="et-water" role="tabpanel">
+<h2 id="water">07 · Water: measurable, engineerable, and in proportion</h2>
+  <p>Same discipline as energy — count the actual liters, and set them in proportion. Per-query water is not one number; it's a
+  <em>boundary choice</em>. Two credible 2025 disclosures sit ~170× apart because one counts on-site cooling only and the other
+  counts full life-cycle (incl. electricity generation).</p>
+  <div class="fig">
+    <div id="c-water"></div>
+    <p class="src">Google 2025 on-site cooling 0.26 ml <span class="tag v">MEASURED</span> · Mistral 2025 peer-reviewed LCA ~45 ml full life-cycle <span class="tag v">MEASURED</span></p>
+  </div>
+  <p>And in proportion: globally, agriculture is <b>69%</b> of freshwater withdrawals; industry (which merely <em>contains</em>
+  data-center cooling) is 19%; municipal 12%. In the US, thermoelectric power-plant cooling (133 Bgal/day) and irrigation (118
+  Bgal/day) so dominate that data centers don't register as a national USGS category. The viral "500 ml per chat" traces to one
+  2023 GPT-3 estimate (Li et al.) whose own authors give a 5× range ("10–50 responses") and stress location-dependence.
+  Critically, <em>evaporative cooling is an engineering choice, not a law of physics</em>: Microsoft's closed-loop chip cooling
+  recirculates water and claims to eliminate it entirely (>125M L/yr avoided per site). The honest ask is WUE disclosure and
+  closed-loop retrofits in genuinely stressed basins — not treating inference as a top-tier water villain when alfalfa and
+  once-through power cooling dwarf it.</p>
+  <div class="fig">
+    <p class="cap">Global freshwater withdrawals by sector (FAO/AQUASTAT). Data-center cooling is a fraction of the industrial
+    19% — not its own bar.</p>
+    <div id="c-water-sector"></div>
+    <p class="src">FAO/AQUASTAT 69 / 19 / 12% <span class="tag v">MEASURED</span> · USGS thermoelectric 133 + irrigation 118 Bgal/day <span class="tag v">MEASURED</span></p>
+  </div>
+
+  <section class="wpx-water" aria-label="Where the water actually goes">
+  <style>
+    .env2 .wpx-water{
+      --wpx-power:var(--alt);      /* thermoelectric cooling */
+      --wpx-crop:var(--pri);       /* crop irrigation */
+      --wpx-ai:var(--acc);         /* AI / data-center cooling */
+      background:var(--panel);
+      border:1px solid var(--l);
+      border-radius:14px;
+      padding:20px clamp(16px,3vw,26px);
+      color:var(--ink);
+      font-family:ui-sans-serif,system-ui,sans-serif;
+    }
+    .env2 .wpx-water *{box-sizing:border-box;}
+    .env2 .wpx-water .wpx-eyebrow{
+      font-family:ui-monospace,monospace;
+      font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+      color:var(--mut);display:inline-flex;align-items:center;gap:8px;
+    }
+    .env2 .wpx-water .wpx-eyebrow i{color:var(--wpx-crop);}
+    .env2 .wpx-water .wpx-title{
+      margin:10px 0 6px;font-size:clamp(17px,2.4vw,21px);line-height:1.25;
+      font-weight:650;color:var(--ink);
+    }
+    .env2 .wpx-water .wpx-sub{
+      margin:0;font-size:13.5px;line-height:1.55;color:var(--mut);max-width:62ch;
+    }
+    .env2 .wpx-water .wpx-sub b{color:var(--ink);font-weight:600;}
+
+    .env2 .wpx-water .wpx-grid{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:16px;margin-top:18px;align-items:stretch;
+    }
+    .env2 .wpx-water .wpx-panel{
+      border:1px solid var(--l);border-radius:12px;
+      background:color-mix(in srgb,var(--ink) 3%,var(--panel));
+      padding:16px;
+    }
+    .env2 .wpx-water .wpx-cap-eyebrow{
+      font-family:ui-monospace,monospace;font-size:10.5px;letter-spacing:.13em;
+      text-transform:uppercase;color:var(--mut);
+    }
+
+    /* ---- area-of-effect ---- */
+    .env2 .wpx-water .wpx-aoe{display:flex;flex-direction:column;}
+    .env2 .wpx-water .wpx-squares{
+      flex:1;display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px;
+      margin:18px 0 4px;min-height:150px;
+    }
+    .env2 .wpx-water .wpx-sq{
+      position:relative;border-radius:8px;flex:0 0 auto;
+      display:flex;flex-direction:column;justify-content:flex-end;
+      padding:9px;overflow:hidden;
+    }
+    .env2 .wpx-water .wpx-sq--power{
+      background:color-mix(in srgb,var(--wpx-power) 26%,transparent);
+      border:1.5px solid color-mix(in srgb,var(--wpx-power) 60%,transparent);
+    }
+    .env2 .wpx-water .wpx-sq--crop{
+      background:color-mix(in srgb,var(--wpx-crop) 26%,transparent);
+      border:1.5px solid color-mix(in srgb,var(--wpx-crop) 60%,transparent);
+    }
+    .env2 .wpx-water .wpx-sq .wpx-sq-name{
+      font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.06em;
+      text-transform:uppercase;color:var(--ink);opacity:.85;line-height:1.2;
+    }
+    .env2 .wpx-water .wpx-sq .wpx-sq-val{
+      font-family:ui-monospace,monospace;font-weight:600;color:var(--ink);
+      font-size:clamp(15px,3.4vw,19px);line-height:1.05;margin-top:2px;
+    }
+    .env2 .wpx-water .wpx-sq .wpx-sq-unit{
+      font-family:ui-monospace,monospace;font-size:9.5px;color:var(--mut);
+      display:block;margin-top:1px;
+    }
+    .env2 .wpx-water .wpx-sq i{
+      position:absolute;top:8px;right:9px;font-size:12px;opacity:.5;
+    }
+    .env2 .wpx-water .wpx-sq--power i{color:var(--wpx-power);}
+    .env2 .wpx-water .wpx-sq--crop i{color:var(--wpx-crop);}
+
+    /* AI marker */
+    .env2 .wpx-water .wpx-ai-mark{
+      display:flex;align-items:center;gap:8px;align-self:flex-end;
+      padding-bottom:6px;max-width:150px;
+    }
+    .env2 .wpx-water .wpx-ai-dot{
+      width:7px;height:7px;border-radius:50%;flex:0 0 auto;
+      background:var(--wpx-ai);
+      box-shadow:0 0 0 4px color-mix(in srgb,var(--wpx-ai) 22%,transparent);
+    }
+    .env2 .wpx-water .wpx-ai-lead{
+      width:16px;height:1px;flex:0 0 auto;
+      background:color-mix(in srgb,var(--wpx-ai) 55%,transparent);
+    }
+    .env2 .wpx-water .wpx-ai-txt{
+      font-family:ui-monospace,monospace;font-size:9.5px;line-height:1.35;
+      color:var(--mut);
+    }
+    .env2 .wpx-water .wpx-ai-txt b{color:var(--wpx-ai);font-weight:600;display:block;}
+    .env2 .wpx-water .wpx-note{
+      margin:8px 0 0;font-size:11.5px;line-height:1.45;color:var(--mut);
+    }
+
+    /* ---- ranked list ---- */
+    .env2 .wpx-water .wpx-rank-head{
+      display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+      margin-bottom:14px;
+    }
+    .env2 .wpx-water .wpx-rank-head .wpx-hint{
+      font-family:ui-monospace,monospace;font-size:10px;color:var(--mut);
+    }
+    .env2 .wpx-water .wpx-row{margin:0 0 13px;}
+    .env2 .wpx-water .wpx-row:last-child{margin-bottom:0;}
+    .env2 .wpx-water .wpx-row-top{
+      display:flex;align-items:center;gap:8px;margin-bottom:5px;
+    }
+    .env2 .wpx-water .wpx-chip{width:9px;height:9px;border-radius:2px;flex:0 0 auto;}
+    .env2 .wpx-water .wpx-chip--power{background:var(--wpx-power);}
+    .env2 .wpx-water .wpx-chip--crop{background:var(--wpx-crop);}
+    .env2 .wpx-water .wpx-chip--pub{background:color-mix(in srgb,var(--mut) 70%,transparent);}
+    .env2 .wpx-water .wpx-chip--ai{background:var(--wpx-ai);}
+    .env2 .wpx-water .wpx-row-name{font-size:13px;color:var(--ink);font-weight:550;}
+    .env2 .wpx-water .wpx-row-val{
+      margin-left:auto;font-family:ui-monospace,monospace;font-size:12.5px;
+      color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;
+    }
+    .env2 .wpx-water .wpx-row-val small{color:var(--mut);font-size:10px;}
+    .env2 .wpx-water .wpx-track{
+      height:8px;border-radius:5px;
+      background:color-mix(in srgb,var(--mut) 16%,transparent);
+      overflow:hidden;
+    }
+    .env2 .wpx-water .wpx-fill{height:100%;border-radius:5px;}
+    .env2 .wpx-water .wpx-fill--power{background:var(--wpx-power);}
+    .env2 .wpx-water .wpx-fill--crop{background:var(--wpx-crop);}
+    .env2 .wpx-water .wpx-fill--pub{background:color-mix(in srgb,var(--mut) 55%,transparent);}
+    .env2 .wpx-water .wpx-offchart{
+      display:inline-flex;align-items:center;gap:6px;
+      font-family:ui-monospace,monospace;font-size:10px;letter-spacing:.05em;
+      text-transform:uppercase;color:var(--wpx-ai);
+      padding:3px 8px;border-radius:5px;
+      background:color-mix(in srgb,var(--wpx-ai) 12%,transparent);
+      border:1px solid color-mix(in srgb,var(--wpx-ai) 32%,transparent);
+    }
+
+    /* ---- honest note ---- */
+    .env2 .wpx-water .wpx-honest{
+      display:flex;gap:11px;align-items:flex-start;margin-top:16px;
+      padding:12px 14px;border-radius:10px;
+      background:color-mix(in srgb,var(--alt) 10%,transparent);
+      border:1px solid color-mix(in srgb,var(--alt) 30%,transparent);
+    }
+    .env2 .wpx-water .wpx-honest i{color:var(--alt);font-size:14px;margin-top:2px;flex:0 0 auto;}
+    .env2 .wpx-water .wpx-honest p{
+      margin:0;font-size:12.5px;line-height:1.5;color:var(--ink);
+    }
+    .env2 .wpx-water .wpx-honest b{color:var(--alt);font-weight:600;}
+  </style>
+
+  <div class="wpx-head">
+    <span class="wpx-eyebrow"><i class="fas fa-droplet"></i>Where the water actually goes</span>
+    <h3 class="wpx-title">If you wanted to save freshwater, here's the ranked target list</h3>
+    <p class="wpx-sub">US withdrawals, USGS 2015 — <b>power-plant cooling + irrigation + public supply ≈ 90%</b> of all US water. AI data centers aren't even a broken-out national category.</p>
+  </div>
+
+  <div class="wpx-grid">
+    <!-- AREA OF EFFECT -->
+    <div class="wpx-panel wpx-aoe">
+      <span class="wpx-cap-eyebrow">Area = daily volume</span>
+      <div class="wpx-squares">
+        <div class="wpx-sq wpx-sq--power" style="width:150px;height:150px;"
+             title="Thermoelectric power-plant cooling: ~133 billion gallons/day (USGS 2015)">
+          <i class="fas fa-bolt"></i>
+          <span class="wpx-sq-name">Power-plant<br>cooling</span>
+          <span class="wpx-sq-val">133</span>
+          <span class="wpx-sq-unit">billion gal / day</span>
+        </div>
+        <div class="wpx-sq wpx-sq--crop" style="width:141px;height:141px;"
+             title="Crop irrigation: ~118 billion gallons/day (USGS 2015)">
+          <i class="fas fa-seedling"></i>
+          <span class="wpx-sq-name">Crop<br>irrigation</span>
+          <span class="wpx-sq-val">118</span>
+          <span class="wpx-sq-unit">billion gal / day</span>
+        </div>
+        <div class="wpx-ai-mark" title="AI / data-center cooling: not a broken-out national water category">
+          <span class="wpx-ai-dot"></span>
+          <span class="wpx-ai-lead"></span>
+          <span class="wpx-ai-txt"><b>AI cooling</b>too small to size honestly — not a broken-out US category</span>
+        </div>
+      </div>
+      <p class="wpx-note">Each square's <b style="color:var(--ink)">area</b> — not its side — equals its daily withdrawal. The AI dot is a placeholder, not a measured share.</p>
+    </div>
+
+    <!-- RANKED LIST -->
+    <div class="wpx-panel wpx-rank">
+      <div class="wpx-rank-head">
+        <span class="wpx-cap-eyebrow">Biggest levers first</span>
+        <span class="wpx-hint">bar ∝ US withdrawal</span>
+      </div>
+
+      <div class="wpx-row">
+        <div class="wpx-row-top">
+          <span class="wpx-chip wpx-chip--power"></span>
+          <span class="wpx-row-name">Thermoelectric cooling</span>
+          <span class="wpx-row-val">133<small> Bgal/d</small></span>
+        </div>
+        <div class="wpx-track"><div class="wpx-fill wpx-fill--power" style="width:100%"></div></div>
+      </div>
+
+      <div class="wpx-row">
+        <div class="wpx-row-top">
+          <span class="wpx-chip wpx-chip--crop"></span>
+          <span class="wpx-row-name">Crop irrigation</span>
+          <span class="wpx-row-val">118<small> Bgal/d</small></span>
+        </div>
+        <div class="wpx-track"><div class="wpx-fill wpx-fill--crop" style="width:88.7%"></div></div>
+      </div>
+
+      <div class="wpx-row">
+        <div class="wpx-row-top">
+          <span class="wpx-chip wpx-chip--pub"></span>
+          <span class="wpx-row-name">Public supply</span>
+          <span class="wpx-row-val"><small>part of the top 90%</small></span>
+        </div>
+        <div class="wpx-track"><div class="wpx-fill wpx-fill--pub" style="width:24%"></div></div>
+      </div>
+
+      <div class="wpx-row">
+        <div class="wpx-row-top">
+          <span class="wpx-chip wpx-chip--ai"></span>
+          <span class="wpx-row-name">AI / data-center cooling</span>
+        </div>
+        <span class="wpx-offchart"><i class="fas fa-magnifying-glass-minus"></i>Off the national chart</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wpx-honest">
+    <i class="fas fa-location-dot"></i>
+    <p>National totals aren't the whole story. <b>Water is local:</b> in a drought-stressed basin, even a modest new draw can matter. What decides AI's real impact is <b>siting and source</b> — recycled or air-cooled beats potable water in a dry region — not its rounding-error share of the national total.</p>
+  </div>
+</section>
+
+
+  
+<h2 id="proportion">08 · A sense of proportion</h2>
+  <p>None of this means the impact is zero, or that caring is foolish. It means the sizes are worth getting right before we
+  assign guilt. Three proportions, all built from numbers already on this page.</p>
+
+  <h3>Water is not "deleted from the universe"</h3>
+  <p>The mental image behind the panic — a bottle of water consumed by your prompt and gone forever — is physically wrong.
+  Cooling <em>withdraws</em> water; most is returned, and the fraction that evaporates re-enters the water cycle as
+  precipitation. Water is not destroyed; it is borrowed, and some is relocated. The real, legitimate concern is <em>local and
+  temporal scarcity</em> — a specific aquifer in a specific drought-stressed basin at a specific time — not a cosmic ledger
+  where the universe's water is ticking down. Withdrawal ≠ consumption ≠ destruction, and collapsing all three is how "0.26 ml
+  of cooling" becomes "you killed a bottle of water."</p>
+
+  <h3>The conversation about it is bigger than the query</h3>
+  <p>Both of these are measured numbers already cited on this page. A median Gemini text prompt emits <b>~0.03 gCO₂e</b>
+  (Google's metered per-prompt disclosure, alongside its 0.24 Wh / 0.26 ml). Streaming 30 minutes of video emits
+  <b>~18 gCO₂e</b> (IEA streaming fact-check, §11). So:</p>
+  <div class="hsc-wrap">
+    <div class="hsc-eye"><i class="fas fa-leaf" style="color:var(--pri)"></i> A sense of scale &mdash; carbon of everyday digital things</div>
+    <p class="hsc-sub">Every ordinary online action carries a little carbon. A prompt sits at the <em>small</em> end.</p>
+    <div class="hsc-grid">
+      <div class="hsc"><div class="hsc-ic">&#128172;</div><div class="hsc-thing">One AI text prompt</div>
+        <div class="hsc-num">0.03 g</div><div class="hsc-eq">CO&#8322;e &middot; Google-metered <span class="tag v">MEASURED</span></div></div>
+      <div class="hsc"><div class="hsc-ic">&#128269;</div><div class="hsc-thing">One web search</div>
+        <div class="hsc-num">~0.2 g</div><div class="hsc-eq">CO&#8322;e &middot; &asymp; 7 prompts <span class="tag e">ESTIMATE</span></div></div>
+      <div class="hsc"><div class="hsc-ic">&#128231;</div><div class="hsc-thing">One email w/ attachment</div>
+        <div class="hsc-num">~4 g</div><div class="hsc-eq">CO&#8322;e &middot; &asymp; 130 prompts <span class="tag e">ESTIMATE</span></div></div>
+      <div class="hsc"><div class="hsc-ic">&#128250;</div><div class="hsc-thing">30 min of streaming video</div>
+        <div class="hsc-num">~18 g</div><div class="hsc-eq">CO&#8322;e &middot; &asymp; 600 prompts <span class="tag v">IEA</span></div></div>
+    </div>
+    <p class="hsc-note"><b>A single prompt's carbon is a rounding error next to ordinary online life.</b> Half an hour of streaming
+    &asymp; <b>600 prompts</b>; one web search &asymp; 7. None of these earn guilt on their own &mdash; which is the point: the
+    footprint that matters is the buildout (&sect;02), not any single query.</p>
+  </div>
+  <p>A 30-minute video explaining AI's water crisis costs roughly <em>600 prompts</em> worth of carbon; the time spent reading and
+  writing about it online adds more. That's not an argument against making the video or having the conversation — both are worth
+  it. It's a reminder that ordinary digital actions, an AI query among them, are all individually tiny, so singling one out for
+  guilt doesn't track the actual sizes.</p>
+
+  <h3>Where the leverage actually is: alfalfa</h3>
+  <p>AI's entire global water footprint is a fraction of a percent of agriculture's (§07). In the drought-stressed US West,
+  <em>alfalfa</em> — much of it grown as cattle feed for export — is among the single thirstiest crops. Trimming a small
+  percentage of alfalfa irrigation would free more freshwater than the entire AI sector uses. <span class="tag v">VERIFIED: in the
+  Colorado River Basin, cattle-feed crops (alfalfa + hay) consume ~46–55% of the water — nearly two-thirds of all agricultural
+  use (peer-reviewed; LA&nbsp;Times / E&amp;E)</span> <span class="tag e">the specific "1% of alfalfa &gt; all of AI" ratio is
+  illustrative, not a fetched figure.</span> Again, the point isn't that AI's water use is nothing — it's that if we're serious
+  about freshwater, the highest-leverage targets are alfalfa, thermoelectric cooling, and the capex-driven buildout (§02), and
+  they deserve more of our attention than any individual's chatbot use.</p>
+
+  <div class="wbar-wrap">
+    <style>
+      .env2 .wbar-wrap{border:1px solid var(--l);border-radius:14px;padding:15px 17px;margin:16px 0;background:var(--panel)}
+      .env2 .wbar-title{font-family:ui-monospace,monospace;font-size:.74rem;font-weight:800;letter-spacing:.05em;
+        text-transform:uppercase;color:var(--mut);margin-bottom:12px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+      .env2 .wbar{display:flex;height:48px;border-radius:8px;overflow:hidden;border:1px solid var(--l)}
+      .env2 .wbar .seg{display:flex;align-items:center;justify-content:center;min-width:0}
+      .env2 .wbar .seg span{font-family:ui-monospace,monospace;font-weight:800;font-size:.8rem}
+      .env2 .wbar-legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin:12px 0 0;font-size:.76rem;color:var(--mut)}
+      .env2 .wbar-legend span{display:inline-flex;align-items:center;gap:7px}
+      .env2 .wbar-legend i{width:11px;height:11px;border-radius:3px;flex:0 0 auto;display:inline-block}
+      .env2 .wbar-note{font-size:.85rem;line-height:1.55;color:var(--mut);margin:12px 0 0;border-left:3px solid var(--warn);padding-left:12px}
+      .env2 .wbar-note b{color:var(--ink)}
+    </style>
+    <div class="wbar-title"><i class="fas fa-droplet" style="color:var(--ai)"></i> Where Colorado River water actually goes <span class="tag v">Richter et&nbsp;al. 2024</span></div>
+    <div class="wbar">
+      <div class="seg" style="width:32%;background:var(--warn)"><span style="color:var(--bg)">32%</span></div>
+      <div class="seg" style="width:20%;background:color-mix(in srgb,var(--warn) 40%,var(--panel))"><span style="color:var(--ink)">20%</span></div>
+      <div class="seg" style="width:19%;background:color-mix(in srgb,var(--pri) 60%,transparent)"><span style="color:var(--bg)">19%</span></div>
+      <div class="seg" style="width:18%;background:color-mix(in srgb,var(--ai) 62%,transparent)"><span style="color:var(--bg)">18%</span></div>
+      <div class="seg" style="width:11%;background:color-mix(in srgb,var(--mut) 45%,transparent)"><span style="color:var(--ink)">11%</span></div>
+    </div>
+    <div class="wbar-legend">
+      <span><i style="background:var(--warn)"></i><b style="color:var(--ink)">Cattle-feed crops (alfalfa &amp; hay) 32%</b></span>
+      <span><i style="background:color-mix(in srgb,var(--warn) 40%,var(--panel))"></i>Rest of agriculture 20%</span>
+      <span><i style="background:color-mix(in srgb,var(--pri) 60%,transparent)"></i>Natural vegetation 19%</span>
+      <span><i style="background:color-mix(in srgb,var(--ai) 62%,transparent)"></i>Cities + industry 18%</span>
+      <span><i style="background:color-mix(in srgb,var(--mut) 45%,transparent)"></i>Reservoir evaporation 11%</span>
+    </div>
+    <p class="wbar-note"><b>Alfalfa &amp; hay for cattle take ~32% of the river &mdash; a bigger slice than every city and industry
+    combined (18%).</b> Agriculture is 52% overall, and cattle-feed is nearly two-thirds of it. AI's entire water footprint is a
+    fraction of a percent of agriculture &mdash; it wouldn't be a visible sliver on this bar.</p>
+  </div>
+
+  <div class="hsc-wrap">
+    <style>
+      .env2 .hsc-wrap{border:1px solid var(--l);border-radius:14px;padding:15px 17px;margin:16px 0;background:var(--panel)}
+      .env2 .hsc-eye{font-family:ui-monospace,monospace;font-size:.74rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+        color:var(--mut);margin-bottom:4px;display:flex;align-items:center;gap:8px}
+      .env2 .hsc-sub{font-size:.86rem;color:var(--mut);margin:0 0 13px;line-height:1.5}
+      .env2 .hsc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:11px}
+      .env2 .hsc{border:1px solid var(--l);border-radius:12px;padding:13px 14px;background:var(--bg);display:flex;flex-direction:column;gap:4px}
+      .env2 .hsc-ic{font-size:1.35rem;line-height:1}
+      .env2 .hsc-thing{font-weight:700;font-size:.88rem;color:var(--ink);line-height:1.25}
+      .env2 .hsc-num{font-family:ui-monospace,monospace;font-weight:800;font-size:1.18rem;color:var(--ai);margin-top:2px}
+      .env2 .hsc-eq{font-size:.75rem;color:var(--mut);line-height:1.42}
+      .env2 .hsc-note{font-size:.85rem;line-height:1.55;color:var(--mut);margin:13px 0 0;border-left:3px solid var(--pri);padding-left:12px}
+      .env2 .hsc-note b{color:var(--ink)}
+    </style>
+    <div class="hsc-eye"><i class="fas fa-droplet" style="color:var(--ai)"></i> A sense of scale &mdash; water behind everyday things</div>
+    <p class="hsc-sub">Same unit (water), wildly different sizes. Your AI hobby sits at the <em>bottom</em> of this list, not the top.</p>
+    <div class="hsc-grid">
+      <div class="hsc"><div class="hsc-ic">&#128172;</div><div class="hsc-thing">One AI text prompt</div>
+        <div class="hsc-num">0.26 mL</div><div class="hsc-eq">a teaspoon &asymp; 20 prompts <span class="tag v">MEASURED</span></div></div>
+      <div class="hsc"><div class="hsc-ic">&#129526;</div><div class="hsc-thing">Knitting one wool sweater</div>
+        <div class="hsc-num">~1,500 L</div><div class="hsc-eq">&asymp; 400 gal &middot; wool varies a lot <span class="tag e">ESTIMATE</span></div></div>
+      <div class="hsc"><div class="hsc-ic">&#127828;</div><div class="hsc-thing">One hamburger</div>
+        <div class="hsc-num">~660 gal</div><div class="hsc-eq">&asymp; a million+ AI prompts <span class="tag v">Water Footprint Calc.</span></div></div>
+      <div class="hsc"><div class="hsc-ic">&#9971;</div><div class="hsc-thing">One round of golf <small style="color:var(--mut);font-weight:400">(your share)</small></div>
+        <div class="hsc-num">~1,400 gal</div><div class="hsc-eq">&asymp; 2 burgers &middot; ~48M gal/yr &divide; ~34,000 rounds <span class="tag v">GCSAA / NGF</span></div></div>
+    </div>
+    <p class="hsc-note"><b>Nobody calls golfers or knitters environmental villains.</b> Split fairly per person, <b>one round of golf
+    &asymp; ~1,400 gallons</b> &mdash; about two burgers, or a million-plus chatbot prompts &mdash; and a whole course drinks
+    <b>~48&nbsp;million gallons a year</b>. Care about freshwater? The leverage is alfalfa, thermoelectric cooling, and the buildout
+    (&sect;02), not your chatbot.</p>
+  </div>
+
+  <div class="core" style="border-color:var(--alt)">
+    <h3 style="margin-top:6px">"But agriculture feeds <em>living things</em> — so its water doesn't count!"</h3>
+    <p>This is the strongest objection to the whole proportion argument, and it has real moral force: a harvest matters more than a
+    chatbot query, and <em>no one here is arguing otherwise.</em> The proportion point is about <b>scale and leverage</b> — where
+    the water actually is — not a claim that AI's water is somehow more valuable than food. But the "it all feeds people" premise
+    is wrong on the specifics:</p>
+    <ul class="notes">
+      <li><b>The single biggest US water user feeds nothing.</b> Thermoelectric power-plant cooling — ~133 billion gal/day, the #1
+        category (§07 above) — just cools fossil and nuclear plants. No calories at all.</li>
+      <li><b>Much of "agriculture" isn't feeding people either.</b> In the Colorado River Basin, cattle-feed crops (alfalfa, hay)
+        consume <b>~46–55% of the water — nearly two-thirds of all agricultural use</b> (peer-reviewed). Beef runs
+        <b>~1,800 gallons per pound</b>, the least water-efficient calorie there is — and a large share of that alfalfa is
+        <em>exported</em> to feed cattle overseas. That's not "feeding the hungry"; it's discretionary animal feed.</li>
+      <li><b>So the comparison was never "AI vs. food on the table."</b> It's AI vs. the most <em>discretionary, least-efficient</em>
+        water uses — export cattle feed, almonds in drought, power-plant cooling. Against <em>those</em>, AI's water is a rounding
+        error.</li>
+    </ul>
+    <p style="margin:0">The objection changes the moral <em>ranking</em> (food &gt; chatbot — agreed), not the <em>scale</em> (AI is
+    tiny). Both are true at once. If you actually want to relieve a stressed basin, you go after the biggest, most-discretionary
+    users first — and AI isn't in the top tier.</p>
+  </div>
+
+  
+    <div class="etabfoot"><button class="prev" data-go="et-eff"><i class="fas fa-arrow-left"></i>Efficiency</button><span class="sp"></span><button data-go="et-count">What nobody counts<i class="fas fa-arrow-right"></i></button></div>
+  </section>
+  <section class="etab" id="et-count" role="tabpanel">
+<h2 id="waste">09 · What nobody counts, part 1: waste — and the system already wastes most of it</h2>
+  <p>Start with the context that reframes the whole argument: <b>the US energy system already throws away most of the energy it
+  produces.</b> The long-documented Lawrence Livermore energy flow chart shows roughly <em>two-thirds of US primary energy is
+  "rejected"</em> — lost as waste heat in generation and conversion before it does any useful work — with another ~5% of
+  electricity lost in transmission and distribution. AI's marginal draw lands <em>inside</em> a system already running at maybe
+  a third of its theoretical efficiency.</p>
+  <div class="fig">
+    <p class="cap">US energy: rejected (waste heat) vs. useful "energy services." Against a system that discards two-thirds of
+    everything, AI's entire share (§03, ~0.2% of electricity) is the sliver at the bottom.</p>
+    <div id="c-waste-sys"></div>
+    <p class="src">Rejected ~2/3 of primary energy — LLNL energy Sankey, long-established framing <span class="tag e">ESTIMATE (figure lives in the LLNL chart image; not machine-fetched this session)</span> · T&amp;D loss ~5% — US EIA <span class="tag v">MEASURED</span></p>
+  </div>
+  <p>Combine that with §02: the buildout is capex-driven and <em>inelastic to your individual query</em>, and it sits atop
+  enormous pre-existing waste. Focusing on an individual's prompts optimizes a rounding error while the system rejects two-thirds
+  of everything it makes. The real lever is systemic efficiency — which, as it happens, is one of the things AI is measurably
+  good at (§10). Then there's the AI-<em>specific</em> waste the per-query <em>and</em> operational-TWh math both skip:</p>
+  <ul class="notes">
+    <li><b>Embodied carbon &amp; hardware churn.</b> Manufacturing a GPU — TSMC fab energy, HBM stacks, CoWoS packaging — carries
+      a large embodied footprint that <em>no per-query number includes</em>. Accelerators churn on a ~2–3-year cycle
+      (A100 → H100 → H200 → B200); the operational-energy story quietly assumes the hardware just exists.</li>
+    <li><b>E-waste.</b> Decommissioned accelerators, servers, and networking gear — most not recycled, some containing materials
+      whose extraction had its own upstream water and energy cost.</li>
+    <li><b>Speculative overbuild &amp; stranded capacity.</b> The vendor-pipeline forecasting that inflates demand estimates
+      (§04) drives capex ahead of real load. Data centers built on speculation sit underutilized — idle GPUs still draw power and
+      still embody all that manufacturing carbon for little useful work.</li>
+    <li><b>Discarded and redundant training.</b> DeepSeek's own paper says its $5.576M figure <em>excludes</em> "prior research
+      and ablation experiments." Failed runs, models trained and never shipped, and five labs each training a near-identical
+      frontier model are duplicated footprint that never shows up in a per-query stat.</li>
+    <li><b>Wasted inference.</b> Agentic retry loops, needless long-context reprocessing, and reaching for a frontier model where
+      a 7B — or no model — would do. The efficiency gains of §06 are partly eaten here.</li>
+  </ul>
+  <p>None of this has a clean, disclosed number — the conversation fixates on the one quantity with a good meter (operational
+  Wh) and skips the ones that may dominate lifetime impact.</p>
+
+  <div class="core" style="border-color:var(--ai);background:color-mix(in srgb,var(--ai) 7%,transparent)">
+    <h3 style="margin-top:6px">The solution is solarpunk, not crusades</h3>
+    <p style="margin:0 0 10px;font-size:.95rem;line-height:1.62">Here's where the waste story turns into something you can actually
+    <em>do</em> — and it's the opposite of moral policing. When a data center retires older accelerators (§05), and when your own
+    phone or laptop "ages out," that hardware mostly still works. Giving it a <b>second life</b> — scavenging, repairing, and
+    repurposing devices instead of landfilling them — keeps the embodied carbon and extracted materials in use and out of the
+    waste stream. Building cyberdecks from rescued parts, fixing what you have, buying refurbished: this is the high-leverage
+    move. It is <em>far</em> more carbon-consequential than feeling guilty about a chatbot query, and immeasurably more so than
+    arguing about one online.</p>
+    <p style="margin:0;font-size:.95rem;line-height:1.62">That's the ethos we teach at The Multiverse School, and it's the point of
+    this whole page: <b>the solution is solarpunk, not crusades</b> — build, repair, reuse, and push for efficient systems and
+    honest accounting, rather than performative purity contests over individual use. Direct the energy of caring toward the
+    levers that move (retiring old capacity, keeping hardware alive, <a href="/x/ai-datacenter-action">acting locally</a>), not
+    toward each other.</p>
+  </div>
+
+  
+<h2 id="net">10 · What nobody counts, part 2: net — and here the numbers finally exist</h2>
+  <p>Every figure on this page — and in nearly all the coverage — is <em>gross</em>: energy and water going <em>in</em>. The
+  <b>net</b> (gross draw minus what AI displaces or enables) is almost never computed. But it isn't unknowable — the IEA's 2025
+  "Energy and AI" report put real numbers on the credit side, and they dwarf the debit.</p>
+
+  <div class="aoe-wrap" style="border-color:color-mix(in srgb,var(--ai) 34%,var(--l))">
+    <p class="cap"><b style="color:var(--ai)">The leverage, drawn to scale.</b> This is the crux: AI's <em>own</em> emissions are
+    small next to the emissions it can help <em>avoid</em> by making other sectors efficient. Same unit (Mt CO₂, 2035), same scale:</p>
+    <div class="aoe">
+      <div class="sq"><span class="mx" style="color:var(--warn)">≤500 Mt</span>
+        <div class="box" style="width:48px;height:48px;background:color-mix(in srgb,var(--warn) 45%,transparent)"></div>
+        <div class="dsc">emissions AI's data centers <b>add</b> (2035, high case)</div></div>
+      <div class="sq"><span class="mx" style="color:var(--ai)">~1,850 Mt</span>
+        <div class="box" style="width:92px;height:92px;background:color-mix(in srgb,var(--ai) 42%,transparent)"></div>
+        <div class="dsc">emissions AI could help <b>avoid</b> (~5% of energy-related, IEA)</div></div>
+    </div>
+    <p class="aoe-note">When AI drives an efficiency gain <em>at all</em>, it tends to be far larger than the sliver of energy AI
+    itself spends: the avoidable emissions are on the order of <b>~3–4× the emissions its build-out adds</b>. That asymmetry is the
+    whole reason "net" matters — though it stays <b>conditional</b> on those efficiency tools actually scaling (the ledger below is
+    the detail).</p>
+  </div>
+
+  <h3>The IEA net ledger</h3>
+  <p>The debit is real but bounded: data-centre electricity emissions grow from <b>180 Mt CO₂ today to 300 Mt (Base Case) or up
+  to 500 Mt (Lift-Off) by 2035</b>. The credit the IEA models is far larger — emissions reductions from broad application of
+  <em>existing</em> AI solutions could equal <b>~5% of energy-related emissions in 2035</b>. In the report's own words, the
+  data-centre increase "could potentially be offset by emissions reductions enabled by AI if adoption is widespread."</p>
+  <div class="fig">
+    <p class="cap">The IEA ledger, in Mt CO₂. Near-certain data-centre growth (hundreds of Mt) against the <em>potential</em>
+    AI-enabled savings (~5% of energy-sector emissions — on the order of a thousand-plus Mt). The credit is bigger; the credit
+    is also conditional.</p>
+    <div id="c-ledger"></div>
+    <p class="src">DC emissions 180→300–500 Mt by 2035 <span class="tag v">MEASURED (IEA)</span> · savings ~5% of energy-related emissions <span class="tag v">MEASURED (IEA)</span> · Mt conversion ≈ 5% of ~37 Gt global energy CO₂ <span class="tag d">DERIVED</span></p>
+  </div>
+  <p class="caveat"><b>The load-bearing caveat, out loud.</b> The credit is <em>potential</em> and <em>conditional</em> — it
+  assumes widespread deployment of efficiency tools that mostly haven't scaled — while the data-centre growth is near-certain.
+  The IEA says "could potentially," not "will." This is a plausible net-positive <em>path</em>, not a measured net.</p>
+
+  <h3>Where the savings come from — IEA "widespread adoption" scenario</h3>
+  <div class="stats">
+    <div class="sc"><div class="big">~300 TWh</div><p>potential electricity savings in <b>buildings</b> ≈ Australia + NZ combined generation <span class="tag v">MEASURED (IEA)</span></p></div>
+    <div class="sc"><div class="big">120M cars</div><p><b>transport</b> savings equal to the energy used by 120 million cars <span class="tag v">MEASURED (IEA)</span></p></div>
+    <div class="sc"><div class="big">&gt; Mexico</div><p><b>industry</b> process savings exceeding all of Mexico's energy use <span class="tag v">MEASURED (IEA)</span></p></div>
+    <div class="sc"><div class="big">175 GW</div><p><b>grid</b> transmission capacity unlocked with no new lines built <span class="tag v">MEASURED (IEA)</span></p></div>
+  </div>
+  <div class="fig">
+    <p class="cap">One sector vs. the whole "crisis." The buildings-efficiency potential alone (~300 TWh) is about a third of
+    <em>all</em> projected data-centre electricity demand in 2030 (~945 TWh).</p>
+    <div id="c-bldg-vs-dc"></div>
+    <p class="src">Buildings savings ~300 TWh vs total DC demand ~945 TWh (2030) — IEA <span class="tag v">MEASURED</span></p>
+  </div>
+
+  <h3>Already deployed, already measured</h3>
+  <p>Not all of it is projection. DeepMind's control system cut the energy used for <em>cooling</em> Google's data centres by
+  <b>40%</b> (≈15% of total facility PUE overhead); a later autonomous version reached ~30% cooling savings. And GenCast
+  produces a 15-day weather ensemble in <b>8 minutes on a single TPU</b>, versus "hours on a supercomputer with tens of thousands
+  of processors" for the physics-based equivalent — a large compute reduction on a task run constantly.</p>
+  <div class="fig">
+    <div id="c-deepmind"></div>
+    <p class="src">DeepMind cooling 40% / PUE-overhead 15% / autonomous ~30% — Google self-report on its own systems <span class="tag v">MEASURED, interested party</span> · GenCast 8 min on 1 TPU vs supercomputer-hours <span class="tag v">MEASURED, inference only</span></p>
+  </div>
+
+  <h3>Read the credit side carefully — sort each figure by what it actually measures</h3>
+  <p>The honest failure mode here is the one this page criticizes everywhere else: quoting a flashy percentage as if it were an
+  emissions cut when it measures something different. Sorted by evidence, the credit side looks like this:</p>
+  <style>
+    .env2 .tiers{display:flex;flex-direction:column;gap:9px;margin:12px 0}
+    .env2 .tier{border:1px solid var(--l);border-left-width:3px;border-radius:0 11px 11px 0;padding:11px 14px;background:var(--panel)}
+    .env2 .tier .tlab{display:inline-block;font-family:ui-monospace,monospace;font-size:.62rem;font-weight:700;letter-spacing:.04em;
+      padding:2px 7px;border-radius:5px;margin-bottom:6px}
+    .env2 .tier .tb{font-size:.9rem;line-height:1.5;color:var(--ink)}
+    .env2 .tier.meas{border-left-color:var(--ai)}.env2 .tier.meas .tlab{background:color-mix(in srgb,var(--ai) 20%,transparent);color:var(--ai)}
+    .env2 .tier.shift{border-left-color:var(--alt)}.env2 .tier.shift .tlab{background:color-mix(in srgb,var(--alt) 20%,transparent);color:var(--alt)}
+    .env2 .tier.val{border-left-color:var(--crypto)}.env2 .tier.val .tlab{background:color-mix(in srgb,var(--crypto) 22%,transparent);color:var(--crypto)}
+    .env2 .tier.det{border-left-color:var(--pri)}.env2 .tier.det .tlab{background:color-mix(in srgb,var(--pri) 20%,transparent);color:var(--pri)}
+    .env2 .tier.en{border-left-color:var(--mut)}.env2 .tier.en .tlab{background:color-mix(in srgb,var(--mut) 18%,transparent);color:var(--mut)}
+  </style>
+  <div class="tiers">
+    <div class="tier meas"><span class="tlab">MEASURED ENERGY CUT</span>
+      <div class="tb"><b>HVAC −15.8%</b> in one 1983-built NYC office tower over 11 months (234,821 kWh / 37 tCO₂e, BrainBox AI) ·
+      <b>−2.6%</b> specific heat on one cement kiln, 845→822 kcal/kg (Siemens). <span class="tag e">vendor case studies, single site — illustrative, not portfolio-wide</span></div></div>
+    <div class="tier shift"><span class="tlab">LOAD-SHIFT, NOT A CUT</span>
+      <div class="tb">AI-managed EV charging cut <b>peak-period load 42%</b> — but with <b>0% change in total energy</b> (RCT, 13,000+ UK
+      households). Emissions fall only if the off-peak grid is cleaner. <span class="tag v">strong RCT evidence</span></div></div>
+    <div class="tier val"><span class="tlab">VALUE, NOT EMISSIONS</span>
+      <div class="tb">ML wind forecasting raised the <b>market value</b> of a 700 MW fleet <b>~20%</b> (DeepMind) — dispatchability, not
+      MWh or CO₂ saved. <span class="tag e">self-reported</span></div></div>
+    <div class="tier det"><span class="tlab">DETECTION, NOT AVOIDANCE</span>
+      <div class="tb">ML on satellite data auto-detected <b>2,974 methane super-emitter plumes</b> in 2021 (mean 44 t/h) — tonnes
+      actually prevented depend on operators acting on the alerts. <span class="tag v">peer-reviewed</span></div></div>
+    <div class="tier en"><span class="tlab">ENABLING, NOT REALIZED</span>
+      <div class="tb">AI screened <b>32M → 18 battery-material candidates in 80 hours</b> (potential −70% lithium, Microsoft) — R&amp;D
+      acceleration, zero MWh saved yet, and it "might not work out … at larger scale." <span class="tag e">self-reported, early-stage</span></div></div>
+  </div>
+  <p class="caveat">And every one of these sits against the <b>Jevons rebound</b>: peer-reviewed work warns that "just because an AI
+  model becomes more efficient … the inverse effect [more total consumption] is highly plausible." A real credit side — read
+  honestly, tier by tier — is still not a green halo.</p>
+
+  <p class="core" style="border-color:var(--alt);background:color-mix(in srgb,var(--alt) 7%,transparent)">
+    <b style="display:block;margin-bottom:4px;color:var(--alt)">The honest statement, updated</b>
+    The <em>sign</em> of AI's net effect still isn't formally closed — no one has completed the full ledger (gross draw +
+    embodied + waste − displaced − enabled, net of Jevons rebound). But "we have no idea" is no longer honest either. The credit
+    side now has real, sourced figures plausibly an order of magnitude larger than the data-centre debit — <em>if</em> the
+    efficiency tools actually scale. The defensible claim was never "AI is green." It's that the gross number everyone quotes is
+    the small, easy half of a ledger whose other half is finally being measured.</p>
+
+  
+    <div class="etabfoot"><button class="prev" data-go="et-water"><i class="fas fa-arrow-left"></i>Water &amp; proportion</button><span class="sp"></span><button data-go="et-disc">Discourse &amp; harms<i class="fas fa-arrow-right"></i></button></div>
+  </section>
+  <section class="etab" id="et-disc" role="tabpanel">
+<h2 id="framing">11 · Why the discourse is broken — and the harms that are actually real</h2>
+  <p>Why is a ~0.2%-of-electricity load reported like an apocalypse? Because the alarming numbers are thinly sourced and
+  corrections don't travel. The "training one model = five cars' lifetimes" headline (MIT Technology Review's phrasing, <em>not</em>
+  the paper's) came from an <em>atypical</em> neural-architecture-search run: Strubell et al. 2019 reported <b>626,155 lbs CO₂e</b>
+  for that search — ÷ 126,000 lbs for a car's lifetime ≈ 5 — while the same paper's normal BERT training was just <b>1,438 lbs</b>.
+  Google's Patterson et al. then recalculated the search on the actual hardware and found the original <b>88× too high</b> (their
+  verbatim "reduce by 88X"; ~18.7× for an average operator, 88× for an efficient one like Google — Strubell had assumed the search
+  ran on full-size tasks when it used small proxy tasks). The 2019 "Netflix is boiling the planet" panic was likewise corrected by
+  the IEA <b>~90× lower</b>. Same structure as the dot-com "a lump of coal per book ordered" scare — off by orders of magnitude,
+  every time.</p>
+  <div class="fig">
+    <div id="c-debunk"></div>
+    <p class="src">Strubell 2019: NAS 626,155 lbs vs BERT 1,438 lbs (Tables 1&amp;3) <span class="tag v">VERIFIED</span> · Patterson 2021 "reduce by 88X" (arXiv 2104.10350) <span class="tag v">VERIFIED</span> · Netflix "1.6 kg/30 min" → IEA ~0.018 kg, ~90× lower <span class="tag v">MEASURED</span></p>
+  </div>
+  <div class="interest"><b>And the debunkers are interested parties too — hold both</b>
+    David Patterson works at Google; Daniel Castro's Center for Data Innovation is industry-aligned; Bender &amp; Hanna's
+    framing critique in <em>The AI Con</em> is its own polemic (not fetched this session). The correct posture is neither the
+    panic nor the "it's tiny, like airlines" dismissal — it's demanding <em>disclosed, granular data</em> (utilization, PUE,
+    lifecycle vs GPU-only, embodied, net) before believing any single number in either direction.</div>
+  <p style="margin-top:18px">The harms that <em>are</em> concrete are local and infrastructural, not per-prompt:</p>
+  <ul class="notes">
+    <li><b>Localized grid strain &amp; cost-shifting</b> — a gigawatt campus on a regional grid can raise capacity costs for
+      existing ratepayers and delay other interconnections. National averages hide this entirely.</li>
+    <li><b>Air emissions &amp; environmental justice</b> — xAI's "Colossus" in South Memphis, beside the historically Black
+      Boxtown neighborhood, ran up to 35 gas turbines (per SELC aerial imagery) largely without Clean Air Act permits (~1,200–
+      2,000 t/yr NOₓ). NAACP / SELC / Earthjustice litigated. The harm is <em>air from on-site turbines, not water</em> — the
+      opposite of the viral framing.</li>
+    <li><b>Water in already-stressed basins</b> — sector proportion doesn't help the specific aquifer next to a specific facility
+      in Arizona or Spain. Proportion is an argument about priorities, not a free pass on siting.</li>
+    <li><b>Embodied &amp; waste</b> (§07) and the <b>uncomputed net</b> (§08) — the parts most likely to dominate, least likely
+      to be measured.</li>
+  </ul>
+
+  <style>
+    .env2 .cta{border:1px solid var(--acc);border-radius:14px;padding:16px 18px;margin:16px 0;
+      background:linear-gradient(150deg,color-mix(in srgb,var(--acc) 10%,var(--panel)),var(--panel) 66%)}
+    .env2 .cta h3{margin:2px 0 6px}
+    .env2 .cta p{font-size:.94rem;line-height:1.6;margin:0 0 10px}
+    .env2 .cta-btn{display:inline-flex;align-items:center;gap:9px;margin-top:2px;font-weight:800;font-size:.92rem;
+      text-decoration:none;color:var(--bg);background:var(--acc);border-radius:11px;padding:11px 18px;transition:all .13s}
+    .env2 .cta-btn:hover{transform:translateY(-1px);box-shadow:0 8px 20px -8px color-mix(in srgb,var(--acc) 70%,transparent)}
+    .env2 .cta .big64c{display:inline-flex;align-items:baseline;gap:8px;font-family:ui-monospace,monospace;
+      font-weight:800;font-size:1.5rem;color:var(--acc);margin:2px 0 8px}
+    .env2 .cta .big64c span{font-size:.8rem;font-weight:600;color:var(--mut);font-family:var(--font-primary,sans-serif)}
+  </style>
+  <div class="cta">
+    <h3>Aim the energy of caring at the lever that actually moves</h3>
+    <p>Notice the loop: the sprawling discourse <em>about</em> AI's footprint has a footprint of its own. A single 30-minute
+    explainer video costs roughly <b>600 prompts</b>' worth of carbon (§08); the doomscrolling, the threads, and the arguments
+    plausibly outweigh the queries they condemn. Being furious online is <em>not</em> the low-impact option — and it's these days
+    a bigger and bigger share of the very thing it's mad about.</p>
+    <p>The high-leverage move isn't policing a friend's chatbot use. It's <b>local</b> — a rezoning vote or a utility-commission
+    docket decides whether a gigawatt campus gets built next to you and who pays for its grid. Communities have already blocked
+    or delayed:</p>
+    <div class="big64c">$64B<span>of data-center projects, via local opposition</span></div>
+    <a class="cta-btn" href="/x/ai-datacenter-action">See who to hold accountable &amp; how to act locally <i class="fas fa-arrow-right"></i></a>
+  </div>
+
+  <div class="bottom"><b>The bottom line</b>
+    <p>Per-query energy is not a mystery — it's <code>GPUs × TDP × time ÷ batch</code>, measurable on open models you can buy the
+    hardware for, and it comes out small. Data centers are ~1.5% of electricity and <em>AI is ~0.2%</em> — real and growing,
+    not planet-boiling. The scariest projections run on vendors' sales pipelines.</p>
+    <p>The parts that actually matter are the parts nobody counts: <em>waste</em> (embodied hardware, churn, overbuild, discarded
+    runs) and <em>net</em> (we tally gross draw and never subtract what AI displaces or enables — the sign is unknown). The job
+    isn't to pick the scariest number. It's to disambiguate, demand disclosed data, and admit what hasn't been calculated.</p></div>
+
+  
+<h2 style="border:none;text-transform:none;font-family:inherit;color:var(--ink);font-size:1.18rem">Sources</h2>
+  <ul class="srcs">
+    <li><a href="https://arxiv.org/abs/2311.16863" target="_blank" rel="noopener">Luccioni et al., "Power Hungry Processing"</a> — metered open-model energy, A100</li>
+    <li><a href="https://ml.energy/leaderboard/" target="_blank" rel="noopener">ML.Energy Leaderboard</a> — live measured per-model energy on A100/H100</li>
+    <li><a href="https://www.nvidia.com/en-us/data-center/a100/" target="_blank" rel="noopener">NVIDIA A100</a> / <a href="https://www.nvidia.com/en-us/data-center/h100/" target="_blank" rel="noopener">H100</a> — published TDP specs</li>
+    <li><a href="https://docs.vllm.ai/" target="_blank" rel="noopener">vLLM</a> — continuous batching (the utilization lever)</li>
+    <li><a href="https://arxiv.org/html/2412.19437v1" target="_blank" rel="noopener">DeepSeek-V3 technical report</a> — 37B/671B MoE; $5.576M final run (excl. R&amp;D)</li>
+    <li><a href="https://epoch.ai/gradient-updates/how-much-energy-does-chatgpt-use" target="_blank" rel="noopener">Epoch AI (2025)</a> — ~0.3 Wh estimate; its "10% utilization" assumption</li>
+    <li><a href="https://cloud.google.com/blog/products/infrastructure/measuring-the-environmental-impact-of-ai-inference" target="_blank" rel="noopener">Google (2025)</a> — measured 0.24 Wh / 0.26 ml; 33×/44×; 0.10 vs 0.24</li>
+    <li><a href="https://datacenters.google/efficiency/" target="_blank" rel="noopener">Google efficiency</a> — fleet PUE 1.09; &gt;6× compute per unit electricity</li>
+    <li><a href="https://www.iea.org/reports/energy-and-ai" target="_blank" rel="noopener">IEA "Energy and AI" (2025)</a> — 945 TWh by 2030 (≈ Japan)</li>
+    <li><a href="https://www.iea.org/reports/electricity-2024/executive-summary" target="_blank" rel="noopener">IEA Electricity 2024</a> — the DC+AI+crypto bundle</li>
+    <li><a href="https://www.goldmansachs.com/insights/articles/ai-to-drive-165-increase-in-data-center-power-demand-by-2030" target="_blank" rel="noopener">Goldman Sachs</a> — AI 14%→27% of DC load; +165% scenario</li>
+    <li><a href="https://www.latitudemedia.com/news/catalyst-a-skeptics-take-on-ai-electricity-load-growth/" target="_blank" rel="noopener">Koomey, Catalyst</a> — "NVIDIA's business plan"; dot-com 13% vs 3%</li>
+    <li><a href="https://blog.giovanh.com/blog/2024/08/18/is-ai-eating-all-the-energy-part-1-of-2/" target="_blank" rel="noopener">GiovanH</a> — opacity, inference≪training</li>
+    <li><a href="http://www.fao.org/aquastat/en/overview/methodology/water-use/index.html" target="_blank" rel="noopener">FAO/AQUASTAT</a> — agriculture 69% / industry 19% / municipal 12%</li>
+    <li><a href="https://www.latimes.com/environment/story/2024-03-28/hay-consumes-a-vast-share-of-the-colorado-rivers-water" target="_blank" rel="noopener">LA Times / Richter et al.</a> — cattle-feed crops ~46–55% of Colorado River water</li>
+    <li><a href="https://foodprint.org/issues/the-water-footprint-of-food/" target="_blank" rel="noopener">FoodPrint</a> — beef ~1,800 gal/lb water footprint</li>
+    <li><a href="https://www.usgs.gov/special-topics/water-science-school/science/total-water-use-united-states" target="_blank" rel="noopener">USGS</a> — thermoelectric 133 + irrigation 118 Bgal/day</li>
+    <li><a href="https://www.microsoft.com/en-us/microsoft-cloud/blog/2024/12/09/sustainable-by-design-next-generation-datacenters-consume-zero-water-for-cooling/" target="_blank" rel="noopener">Microsoft (2024)</a> — closed-loop, &gt;125M L/yr avoided</li>
+    <li><a href="https://arxiv.org/pdf/2304.03271" target="_blank" rel="noopener">Li et al. (2023)</a> — "Making AI Less Thirsty" (the over-cited GPT-3 source)</li>
+    <li><a href="https://mistral.ai/news/our-contribution-to-a-global-environmental-standard-for-ai" target="_blank" rel="noopener">Mistral (2025)</a> — peer-reviewed LCA, ~45 ml/response</li>
+    <li><a href="https://arxiv.org/pdf/2104.10350" target="_blank" rel="noopener">Patterson et al. (2021)</a> — recalculated NAS emissions 88× lower</li>
+    <li><a href="https://www2.datainnovation.org/2024-ai-energy-use.pdf" target="_blank" rel="noopener">Center for Data Innovation (Castro)</a> — Strubell debunk; Google ML flat-share</li>
+    <li><a href="https://thenewpress.com/books/ai-con" target="_blank" rel="noopener">Bender &amp; Hanna, <em>The AI Con</em></a> — framing critique</li>
+    <li><a href="https://www.proofnews.org/youtube-ai-search/" target="_blank" rel="noopener">Alexander Avila — "AI Wars" bibliography</a> — compiled skeptical source set</li>
+    <li><a href="https://naacp.org/articles/naacp-selc-earthjustice-threaten-lawsuit-over-xais-unpermitted-gas-turbines-mississippi" target="_blank" rel="noopener">NAACP / SELC / Earthjustice</a> — xAI Memphis turbines</li>
+    <li><a href="https://brainboxai.com/en/case-studies/cammebys-achieves-15.8-reduction-in-hvac-energy-use-and-costs" target="_blank" rel="noopener">BrainBox AI (Cammeby's)</a> — HVAC −15.8% (measured, single building)</li>
+    <li><a href="https://bfi.uchicago.edu/wp-content/uploads/2025/10/AI-in-Charge.pdf" target="_blank" rel="noopener">Centre for Net Zero / U. Chicago BFI</a> — EV charging RCT, 42% peak / 0% total</li>
+    <li><a href="https://acp.copernicus.org/articles/23/9071/2023" target="_blank" rel="noopener">Atmos. Chem. Phys. (2023)</a> — ML methane super-emitter detection</li>
+    <li><a href="https://deepmind.google/blog/machine-learning-can-boost-the-value-of-wind-energy" target="_blank" rel="noopener">DeepMind</a> — wind forecasting +20% value</li>
+    <li><a href="https://assets.new.siemens.com/siemens/assets/api/uuid:43d0c42a-27e5-4b3a-a4d7-a60852982cf1/2023ieeeaiforkiln.pdf" target="_blank" rel="noopener">Siemens (IEEE 2023)</a> — cement kiln −2.6% specific heat</li>
+    <li><a href="https://news.microsoft.com/source/features/innovation/how-ai-and-hpc-are-speeding-up-scientific-discovery" target="_blank" rel="noopener">Microsoft</a> — AI battery-material screening (enabling)</li>
+    <li><a href="https://valueaddvc.com/blog/big-tech-ai-capex-in-2025-microsoft-google-meta-amazon-and-the-spending-race" target="_blank" rel="noopener">Big-Tech AI capex tracker</a> — $226B→$410B→$725B (2024–26)</li>
+    <li><a href="https://www.softwareseni.com/tsmc-cowos-packaging-the-silent-bottleneck-in-the-ai-chip-supply-chain" target="_blank" rel="noopener">TSMC CoWoS bottleneck</a> — ~90% share, "sold out into 2026"</li>
+    <li><a href="https://www.latitudemedia.com/news/report-global-grid-congestion-puts-20-of-data-center-projects-at-risk" target="_blank" rel="noopener">Grid interconnection queues</a> — 5–10 yr, ~20% of projects at risk</li>
+    <li><a href="https://daloopa.com/blog/analyst-pov/nvidia-customer-concentration-a-big-4-earnings-preview" target="_blank" rel="noopener">Nvidia customer concentration</a> — top-2 ≈ 36% of revenue</li>
+    <li><a href="https://www.iea.org/reports/global-energy-review-2025/electricity" target="_blank" rel="noopener">IEA Global Energy Review 2025</a> — global electricity demand +1,100 TWh (+4.3%) in 2024</li>
+    <li><a href="https://blog.andymasley.com/p/the-ai-water-issue-is-fake" target="_blank" rel="noopener">Andy Masley</a> — "The AI water issue is fake"</li>
+    <li><a href="https://arstechnica.com/ai/2026/06/when-it-comes-to-total-water-use-ai-data-centers-are-a-drop-in-the-bucket" target="_blank" rel="noopener">Ars Technica</a> — AI water "a drop in the bucket"</li>
+    <li><a href="https://hannahritchie.substack.com/p/carbon-footprint-chatgpt" target="_blank" rel="noopener">Hannah Ritchie</a> — ChatGPT carbon footprint, "very small"</li>
+    <li><a href="https://www.technologyreview.com/2025/11/06/1127579/ai-footprint" target="_blank" rel="noopener">MIT Tech Review</a> — "Stop worrying about your AI footprint"</li>
+    <li><a href="https://www.bbc.com/news/technology-67053139" target="_blank" rel="noopener">BBC / de Vries 2023</a> — "as much energy as the Netherlands"</li>
+    <li><a href="https://www.euronews.com/2023/04/20/chatgpt-drinks-a-bottle-of-fresh-water-for-every-20-to-50-questions-we-ask-study-warns" target="_blank" rel="noopener">Euronews / Li et al. 2023</a> — "bottle of water" headline</li>
+  </ul>
+
+  <p class="src" style="margin-top:22px">Part of the <a href="/x/ai-problems-index">AI Problems Index</a> ·
+  see the <a href="/x/ai-safety-research">Research Library</a> and <a href="/x/ai-risk-atlas">Risk Atlas</a>.
+  Hardware figures are published TDP × standard serving arithmetic — reproducible on rented or owned GPUs. Ranges, not points.</p>
+
+    <div class="etabfoot"><button class="prev" data-go="et-count"><i class="fas fa-arrow-left"></i>What nobody counts</button><span class="sp"></span></div>
+  </section>
+  </div>
+</div>
+
+
+
+<script>
+(function(){
+  const root=document.querySelector('.env2');
+  const cv=n=>getComputedStyle(root).getPropertyValue(n).trim();
+  const AI=cv('--ai'), ALT=cv('--alt'), WARN=cv('--warn'), CRY=cv('--crypto'), MUT=cv('--mut');
+  // subtle theme-safe pill gradient derived from the bar's own hue (white/black mixed INTO the color = valid shades)
+  const fs=c=>`linear-gradient(180deg,color-mix(in srgb,${c} 88%,#fff 12%),color-mix(in srgb,${c} 92%,#000 8%))`;
+
+  function bars(id, rows, max, opts){
+    opts=opts||{};
+    const el=document.getElementById(id); if(!el) return;
+    const base=opts.base||0, gl=opts.grid?' gl':'';
+    const head=opts.head?`<div class="bhead">${opts.head}</div>`:'';
+    el.innerHTML=head+rows.map(r=>{
+      const frac = base ? (r.v-base)/(max-base) : (r.v/max);
+      const pct = Math.max(base?0.4:1.5, frac*100);
+      const cc = r.chipc||r.c;
+      const chip = r.chip?`<span class="bchip" style="color:${cc};border-color:color-mix(in srgb,${cc} 45%,var(--l))">${r.chip}</span>`:'';
+      return `<div class="brow"><div class="blab">${r.k}</div><div class="btrack${gl}"><div class="bfill" style="width:${pct}%;background:${fs(r.c)}"></div>${chip}</div><div class="bval" style="color:${r.c}">${r.t}</div></div>`;
+    }).join('');
+  }
+
+  // 01 measured open-model energy — batched (green) vs single-user (amber/red), same silicon
+  bars('c-measured',[
+    {k:'Small text model (metered)',v:0.047,t:'0.047 Wh',c:AI},
+    {k:'70B batched (derived)',v:0.2,t:'~0.05–0.3 Wh',c:AI,chip:'10–50×'},
+    {k:'Image gen, avg (metered)',v:2.9,t:'~2.9 Wh',c:ALT},
+    {k:'70B unbatched (derived)',v:6,t:'~2–10 Wh',c:ALT},
+    {k:'Stable Diffusion XL (metered)',v:11.5,t:'~11.5 Wh',c:WARN}
+  ],12,{grid:true,head:'per-query energy · same model + silicon, batched (green) vs single-user (amber/red) — the swing is batching, §01'});
+
+  // 04 PUE — overhead above a perfect 1.00 baseline (fill = overhead, not the whole value)
+  bars('c-pue',[
+    {k:'Perfect (no overhead)',v:1.0,t:'1.00',c:MUT,chip:'0%'},
+    {k:'Google fleet 2025',v:1.09,t:'1.09',c:AI,chip:'+9%'},
+    {k:'Industry average 2025',v:1.54,t:'~1.54',c:WARN,chip:'+54%'}
+  ],1.6,{base:1.0,head:'facility overhead above a perfect PUE of 1.00 (bar = the overhead, not the whole ratio)'});
+
+  // 07 per-query water — boundary-choice gap
+  bars('c-water',[
+    {k:'Google 2025 (on-site cooling)',v:0.26,t:'0.26 ml',c:AI},
+    {k:'Mistral 2025 (full life-cycle)',v:45,t:'~45 ml',c:ALT,chip:'≈170×'}
+  ],48,{grid:true,head:'per-query water — the gap is a boundary choice (on-site cooling vs full life-cycle), not a contradiction'});
+
+  // 11 debunk magnitudes — how many × too high the viral number was
+  bars('c-debunk',[
+    {k:'Netflix streaming panic',v:90,t:'~90× too high',c:WARN},
+    {k:'"AI training = 5 cars" (NAS)',v:88,t:'88× too high',c:WARN}
+  ],95,{grid:true,head:'each viral number, once corrected, was this many × too high →'});
+
+  // 10 buildings AI savings vs all DC demand (TWh)
+  bars('c-bldg-vs-dc',[
+    {k:'Buildings AI savings',v:300,t:'~300 TWh',c:AI,chip:'≈ 1/3 of DC'},
+    {k:'All data-center demand 2030',v:945,t:'~945 TWh',c:WARN}
+  ],960,{grid:true,head:'one AI-savings sector vs the entire projected data-center demand'});
+
+  // 10 DeepMind measured deployments
+  bars('c-deepmind',[
+    {k:'Cooling energy cut',v:40,t:'40%',c:AI},
+    {k:'Autonomous (later)',v:30,t:'~30%',c:AI},
+    {k:'Total PUE overhead cut',v:15,t:'15%',c:ALT}
+  ],42,{grid:true,head:'DeepMind on Google’s own data centres — measured, interested party'});
+
+  // 03 nested shares — grid ▸ all data centers ▸ AI's slice of that
+  (function(){
+    const el=document.getElementById('c-nest'); if(!el) return;
+    el.innerHTML=`
+      <div class="bhead">nesting: global grid ▸ all data centers ▸ AI’s slice of that (AI is a slice of a slice)</div>
+      <div class="nctx"><span class="nmark" style="background:${AI}"></span><span class="nmark n2" style="background:${CRY}"></span></div>
+      <div class="ncap">▏ those two hair-thin marks at the far left are the <b>entire</b> load: <b style="color:${AI}">all data centers ~1.5% of grid</b> · <b style="color:${CRY}">crypto ~0.4%</b>. Everything else on the track is the rest of the world’s electricity.</div>
+      <div class="nzoomlab">⤷ now expand just the ~1.5% “all data centers” sliver to full width:</div>
+      <div class="nzoom"><span class="nseg" style="left:0;width:14%;background:${fs(AI)}"><span class="on">AI 14%</span></span><span class="nseg nother" style="left:14%;width:86%"><span>other DC uses — streaming, cloud, storage, crypto…</span></span></div>
+      <div class="nfoot"><b style="color:${AI}">AI = 14% of data centers ≈ 0.2% of global electricity</b> — real and growing fast, two orders of magnitude below the “boiling the planet” register.</div>`;
+  })();
+
+  // 07 water by sector — 100% stacked; DC cooling is a sliver INSIDE the 19% industry slice
+  (function(){
+    const el=document.getElementById('c-water-sector'); if(!el) return;
+    el.innerHTML=`
+      <div class="bhead">global freshwater withdrawals — 100% stacked (FAO/AQUASTAT)</div>
+      <div class="sbar">
+        <div class="sseg" style="width:69%;background:${fs(ALT)}"><span class="on">Agriculture 69%</span></div>
+        <div class="sseg" style="width:19%;background:${fs(AI)}"><span class="on">Industry 19%</span><i class="submark" title="all data-center cooling sits inside this slice"></i></div>
+        <div class="sseg" style="width:12%;background:${fs(MUT)}"><span class="on">12%</span></div>
+      </div>
+      <div class="sleg"><span><i style="background:${ALT}"></i>Agriculture 69%</span><span><i style="background:${AI}"></i>Industry 19% <b>— contains ALL data-center cooling</b></span><span><i style="background:${MUT}"></i>Municipal 12%</span></div>
+      <div class="ncap">Data-center cooling is the thin dark inset <b>inside</b> the 19% industry slice — not a bar of its own.</div>`;
+  })();
+
+  // 09 systemic waste — 100% stacked primary energy; AI is a SEPARATE thin sliver (different denominator: electricity)
+  (function(){
+    const el=document.getElementById('c-waste-sys'); if(!el) return;
+    el.innerHTML=`
+      <div class="bhead">US primary energy — most is thrown away before any useful work</div>
+      <div class="sbar">
+        <div class="sseg" style="width:66%;background:${fs(WARN)}"><span class="on">Rejected · ~2/3 of energy</span></div>
+        <div class="sseg" style="width:34%;background:${fs(AI)}"><span class="on">Useful · ~1/3</span></div>
+      </div>
+      <div class="slivwrap">
+        <div class="slivtrack"><div class="slivfill" style="background:${fs(CRY)}"></div><span class="slivptr">◂ AI’s entire electricity share is this ~1-pixel sliver</span></div>
+        <div class="ncap"><b style="color:${CRY}">AI ~0.2%</b> of electricity (§03) — a rounding error dropped inside a system that already discards two-thirds of everything it makes. <span style="font-size:.78rem">(Note: the 66/34 split is a share of <em>primary energy</em>; AI’s ~0.2% is a share of <em>electricity</em> — a different, smaller base, so it is shown separately, not stacked in.)</span></div>
+      </div>`;
+  })();
+
+  // 10 net ledger — diverging: emissions ADDED (debit, left) vs AVOIDED (credit, right)
+  (function(){
+    const el=document.getElementById('c-ledger'); if(!el) return;
+    const S=1850; // half-scale = largest magnitude
+    const deb=[
+      {k:'DC emissions today',v:180,t:'180 Mt',c:MUT},
+      {k:'DC 2035 Base Case',v:300,t:'300 Mt',c:WARN},
+      {k:'DC 2035 Lift-Off',v:500,t:'500 Mt',c:WARN}
+    ];
+    const cred={k:'AI savings potential*',v:1850,t:'~5% ≈ 1,850 Mt',c:AI};
+    const drows=deb.map(r=>{
+      const w=(r.v/S)*50;
+      return `<div class="dvrow"><div class="dvlab">${r.k}</div><div class="dvtrack"><span class="dvzero"></span><span class="dvbar deb" style="right:50%;width:${w}%;background:${fs(r.c)}"></span><span class="dvval deb" style="right:calc(50% + ${w}% + 7px);color:${r.c}">${r.t}</span></div></div>`;
+    }).join('');
+    const wc=(cred.v/S)*50;
+    const crow=`<div class="dvrow"><div class="dvlab">${cred.k}</div><div class="dvtrack"><span class="dvzero"></span><span class="dvbar cred" style="left:50%;width:${wc}%;background:${fs(cred.c)}"><span class="dvval">${cred.t}</span></span></div></div>`;
+    el.innerHTML=`<div class="bhead"><span style="color:${WARN}">◄ emissions ADDED (debit)</span> &nbsp;·&nbsp; <span style="color:${AI}">emissions AVOIDED (credit) ►</span></div>${drows}${crow}<div class="ncap"><b style="color:${AI}">the credit ≈ 3.7× the Lift-Off debit</b> — but it is <b>CONDITIONAL</b>: the IEA says “could potentially,” not “will.” Potential path, not a measured net.</div>`;
+  })();
+
+  // 04 aggregate line chart 2024 -> 2030 (unchanged geometry)
+  (function(){
+    const svg=document.getElementById('c-grid'); if(!svg) return;
+    const vb=svg.viewBox.baseVal,W=vb.width,H=vb.height,P={l:52,r:20,t:20,b:38};
+    const AIc=cv('--ai'), GRID=cv('--grid');
+    const pts=[{x:2024,y:415},{x:2030,y:945}];
+    const xs=v=>P.l+((v-2024)/6)*(W-P.l-P.r), ys=v=>P.t+(1-v/1000)*(H-P.t-P.b);
+    const NS='http://www.w3.org/2000/svg';
+    const mk=(t,a,txt)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;return e;};
+    [0,250,500,750,1000].forEach(g=>{svg.appendChild(mk('line',{x1:P.l,y1:ys(g),x2:W-P.r,y2:ys(g),stroke:GRID}));
+      svg.appendChild(mk('text',{x:P.l-8,y:ys(g)+4,'text-anchor':'end',class:'tick'},g));});
+    [2024,2026,2028,2030].forEach(yr=>svg.appendChild(mk('text',{x:xs(yr),y:H-14,'text-anchor':'middle',class:'tick'},yr)));
+    svg.appendChild(mk('text',{x:(P.l+W-P.r)/2,y:H-1,'text-anchor':'middle',class:'annot'},'global data-center electricity — ALL uses, not just AI (TWh)'));
+    const area='M'+xs(2024)+' '+ys(0)+' L'+xs(2024)+' '+ys(415)+' L'+xs(2030)+' '+ys(945)+' L'+xs(2030)+' '+ys(0)+' Z';
+    svg.appendChild(mk('path',{d:area,fill:AIc,'fill-opacity':.13}));
+    svg.appendChild(mk('path',{d:'M'+xs(2024)+' '+ys(415)+' L'+xs(2030)+' '+ys(945),fill:'none',stroke:AIc,'stroke-width':2.5}));
+    pts.forEach(p=>{svg.appendChild(mk('circle',{cx:xs(p.x),cy:ys(p.y),r:5,fill:AIc,stroke:cv('--panel'),'stroke-width':2}));
+      svg.appendChild(mk('text',{x:xs(p.x),y:ys(p.y)-12,'text-anchor':'middle',class:'vlab'},p.y+' TWh'));});
+    svg.appendChild(mk('text',{x:xs(2027),y:ys(560),class:'annot',fill:AIc},'more than doubles by 2030 (≈ Japan)'));
+  })();
+})();
+</script>
+
+<script>
+(function(){
+  var root=document.querySelector('.env2'); if(!root) return;
+  var btns=[].slice.call(root.querySelectorAll('.etab-btn'));
+  var panels=[].slice.call(root.querySelectorAll('.etab'));
+  var bar=root.querySelector('#etabbar');
+  var ids=btns.map(function(b){return b.dataset.tab;});
+  var labels=btns.map(function(b){return b.textContent.replace(/^\s*\d+\s*/,'').trim();});
+  var N=ids.length;
+  // build progress dots
+  var dotsEl=root.querySelector('#etabdots'), dots=[];
+  if(dotsEl){ ids.forEach(function(){ var d=document.createElement('i'); dotsEl.appendChild(d); dots.push(d); }); }
+  var countEl=root.querySelector('#etabcount');
+  var emPrev=root.querySelector('#em-prev'), emNext=root.querySelector('#em-next'),
+      emCount=root.querySelector('#em-count'), emNextName=root.querySelector('#em-nextname');
+  function updateNav(id){
+    var i=ids.indexOf(id); if(i<0) return;
+    if(countEl) countEl.textContent=(i+1)+' of '+N;
+    dots.forEach(function(d,k){ d.classList.toggle('on',k===i); });
+    if(emCount) emCount.textContent='Section '+(i+1)+' of '+N;
+    if(emPrev){ emPrev.disabled=(i===0); emPrev.dataset.go=(i>0?ids[i-1]:''); }
+    if(emNext){
+      if(i<N-1){ emNext.disabled=false; emNext.dataset.go=ids[i+1];
+        if(emNextName) emNextName.textContent=labels[i+1]; }
+      else { emNext.disabled=true; emNext.dataset.go='';
+        if(emNextName) emNextName.textContent='End of guide'; }
+    }
+  }
+  if(emPrev) emPrev.addEventListener('click',function(){ if(emPrev.dataset.go) activate(emPrev.dataset.go); });
+  if(emNext) emNext.addEventListener('click',function(){ if(emNext.dataset.go) activate(emNext.dataset.go); });
+  function stickyOffset(){ return 64; }
+  function scrollToTop(){
+    var y=window.scrollY + (bar?bar.getBoundingClientRect().top:root.getBoundingClientRect().top) - 8;
+    window.scrollTo({top:Math.max(0,y),behavior:'auto'});
+  }
+  function activate(id, el, skipScroll){
+    if(!panels.some(function(p){return p.id===id;})) id='et-narr';
+    panels.forEach(function(p){p.classList.toggle('on', p.id===id);});
+    btns.forEach(function(b){b.classList.toggle('on', b.dataset.tab===id);});
+    updateNav(id);
+    var on=root.querySelector('.etab-btn.on'); if(on&&on.scrollIntoView)on.scrollIntoView({inline:'center',block:'nearest'});
+    if(el){ el.scrollIntoView({block:'start'}); window.scrollBy(0,-stickyOffset()); }
+    else if(!skipScroll){ scrollToTop(); }
+  }
+  function panelOf(elId){ var el=document.getElementById(elId); if(!el)return null; var p=el.closest('.etab'); return p?p.id:null; }
+  btns.forEach(function(b){ b.addEventListener('click',function(){ activate(b.dataset.tab); if(history.replaceState)history.replaceState(null,'','#'+b.dataset.tab); }); });
+  // prev/next footer buttons + internal anchor links
+  root.addEventListener('click', function(e){
+    var nav=e.target.closest('.etabfoot button[data-go]');
+    if(nav){ activate(nav.dataset.go); if(history.replaceState)history.replaceState(null,'','#'+nav.dataset.go); return; }
+    var a=e.target.closest('a[href^="#"]'); if(!a)return;
+    var id=a.getAttribute('href').slice(1); if(!id)return;
+    if(panels.some(function(p){return p.id===id;})){ e.preventDefault(); activate(id); if(history.replaceState)history.replaceState(null,'','#'+id); return; }
+    var pid=panelOf(id); if(pid){ e.preventDefault(); activate(pid, document.getElementById(id)); if(history.replaceState)history.replaceState(null,'','#'+id); }
+  });
+  function route(){
+    var h=(location.hash||'').replace(/^#/,'');
+    if(!h){ activate('et-narr', null, true); return; }
+    if(panels.some(function(p){return p.id===h;})){ activate(h); return; }
+    var pid=panelOf(h); if(pid){ activate(pid, document.getElementById(h)); return; }
+    activate('et-narr');
+  }
+  window.addEventListener('hashchange', route);
+  route();
+})();
+</script>

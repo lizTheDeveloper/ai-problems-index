@@ -1,0 +1,75 @@
+<nav class="xnav" aria-label="AI Problems Index — jump to any page">
+<style>
+  /* sticky-fix: the page wrapper's overflow:hidden/auto creates nested scroll containers
+     that silently break position:sticky. overflow-x:clip clips horizontally WITHOUT
+     making a scroll container, so sticky sub-navs on these pages actually stick. */
+  html, body, main.page-wrapper{overflow-x:clip!important;overflow-y:visible!important}
+  .xnav{ --xl:var(--color-border,#2a2f36); --xmut:var(--color-text-muted,#8b94a0);
+    --xpanel:var(--color-bg-card,#1c1f24); --xink:var(--color-text,#eef2f6);
+    --xpri:var(--color-primary,#34a58e); --xbg:var(--color-bg,#0c0d10);
+    font-family:var(--font-primary,system-ui,-apple-system,sans-serif);
+    display:block; background:var(--xpanel); border:1px solid var(--xl); border-radius:14px;
+    padding:11px 13px; margin:0 0 22px; }
+  .xnav *{box-sizing:border-box}
+  .xnav .xrow{ display:flex; align-items:center; gap:12px; }
+  .xnav .xhome{ flex:0 0 auto; display:inline-flex; align-items:center; gap:8px; text-decoration:none;
+    font-weight:800; font-size:.9rem; letter-spacing:-.01em; color:var(--xink);
+    background:color-mix(in srgb,var(--xpri) 15%,transparent); border:1px solid color-mix(in srgb,var(--xpri) 45%,transparent);
+    border-radius:10px; padding:8px 13px; white-space:nowrap; transition:all .12s; }
+  .xnav .xhome:hover{ background:var(--xpri); color:var(--xbg); border-color:var(--xpri); }
+  .xnav .xhome i{ color:var(--xpri); transition:color .12s }
+  .xnav .xhome:hover i{ color:var(--xbg) }
+  .xnav .xlbl{ flex:0 0 auto; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.09em;
+    color:var(--xmut); font-family:ui-monospace,monospace; }
+  .xnav .xchips{ display:flex; gap:6px; overflow-x:auto; scrollbar-width:thin; padding:3px 2px 5px; flex:1;
+    -webkit-overflow-scrolling:touch; scroll-snap-type:x proximity; }
+  .xnav .xchips::-webkit-scrollbar{height:5px}
+  .xnav .xchips::-webkit-scrollbar-thumb{background:var(--xl);border-radius:3px}
+  .xnav .xchips a{ flex:0 0 auto; scroll-snap-align:start; display:inline-flex; align-items:center; gap:6px;
+    text-decoration:none; font-size:.8rem; font-weight:600; color:var(--xmut);
+    background:var(--xbg); border:1px solid var(--xl); border-radius:999px; padding:6px 12px; white-space:nowrap;
+    transition:all .12s; }
+  .xnav .xchips a:hover{ color:var(--xink); border-color:var(--xmut); transform:translateY(-1px); }
+  .xnav .xchips a i{ font-size:.85em; opacity:.85 }
+  .xnav .xchips a[aria-current="page"]{ color:var(--xbg); background:var(--xpri); border-color:var(--xpri);
+    font-weight:700; cursor:default; }
+  .xnav .xchips a[aria-current="page"] i{ opacity:1 }
+  @media(max-width:640px){
+    .xnav .xrow{ flex-wrap:wrap; gap:9px }
+    .xnav .xchips{ order:3; flex-basis:100%; }
+  }
+  /* When this page is embedded inside the AI Problems Index SPA shell, the shell's
+     own tab bar handles navigation — hide this strip so it doesn't duplicate. */
+  .apx .xnav{ display:none !important }
+</style>
+  <div class="xrow">
+    <a class="xhome" href="/x/ai-problems-index"><i class="fas fa-compass"></i> AI Problems Index</a>
+    <span class="xlbl">Jump to</span>
+    <div class="xchips">
+      <a href="/x/ai-risk-atlas"><i class="fas fa-triangle-exclamation"></i>Risk Atlas</a>
+      <a href="/x/ai-environmental-impact"><i class="fas fa-leaf"></i>Environment</a>
+      <a href="/x/ai-datacenter-action"><i class="fas fa-bullhorn"></i>Local Action</a>
+      <a href="/x/ai-consciousness"><i class="fas fa-brain"></i>Consciousness</a>
+      <a href="/x/ai-moral-patienthood"><i class="fas fa-scale-balanced"></i>Moral Patienthood</a>
+      <a href="/x/ai-fallacies"><i class="fas fa-comment-slash"></i>Fallacies</a>
+      <a href="/x/ai-creativity"><i class="fas fa-palette"></i>Creativity</a>
+      <a href="/x/ai-copyright"><i class="fas fa-copyright"></i>Copyright</a>
+      <a href="/x/ai-benefits"><i class="fas fa-hand-holding-heart"></i>Benefits</a>
+      <a href="/x/ai-non-problems"><i class="fas fa-ban"></i>Non-Problems</a>
+      <a href="/x/ai-safety-research"><i class="fas fa-flask"></i>Research</a>
+      <a href="/x/agentic-ai-security-map"><i class="fas fa-map-location-dot"></i>Accountability</a>
+    </div>
+  </div>
+<script>
+(function(){
+  var navs=document.querySelectorAll('nav.xnav');
+  var here=(location.pathname||'').replace(/\/+$/,'');
+  navs.forEach(function(nav){
+    nav.querySelectorAll('.xchips a, .xhome').forEach(function(a){
+      var href=(a.getAttribute('href')||'').replace(/\/+$/,'');
+      if(href && here.slice(-href.length)===href){ a.setAttribute('aria-current','page'); a.removeAttribute('href'); }
+    });
+  });
+})();
+</script>
+</nav>

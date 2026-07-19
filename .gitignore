@@ -1,0 +1,11 @@
+# transient deploy artifacts
+.deploy_apply.sql
+*.tmp
+*.bak
+*.bak.*
+
+# OS / editor
+.DS_Store
+*.swp
+__pycache__/
+*.pyc
