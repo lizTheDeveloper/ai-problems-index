@@ -25,7 +25,7 @@ SSH_HOST="${AIPI_SSH_HOST:?set AIPI_SSH_HOST (ssh alias of the db host)}"
 PGC="${AIPI_PG_CONTAINER:?set AIPI_PG_CONTAINER (postgres container name)}"
 DB="${AIPI_DB:?set AIPI_DB (database name)}"
 PAGES_ROLE="${AIPI_PAGES_ROLE:-school}"   # owns the `pages` table
-KB_ROLE="${AIPI_KB_ROLE:-campus}"         # owns real_issues / research_library
+KB_ROLE="${AIPI_KB_ROLE:-school}"         # owns real_issues / research_library
 DRY_RUN=0
 
 for a in "$@"; do [ "$a" = "--dry-run" ] && DRY_RUN=1; done

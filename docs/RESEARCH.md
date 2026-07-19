@@ -11,18 +11,18 @@ Hetzner, container `$AIPI_PG_CONTAINER`, DB `$AIPI_DB`.
 
 | Table | Owner | What it holds |
 |---|---|---|
-| `real_issues` | `campus` | The 53 risks: prose + `score_*` grades + `score_markers` (KPIs) + `score_cases` (timeline events) |
-| `real_issues_sources` | `campus` | Per-risk source links (`issue_id`, `title`, `url`, `display_order`) |
-| `real_issues_rebuttals` | `campus` | Counter-arguments per risk |
-| `research_library` | `campus` | 98 papers (Anthropic / Apollo / METR / UK AISI…) — cols: `org`, `title`, `year`, `type`, `topic`, `key_finding`, `url`, `authors`, `dual_use_note` |
-| `accountability_map` | `campus` | Geocoded complaint/accountability records |
-| `ai_accountability_registry` | `campus` | Entity → responsibility mapping |
+| `real_issues` | `school` | The 53 risks: prose + `score_*` grades + `score_markers` (KPIs) + `score_cases` (timeline events) |
+| `real_issues_sources` | `school` | Per-risk source links (`issue_id`, `title`, `url`, `display_order`) |
+| `real_issues_rebuttals` | `school` | Counter-arguments per risk |
+| `research_library` | `school` | 98 papers (Anthropic / Apollo / METR / UK AISI…) — cols: `org`, `title`, `year`, `type`, `topic`, `key_finding`, `url`, `authors`, `dual_use_note` |
+| `accountability_map` | `school` | Geocoded complaint/accountability records |
+| `ai_accountability_registry` | `school` | Entity → responsibility mapping |
 | `pages` | **`school`** | The published HTML for every `/x/<slug>` page |
 | `risk_scoreboard` | `school` | **RETIRED** — the old 15-row front-page scoreboard. Left in place, read by nothing. |
 
 Read the current state any time:
 ```bash
-ssh "$AIPI_SSH_HOST" "docker exec -i $AIPI_PG_CONTAINER psql -U campus -d $AIPI_DB -c \
+ssh "$AIPI_SSH_HOST" "docker exec -i $AIPI_PG_CONTAINER psql -U school -d $AIPI_DB -c \
   \"SELECT score_state, count(*) FROM real_issues GROUP BY 1 ORDER BY 2 DESC;\""
 ```
 

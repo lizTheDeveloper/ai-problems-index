@@ -39,13 +39,15 @@ these builders read it and emit the published HTML.
 | Live site | `https://themultiverse.school/x/<slug>` |
 | CMS + data | Postgres on Hetzner, container `$AIPI_PG_CONTAINER`, DB `$AIPI_DB` |
 | Page HTML | table `pages` (`content_html`) — owned by **`school`** |
-| Risk data | tables `real_issues`, `real_issues_sources` — owned by **`campus`** |
-| Research library | table `research_library` — owned by **`campus`** |
+| Risk data | tables `real_issues`, `real_issues_sources` — owned by **`school`** |
+| Research library | table `research_library` — owned by **`school`** |
 | Working dir (builders, apply-SQL, backups) | `~/backups/ai-risk-db-factcheck/` |
 | This repo | `~/SRC/ai-problems-index/` |
 
-**Ownership gotcha (bites every time):** write `pages` as `-U school`; write the KB tables as
-`-U campus`. Mixing them = permission denied.
+**Ownership:** everything — `pages` and all the KB tables — is owned by **`school`**, so every
+read and write uses `-U school`. (Historically the KB tables were owned by `campus`, a leftover
+from the Neon→Hetzner migration; they were reassigned to `school` so there is a single owner.
+`campus` retains read/write grants so nothing that predates the change breaks.)
 
 Publish pattern:
 ```bash
