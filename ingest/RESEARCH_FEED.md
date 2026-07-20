@@ -72,9 +72,14 @@ Research items are distinguishable in `news_queue` by their feed label: `org:<sl
 the page is honest about which orgs we can actually keep current — and `--health` tells you when an
 org silently changes its CMS and drops its RSS.
 
-## Note for the news-ingester session
+## Database role
 
-`pipeline.py` defaults `AIPI_KB_ROLE` to `campus`. Database ownership was consolidated onto
-**`school`** (campus is still a superuser, so nothing breaks today). `research_feeds.py` defaults
-to `school`. Worth aligning when convenient — flagged rather than edited, to avoid stepping on
-uncommitted work.
+Everything runs as **`school`**, which now owns `real_issues`, `pages`, `alignment_orgs` **and
+`news_queue`**. `news_queue` was created campus-owned; ownership was transferred (with `campus`
+retained as a grantee, and it is a superuser regardless) so the whole pipeline runs under one role.
+
+Rollback, if ever needed:
+```sql
+ALTER TABLE news_queue OWNER TO campus;
+ALTER SEQUENCE news_queue_id_seq OWNER TO campus;
+```

@@ -29,7 +29,7 @@ _load_env()
 SSH = os.environ.get("AIPI_SSH_HOST", "hetzner")
 PGC = os.environ.get("AIPI_PG_CONTAINER", "")
 DB  = os.environ.get("AIPI_DB", "")
-KB_ROLE = os.environ.get("AIPI_KB_ROLE", "campus")
+KB_ROLE = os.environ.get("AIPI_KB_ROLE", "school")
 
 def psql(sql, want_out=True):
     cmd = f"docker exec -i {PGC} psql -U {KB_ROLE} -d {DB} -At -c \"{sql}\""

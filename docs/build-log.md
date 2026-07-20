@@ -429,3 +429,27 @@ and verbatim source quotes say "xAI"), so a find-replace would falsify quotes an
 The two cases worth a human decision are the risk *titles* that read as present-tense company
 identity: `generative-ncii-csam` ("Grok / xAI") and `model-ideological-steering`
 ("Owner-Controlled Ideological Steering"). Left for review.
+
+### Ownership migration completed — news_queue moved to `school`
+
+`pipeline.py` defaulted `AIPI_KB_ROLE=campus`. Flipping that string alone would have **broken the
+news ingester**: `news_queue` was campus-owned and `school` had *no* privileges on it at all
+(`has_table_privilege` returned false for SELECT/INSERT/UPDATE). Checking before editing is what
+caught this — the change looked like a one-word fix.
+
+Actual fix, in order:
+1. `ALTER TABLE news_queue OWNER TO school;` + same for `news_queue_id_seq`, with `GRANT ALL` back
+   to `campus` (which is a superuser anyway, so its running processes are unaffected).
+2. Verified as `school`: 304 staged rows intact, and a real INSERT+UPDATE round-trip inside a
+   transaction that was rolled back — privilege bits alone aren't proof the write path works.
+3. Only then changed `KB_ROLE` default to `school`. `classify_daemon.py`, `opus_review.py`,
+   `enrich.py` and `apply.py` all import `pipeline`, so they inherit it — one change covers the
+   whole pipeline.
+4. Re-ran pipeline's own DB helpers as `school`: queue count, status breakdown, dedupe hash query
+   and the published-case-URL query all work.
+
+Scope note: ~30 other tables in `public` remain campus-owned (`lecture_transcripts`,
+`student_sessions`, `book_reports`…). Those belong to the campus application, not the Problems
+Index, and were deliberately left alone.
+
+Rollback: `docs/news_queue_owner_rollback.txt`.

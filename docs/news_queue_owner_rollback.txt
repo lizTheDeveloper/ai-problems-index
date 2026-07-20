@@ -1,0 +1,4 @@
+news_queue owner was: campus
+news_queue_id_seq owner was: campus
+rows before: 304
+rollback: ALTER TABLE news_queue OWNER TO campus; ALTER SEQUENCE news_queue_id_seq OWNER TO campus;

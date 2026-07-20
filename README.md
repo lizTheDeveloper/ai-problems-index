@@ -203,7 +203,7 @@ Everything is DB-driven: builders read a JSON dump and emit `content_html`.
 cd ~/backups/ai-risk-db-factcheck
 
 # 1) dump WITH all score_* columns + sources
-ssh "$AIPI_SSH_HOST" "docker exec -i $AIPI_PG_CONTAINER psql -U campus -d $AIPI_DB -At -c \"
+ssh "$AIPI_SSH_HOST" "docker exec -i $AIPI_PG_CONTAINER psql -U school -d $AIPI_DB -At -c \"
   SELECT json_agg(t ORDER BY t.title) FROM (
     SELECT i.id,i.title,i.status,i.icon,i.summary,i.description,i.why_it_matters,i.what_being_done,
            i.score_state,i.score_trend,i.score_conf,i.score_note,i.score_markers,

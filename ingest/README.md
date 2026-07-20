@@ -37,7 +37,7 @@ Human gate: Opus-gated → review report → you run `deploy.sh ingest-apply`. N
 
 ## Config
 Infra via env or gitignored `.aipi.env`: `AIPI_SSH_HOST`, `AIPI_PG_CONTAINER`, `AIPI_DB`,
-`AIPI_KB_ROLE=campus`. Ingester extras: `AIPI_OLLAMA_URL` (default localhost:11434),
+`AIPI_KB_ROLE=school`. Ingester extras: `AIPI_OLLAMA_URL` (default localhost:11434),
 `AIPI_QWEN_MODEL` (qwen3:4b), `AIPI_OPUS_MODEL` (claude-opus-4-8), `ANTHROPIC_API_KEY`.
 
 ## Infra found
