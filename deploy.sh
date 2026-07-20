@@ -4,6 +4,7 @@
 #
 #   ./deploy.sh atlas            dump DB → build → publish the Risk Atlas
 #   ./deploy.sh research         build → publish the Research Library page
+#   ./deploy.sh orgs             dump alignment_orgs → build → publish the org directory
 #   ./deploy.sh page <slug> <file>   publish any canonical HTML file to a slug
 #   ./deploy.sh all              atlas + research + all canonical pages
 #   ./deploy.sh verify           check every page is live and non-empty
@@ -105,6 +106,10 @@ preflight(){ # preflight <slug> <file>
       grep -q 'rx-tile' "$f" || die "REFUSING: $file has no list tiles"
       grep -q "loadBundle\|rx-page" "$f" || die "REFUSING: $file lost its detail routing"
       c_ok "preflight: atlas list intact" ;;
+    ai-alignment-orgs)
+      local n; n=$(grep -o 'class="card"' "$f" | wc -l | tr -d ' ')
+      [ "${n:-0}" -ge 20 ] || die "REFUSING: org directory has only ${n:-0} org cards"
+      c_ok "preflight: org directory has $n orgs" ;;
     ai-risk-atlas-detail)
       # NB: count occurrences, not lines — the built HTML is minified onto a few very long lines,
       # so `grep -c` undercounts (reported 3 for a healthy 52-page bundle).
@@ -166,6 +171,25 @@ do_atlas(){
     || die "atlas_detail.html missing — detail pages would break; aborting"
 }
 
+do_orgs(){
+  c_info "dumping alignment_orgs → orgs_dump.json"
+  ssh "$SSH_HOST" "docker exec -i $PGC psql -U $KB_ROLE -d $DB -At -c \"
+    SELECT coalesce(json_agg(t ORDER BY t.name),'[]'::json) FROM (
+      SELECT slug,name,acronym,url,feed_url,feed_kind,country,org_type,founded,focus,
+             risk_vectors,confirmed,notes,feed_status
+      FROM alignment_orgs) t;\"" > "$WORKDIR/orgs_dump.json"
+  python3 - "$WORKDIR/orgs_dump.json" <<'PY'
+import json,sys
+d=json.load(open(sys.argv[1]))
+assert len(d)>=20, f"suspiciously few orgs: {len(d)}"
+print(f"  {len(d)} orgs | {sum(1 for o in d if o.get('feed_kind')=='rss')} with rss feeds")
+PY
+  c_info "building org directory"
+  ( cd "$WORKDIR" && python3 build_orgs.py )
+  check_js orgs_content.html
+  publish_file "ai-alignment-orgs" "orgs_content.html"
+}
+
 do_research(){
   c_info "building research library"
   ( cd "$WORKDIR" && python3 build_research.py ) || { c_warn "build_research.py failed/skipped"; return 0; }
@@ -186,7 +210,7 @@ do_pages(){
 
 do_verify(){
   c_info "verifying live pages"
-  local slugs=(ai-problems-index ai-risk-atlas ai-risk-atlas-detail ai-environmental-impact
+  local slugs=(ai-problems-index ai-risk-atlas ai-risk-atlas-detail ai-alignment-orgs ai-environmental-impact
                ai-datacenter-action ai-consciousness ai-moral-patienthood ai-fallacies
                ai-creativity ai-copyright ai-benefits ai-non-problems ai-safety-research
                agentic-ai-security-map)
@@ -209,10 +233,11 @@ cmd="${1:-}"
 case "$cmd" in
   dump)     do_dump ;;
   atlas)    do_atlas ;;
+  orgs)     do_orgs ;;
   research) do_research ;;
   page)     [ $# -ge 3 ] || die "usage: deploy.sh page <slug> <file>"; check_js "$3"; publish_file "$2" "$3" ;;
   pages)    do_pages ;;
-  all)      do_atlas; do_research; do_pages; do_verify ;;
+  all)      do_atlas; do_orgs; do_research; do_pages; do_verify ;;
   verify)   do_verify ;;
   *)        sed -n '2,20p' "$0" | sed 's/^# \{0,1\}//'; exit 1 ;;
 esac

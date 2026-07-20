@@ -331,3 +331,81 @@ The guard working as designed is why this was caught before shipping.
 but case quotes render into `title=` attributes and sources into `href`, so it reported three
 false failures. Re-checked against raw HTML: all passed. Same false-negative class as the earlier
 Tavily-markdown incident. *Always match against the representation the data actually lives in.*
+
+## 2026-07-20 — Org directory + alignment-research feed
+
+**Seed:** the logo wall of alignmentalignment.ai (CAAAC), a satire site whose "completely
+unaffiliated with these AI alignment organizations" wall is a real 31-org list. Credited on the page.
+
+**Discovery:** 7 parallel Opus agents (CAAAC acronyms, technical labs, academic centers, policy,
+government+frontier-lab teams+funders, field-building/community, and the harms clusters alignment
+orgs don't touch — military, surveillance, CSAM/NCII, labor, provenance, copyright).
+Each agent had to *fetch* each site, find a publication feed, and map risk vectors from actual
+published output rather than mission statements.
+
+**Result: 389 raw → 321 unique orgs, 59 countries, 52/53 risk vectors covered, 149 RSS feeds.**
+
+### The one design idea
+
+`alignment_orgs` does double duty: it is both the public directory AND the feed registry.
+An org row carries its description *and* its `feed_url`, so adding an org makes it appear on the
+page and start being ingested. No second list.
+
+### Coverage — the actual finding
+
+| orgs | risk vector |
+|---|---|
+| 111 | LLM governance is lacking |
+| 62 | Evaluations are confounded and biased |
+| 47 | Failure of democratic oversight |
+| … | |
+| 2 | Owner-controlled ideological steering |
+| 1 | In-context learning is a black box |
+| 1 | Latent data erasure via safety filtering |
+| 0 | GAN-based military training |
+
+111 orgs on governance vs 1 on in-context learning. Caveat kept explicit on the page: a thin row
+can mean "nobody works on this" OR "our framing is unusual and no org self-describes that way"
+(true for *AI denialism*, *latent data erasure*). Those are different claims.
+
+### Org churn the agents caught (a static list would enshrine all of these)
+
+- `eleos.ai` is a **parked domain-for-sale page**; the real org is `eleosai.org`
+- **CLR** (Center on Long-Term *Risk*) vs **CLTR** (Centre for Long-Term *Resilience*) — one letter apart, both listed
+- US AISI → **NIST CAISI**; UK AI *Safety* Institute → AI *Security* Institute; **GPAI folded into OECD.AI**
+- ARC Evals → METR (not double-counted); Pattern Labs → Irregular; PIBBSS → Principles of Intelligence;
+  Impact Academy → SteadRise; Encode Justice → Encode; Stiftung Neue Verantwortung → interface;
+  Timaeus merging into the newly-launched Resolution
+- Robust Intelligence's domain no longer resolves (Cisco); Conjecture fully pivoted commercial;
+  Oxford FHI excluded (closed 2024); Stanford Internet Observatory → TIP Center
+
+### Feed: a sibling source into the news ingester, with ZERO edits to its files
+
+`research_pipeline.py` rebinds `pipeline.feeds` and `pipeline.prefilter`, then calls their `run()`.
+Everything downstream is shared (dedupe → news_queue → Qwen routing → Opus gate → human apply).
+Sources: 149 org RSS feeds + ~22 *targeted* arXiv queries + Alignment Forum/LessWrong.
+**Live run: 4,278 raw → 620 after filtering.** Feed health (109 ok / 16 empty / 1 blocked) is
+written back to the registry and rendered as a tracked/page-only/no-feed badge — the page is
+honest about which orgs we can actually keep current.
+
+### Three bugs found in my own code (all silent-failure class)
+
+1. **`\blanguage model\b` does not match "language models."** The trailing `\b` fails against the
+   plural 's'. Since abstracts overwhelmingly use plurals, this silently dropped most real research
+   — 78 genuine items recovered once fixed ("Multilingual Safety Alignment Is Not Just Translate
+   the Prompt", "Deception in Reinforced Autonomous Agents", …). Every countable term now carries `s?`.
+2. **ElementTree rejects a feed with a leading newline before `<?xml`** ("XML or text declaration
+   not at start of entity") — losing PAX and other WordPress feeds entirely. Parser now strips
+   BOM/whitespace and falls back to seeking the real root element.
+3. **`deploy.sh` preflight used `grep -c`** (counts *lines*); the minified 52-page atlas bundle
+   reported as 3 and blocked a valid publish. Now counts occurrences.
+
+All three failed *silently* — nothing errored, output was just quietly smaller. Sampling and
+asserting on known-good cases is what surfaced them, not reading the code.
+
+### Note for the news-ingester session
+
+`pipeline.py` still defaults `AIPI_KB_ROLE=campus`; ownership was consolidated onto `school`
+(campus is superuser, so nothing breaks today). Flagged rather than edited, to avoid stepping on
+a live session. Their README asks for "a feed set" of real-URL feeds — the 149 verified org RSS
+feeds in `alignment_orgs` are exactly that, available via `research_feeds.org_feeds()`.
