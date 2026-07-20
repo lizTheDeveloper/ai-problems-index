@@ -194,9 +194,12 @@ site &mdash; treat those entries with suspicion.</div>
 <div class="empty" id="empty" style="display:none">No organizations match those filters.</div>
 
 <h2 class="sec"><i class="fa-solid fa-chart-simple"></i> Coverage by risk vector</h2>
-<p class="lede">How many organizations we can find working on each risk. This is a claim about
-<em>the field</em>, not about our data: the thin rows are where almost nobody is working.
-{len(undercovered)} of {len(issues)} risk vectors have two or fewer organizations on them.</p>
+<p class="lede">How many organizations we can find working on each risk.
+{len(undercovered)} of {len(issues)} risk vectors have two or fewer organizations on them, while
+governance and evaluations have dozens. Read a thin row carefully: it can mean almost nobody is
+working on the problem, <em>or</em> that our framing is unusual enough that no organization
+describes its work that way &mdash; &ldquo;AI denialism&rdquo; and &ldquo;latent data erasure&rdquo;
+are ours, not the field's. Those are different claims and this chart does not distinguish them.</p>
 <div class="covgrid">{''.join(covrows)}</div>
 
 <div class="caaac">
