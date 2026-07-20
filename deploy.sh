@@ -55,6 +55,7 @@ CANONICAL_PAGES=(
 publish_file(){ # publish_file <slug> <file>
   local slug="$1" file="$2"
   [ -f "$WORKDIR/$file" ] || die "missing file: $WORKDIR/$file"
+  preflight "$slug" "$file"
 
   # pick a dollar-quote tag that does not appear in the content
   local tag
@@ -89,6 +90,26 @@ PY
   local live; live=$(psql_q "$PAGES_ROLE" "SELECT length(content_html) FROM pages WHERE slug='$slug';" | tr -d ' \r')
   [ -n "$live" ] || die "publish failed: $slug not found in pages"
   c_ok "published $slug  ($live bytes live)"
+}
+
+# Regression guards: refuse to publish a page that has silently lost a critical feature.
+# (Builder/source files in the working dir have been reverted by tooling mid-session before,
+#  and a reverted hub shipped once — breaking every per-risk page. Never again.)
+preflight(){ # preflight <slug> <file>
+  local slug="$1" file="$2" f="$WORKDIR/$file"
+  case "$slug" in
+    ai-problems-index)
+      grep -q "split('/')" "$f" || die "REFUSING: $file lost the sub-route router (#atlas/<risk> would fall back to home)"
+      c_ok "preflight: hub sub-route router present" ;;
+    ai-risk-atlas)
+      grep -q 'rx-tile' "$f" || die "REFUSING: $file has no list tiles"
+      grep -q "loadBundle\|rx-page" "$f" || die "REFUSING: $file lost its detail routing"
+      c_ok "preflight: atlas list intact" ;;
+    ai-risk-atlas-detail)
+      local n; n=$(grep -c 'class="rx-page"' "$f" || true)
+      [ "${n:-0}" -ge 50 ] || die "REFUSING: detail bundle has only ${n:-0} risk pages (expected ~52)"
+      c_ok "preflight: detail bundle has $n risk pages" ;;
+  esac
 }
 
 check_js(){ # check_js <file> — syntax-check the last <script> block if node exists

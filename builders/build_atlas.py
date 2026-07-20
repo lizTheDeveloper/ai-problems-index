@@ -14,6 +14,7 @@ from collections import Counter
 
 issues = json.load(open('atlas_issues.json'))
 NAV = open('nav_block.html').read()
+SUBMIT = open('submit_widget.html').read()
 
 EXCLUDE = {'ai-environmental-footprint'}  # has its own Environment tab
 issues = [i for i in issues if i['id'] not in EXCLUDE]
@@ -164,6 +165,7 @@ for it in sorted(issues, key=lambda x: (STATE_ORDER.index(norm_state(x.get('scor
         f'<p class="rx-psum">{esc(it.get("summary"))}</p>{tg}</div></div>'
         f'<div class="rx-pscore">{score}</div>'
         f'<div class="rx-pbody">{body}</div>'
+        f'<div class="airx-sub" data-target-type="risk" data-target-id="{esc(rid)}" data-target-label="{esc(it["title"])}"></div>'
         f'<button class="rx-back rx-back2" type="button"><i class="fas fa-arrow-left"></i> Back to all risks</button>'
         f'</article>')
 
@@ -305,7 +307,7 @@ STYLE = r"""<style>
 }
 </style>"""
 
-BODY = NAV + f"""{STYLE}
+BODY = NAV + SUBMIT + f"""{STYLE}
 <div class="rax" id="rax">
   <div id="rx-list">
   <p class="lede">A scorecard for the AI Problems Index's risk catalog — <em>{len(issues)} real, sourced issues</em>,
@@ -414,7 +416,7 @@ BODY = NAV + f"""{STYLE}
 </script>"""
 
 # --- detail bundle (a separate lightweight page, fetched on demand / in background) ---
-DETAIL = (f"{STYLE}\n<div class=\"rax\" id=\"rax-detail-bundle\">\n"
+DETAIL = (SUBMIT + f"{STYLE}\n<div class=\"rax\" id=\"rax-detail-bundle\">\n"
           + ''.join(pages)
           + "\n</div>")
 
