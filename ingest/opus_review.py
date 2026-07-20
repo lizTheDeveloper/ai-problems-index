@@ -73,16 +73,15 @@ def review_risk(rid, cands):
     return json.loads(m.group()).get("decisions", [])
 
 def run(min_batch=MIN_BATCH, only=None):
-    where = "status='classified'" + (f" AND qwen_risk='{sq(only)}'" if only else "")
-    rows = psql(f"SELECT qwen_risk, id, replace(title,'|',' '), replace(coalesce(blurb,''),'|',' '), "
-                f"coalesce(source,''), url, coalesce(qwen_pol,''), coalesce(qwen_why,'') "
-                f"FROM news_queue WHERE {where} ORDER BY qwen_risk, id").splitlines()
+    where = "status='enriched'" + (f" AND qwen_risk='{sq(only)}'" if only else "")
+    # robust: pull rows as JSON (no delimiter fragility with real titles/sources)
+    raw = psql(f"SELECT coalesce(json_agg(json_build_object('id',id,'risk',qwen_risk,'title',title,"
+               f"'blurb',coalesce(blurb,''),'source',coalesce(source,''),'url',coalesce(final_url,url),"
+               f"'qwen_pol',coalesce(qwen_pol,''),'qwen_why',coalesce(qwen_why,''),"
+               f"'q',coalesce(qwen_quote,''))),'[]') FROM news_queue WHERE {where}")
     by = {}
-    for ln in rows:
-        p = ln.split("|")
-        if len(p) < 6: continue
-        by.setdefault(p[0], []).append(dict(id=int(p[1]), title=p[2], blurb=p[3], source=p[4],
-                                            url=p[5], qwen_pol=p[6] if len(p)>6 else "", qwen_why=p[7] if len(p)>7 else ""))
+    for r in json.loads(raw or "[]"):
+        by.setdefault(r["risk"], []).append(r)
     ready = {k: v for k, v in by.items() if len(v) >= min_batch}
     print(f"risks with >= {min_batch} pending: {len(ready)}  (skipping {len(by)-len(ready)} under-batch)")
     kept = dropped = 0
@@ -100,6 +99,8 @@ def run(min_batch=MIN_BATCH, only=None):
                 continue
             if d.get("keep") and d.get("norm"):
                 n = d["norm"]; n["url"] = c["url"]; n["src"] = c["source"]
+                if c.get("q") and not n.get("q"):
+                    n["q"] = c["q"]            # verbatim quote captured at enrich (source-integrity)
                 sql.append("UPDATE news_queue SET opus_verdict='keep', opus_reason='{}', norm='{}'::jsonb, "
                            "status='approved', updated_at=now() WHERE id={};".format(
                                sq(d.get("reason","")), sq(json.dumps(n, ensure_ascii=False)), c["id"]))

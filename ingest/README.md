@@ -10,11 +10,11 @@ Human gate: Opus-gated → review report → you run `deploy.sh ingest-apply`. N
 [cron 2×/week on hetzner]
   pipeline.py     ingest broad AI feeds → dedupe (canonical URL hash) → keyword pre-filter → stage (news_queue, status='new')
   classify_daemon.py   [on llm-inference box, async]  local Qwen routes each → risk id + polarity, or drops 'none'   → status='classified'
-  enrich.py       [TODO] resolve to primary URL, resolve-check, capture a verbatim quote   → status='enriched'
+  enrich.py       resolve to primary URL, resolve-check, capture a verbatim quote   → status='enriched'
   opus_review.py  Opus sees the whole risk page + candidates, keeps only TRULY on-topic ones, normalizes to {title,when,what,pol,q,url,src} → status='approved'
-  build_review.py [TODO] emit a review report (page + Matrix ping) of approved cards
+  build_review.py emit a review report page (/x/ai-atlas-review) of approved cards
   --- you review, then:
-  deploy.sh ingest-apply [ids]   [TODO]  merge approved → real_issues.score_cases → deploy.sh atlas
+  apply.py [ids]                  merge approved → real_issues.score_cases → deploy.sh atlas
 ```
 
 ## Status (2026-07-20)
@@ -26,8 +26,10 @@ Human gate: Opus-gated → review report → you run `deploy.sh ingest-apply`. N
 - `opus_review.py` — the batch relevance gate (Opus via the Anthropic key already on hetzner, `claude-opus-4-8`). Built; the relevance test is "does this story truly belong to THIS risk", NOT "does it prove the risk is real". *Not yet run end-to-end.*
 - `schema.sql` — `news_queue` staging table (nothing here is live).
 
-**Remaining before it can add to the public atlas (source-integrity + gate wiring):**
-1. **Real primary URLs + verbatim quotes.** Google News RSS gives opaque `news.google.com/rss/articles/…` redirects that don't resolve via curl — they'd show a Google redirect as the "source" and carry no quote, below the atlas's "measured, sourced" bar. Fix: shift ingest to **real-URL feeds** (GDELT — huge coverage, real URLs, rate-limited 1/5s; Hacker News; arXiv; a curated set of outlet RSS) and add `enrich.py` to resolve-check each URL + capture a short verbatim quote (also gives Opus the real body to normalize from, not just a headline). Drop Google News (redirects).
+**Now built & tested (this session):** enrich.py (real-URL resolve + verbatim quote — tested on live URLs), opus_review.py run end-to-end (correctly DROPPED aggregator-stats items as off-bar), build_review.py (review-queue page), apply.py (merge + deploy, standalone so it doesn't touch deploy.sh). news_queue gained final_url + qwen_quote columns.
+
+**Remaining before going autonomous:**
+1. **Real-URL feed volume.** enrich.py already drops opaque Google-News redirects; the live coverage should come from real-URL feeds (GDELT / HN / arXiv / outlet RSS — an agent is supplying a feed set). Point feeds.py at those (drop Google News).
 2. **Near-dup dedupe.** One event surfaces from many outlets; URL-hash alone won't catch it. Have Opus dedupe within each risk batch ("these may be the same event — keep the best-sourced") and check against `status='approved'`-but-unpublished rows.
 3. **Run the Opus gate once** end-to-end on a real batch; confirm the `decisions[]`/`norm` shape.
 4. **`build_review.py` + `deploy.sh ingest-apply`** — the human gate is a review *report* + a one-command apply (the /x/ pages are static DB rows with no POST endpoint, so a confirm *button* can't work).

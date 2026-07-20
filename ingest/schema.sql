@@ -23,3 +23,7 @@ CREATE TABLE IF NOT EXISTS news_queue (
 );
 CREATE INDEX IF NOT EXISTS news_queue_status_idx ON news_queue(status);
 CREATE INDEX IF NOT EXISTS news_queue_risk_idx   ON news_queue(qwen_risk);
+
+-- enrichment (enrich.py): resolved primary URL + a short verbatim quote from the article body
+ALTER TABLE news_queue ADD COLUMN IF NOT EXISTS final_url    text;
+ALTER TABLE news_queue ADD COLUMN IF NOT EXISTS qwen_quote   text;   -- verbatim quote captured at enrich
