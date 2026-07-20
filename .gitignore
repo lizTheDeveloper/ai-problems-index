@@ -12,3 +12,7 @@ __pycache__/
 
 # local config (never commit)
 .aipi.env
+
+# ingester scratch
+ingest/_*
+ingest/risks.json
