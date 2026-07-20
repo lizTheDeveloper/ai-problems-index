@@ -106,7 +106,9 @@ preflight(){ # preflight <slug> <file>
       grep -q "loadBundle\|rx-page" "$f" || die "REFUSING: $file lost its detail routing"
       c_ok "preflight: atlas list intact" ;;
     ai-risk-atlas-detail)
-      local n; n=$(grep -c 'class="rx-page"' "$f" || true)
+      # NB: count occurrences, not lines — the built HTML is minified onto a few very long lines,
+      # so `grep -c` undercounts (reported 3 for a healthy 52-page bundle).
+      local n; n=$(grep -o 'class="rx-page"' "$f" | wc -l | tr -d ' ')
       [ "${n:-0}" -ge 50 ] || die "REFUSING: detail bundle has only ${n:-0} risk pages (expected ~52)"
       c_ok "preflight: detail bundle has $n risk pages" ;;
   esac

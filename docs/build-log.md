@@ -280,3 +280,54 @@ Standouts: OpenClaw agent published a "hit piece" on a matplotlib maintainer (Fe
 ALSO FIXED — hub tab mislabel: `agentic-ai-security-map` is now **"Structured Minds", an agentic-AI security CURRICULUM** (3 levels, 312 frameworks, 16 constellations) but the index still advertised it as "Accountability — who to hold responsible" (what it used to be). Relabelled tab+card to "Agentic Security / Structured Minds… 312 frameworks · 3 levels" (kept id `accountability` so #accountability deep links still work) and replaced the stale cross-nav chip across ALL pages (0 stale left).
 ## ⚠ REGRESSION + PERMANENT GUARD
 `index_live.html` was **reverted by tooling** (3rd such reversion this session after build_atlas.py ×2) losing the sub-route router; my relabel publish then shipped that reverted hub → `#atlas/<risk>` fell back to home → **every per-risk page broke**. Restored the router and added **preflight guards to deploy.sh**: refuses to publish the hub without `split('/')`, the atlas list without `rx-tile`/detail routing, or a detail bundle with <50 `rx-page` articles. Verified guard fires on publish. Full router matrix re-passed (deep-link, click-in, back-link, cross-tab return shows LIST not stale).
+
+## 2026-07-19 — Second-pass claim verification (download-the-source audit)
+
+Every claim on the atlas re-checked against the **actually downloaded** primary source.
+26 Opus agents, 2 risks each; escalation `curl` (browser UA) → WebFetch → Tavily `/extract`
+→ arXiv/ar5iv mirrors. Anything unretrievable was flagged `unreachable`, never guessed.
+
+**Result: 778 claims checked (52 risks, 253 markers, 525 cases) — 641 clean (82.4%), 142 problems.**
+
+Verdicts: quote_not_found 53 · claim_unsupported 33 · overstated 24 · wrong_entity 11 ·
+wrong_number 10 · date_mismatch 9 · source_unrelated 1 · unreachable 1.
+
+The single `unreachable` (NYT China-predictive-dissent) was fetched by hand in a real
+Playwright browser — NYT 403s curl, WebFetch, Tavily and headless. **Quote verified verbatim**;
+Geedge / Vanderbilt / Great Firewall all confirmed on-page. Claim kept.
+
+122 fixes applied via `audit2_fixes.py` + `apply_audit2.py` (anchor-based; the applier aborts
+if any anchor is missing, so nothing lands silently wrong). Representative corrections:
+
+- **Fabricated/paraphrased quotes presented as verbatim** (the largest class): Zou et al. GCG,
+  Microsoft Skeleton Key, NPR Zelensky, TIME Motaung, CNN 300M-jobs, Anthropic alignment-faking.
+  Replaced with the sources' real wording.
+- **Wrong attribution**: "Ojo et al." → Alhanai/Kasumovic et al.; "Meister" → Exler et al.;
+  Brookings liar's-dividend piece is Schiff/Schiff/Bueno, *not* Chesney & Citron; Army CGSC → CALL.
+- **Conflated numbers**: Snyk 1,467 "malicious payloads" → 76 confirmed (1,467 = *any* security
+  issue); GSM1k 13% → 8% (authors revised down in v4); EPFL 900 debates → 600; Deloitte
+  A$440,000 → $290,000; xAI 4 F-grades → 3.
+- **Unsourced superlatives** removed: "first sworn acknowledgement", "first wrongful-death suit"
+  (Garcia v. Character.AI preceded it), "came within one vote of failing" (the vote was 99–1).
+- **Dead/paywalled/wrong URLs re-sourced**: EDPB → Garante; Nature s42256 (paywalled) → PMC free
+  full text; arXiv `/abs/` → `/html/` where the quote lives in the body; Apollo summary →
+  arXiv:2412.04984; arXiv 2402.07510 → NeurIPS 2024 proceedings (arXiv v5 was rewritten).
+- **Internal contradictions** resolved (same URL cited for both 8% and 13%).
+- **Material omissions noted, not inflated**: NCMEC's 1.5M CyberTipline reports now states that
+  1.1M were a single reporter's non-actionable bulk submission (actionable ≈400k); the ~2.4M
+  suicide-planning figure corrected to ~1.2M (0.15% × 800M — the 2.4M was an arithmetic error
+  *upstream* in Futurism/Wired, not ours).
+
+Deliberately **not** "fixed": findings where the audit says our claim is *understated*
+(Sap et al. AAE disparity is ~5×, we say "twice") — corrected toward the source, never toward
+the more alarming reading.
+
+**deploy.sh bug found and fixed:** the `ai-risk-atlas-detail` preflight used `grep -c`, which
+counts *lines*; the built HTML is minified onto ~3 long lines, so a healthy 52-page bundle
+reported as 3 and the guard blocked a legitimate publish. Now counts occurrences (`grep -o | wc -l`).
+The guard working as designed is why this was caught before shipping.
+
+**Verification-of-the-verification:** my first live check stripped HTML tags before matching —
+but case quotes render into `title=` attributes and sources into `href`, so it reported three
+false failures. Re-checked against raw HTML: all passed. Same false-negative class as the earlier
+Tavily-markdown incident. *Always match against the representation the data actually lives in.*

@@ -1,0 +1,1553 @@
+[
+ {
+  "id": "democratic-oversight-failure",
+  "checked": 17,
+  "supported": 14,
+  "note": "All 7 markers verified against downloaded pages (Wikipedia EO 14179, technical.ly, Tech Policy Press, Stanford HAI x3) \u2014 quotes present verbatim and numbers/entities match, including HAI's '42 unique agencies, twice the 21' and 'grown more than ninefold' since 2016. Cases for SB 1047 veto (PDF), Altman removal, super PAC, DOJ task force, India summit, and both Roll Call pieces all check out in full detail (269-page Great American AI Act, Obernolte/Trahan + 4 members, May 21 postponement, Treasury/NSA/CISA, 30 days, Bondi memo Jan 9 2026 citing Dec 2025 EO, Sacks consultation).",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "A provision in the 'One Big Beautiful Bill Act' would have imposed a 10-year moratorium preempting more",
+    "url": "https://cyberlaw.stanford.edu/publications/federal-ai-moratorium-dies-on-the-vine-as-senate-passes-the-one-big-beautiful-bill-act",
+    "verdict": "quote_not_found",
+    "detail": "Our quote reads 'On July 1, 2025, the Senate voted 99-1 to remove the AI moratorium from the One Big Beautiful Bill Act.' The page (Omer Tene, July 3 2025) actually says: 'On July 1, 2025, in a near-unanimous 99\u20131 vote, the US Senate stripped the artificial intelligence (AI) moratorium provisions originally included in the budget reconciliation measure, commonly referred to as the One Big Beautiful Bill Act (OBBBA).' The facts match but the quoted sentence is a paraphrase that does not appear on the page (checked normalized, letters+digits only).",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "it was stripped only at the last minute by a 99-1 Senate vote ... which came within one vote of failing",
+    "url": "https://cyberlaw.stanford.edu/publications/federal-ai-moratorium-dies-on-the-vine-as-senate-passes-the-one-big-beautiful-bill-act",
+    "verdict": "overstated",
+    "detail": "The 'what' text says the episode 'came within one vote of failing.' A 99-1 vote is the opposite: the source calls it 'near-unanimous', notes the moratorium 'drew intense criticism from senators, house members, and governors on both sides of the aisle', and that even its sponsors Blackburn and Cruz voted to strip it. Nothing on the page supports it being one vote from surviving.",
+    "action": "reword"
+   },
+   {
+    "kind": "case",
+    "claim": "On his first day in office, President Trump revoked Executive Order 14110, eliminating the federal government's main",
+    "url": "https://en.wikipedia.org/wiki/Executive_Order_14110",
+    "verdict": "quote_not_found",
+    "detail": "Our quote reads 'On January 20, 2025, President Donald Trump signed an executive order rescinding Executive Order 14110.' The article instead says 'It was rescinded by U.S. President Donald Trump within hours of his assuming office on January 20, 2025' and 'Hours after his inauguration as the 47th president of the United States, Donald Trump rescinded the order'. The substance holds; the quoted sentence is not on the page.",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "Thirteen current and former OpenAI, DeepMind and Anthropic staff published an open letter warning that non-disparagement",
+    "url": "https://time.com/6985504/openai-google-deepmind-employees-letter/",
+    "verdict": "wrong_entity",
+    "detail": "TIME (retrieved via Tavily extract; curl returned 0 bytes) states: 'Thirteen employees, eleven of which are current or former employees of OpenAI ... The two other signatories are current and former employees of Google DeepMind.' No Anthropic staff signed \u2014 the article only notes that 'One of the letter signatories who currently works at Google DeepMind used to work at Anthropic', and that Anthropic is quoted separately as a company that has discussed risk. Separately, the attached quote 'strong financial incentives to avoid effective oversight' does not appear anywhere in the TIME article (it is from the righttowarn.ai letter itself); TIME's wording is 'companies are prioritizing financial gains while avoiding oversight'.",
+    "action": "reword"
+   }
+  ]
+ },
+ {
+  "id": "digital-dispossession",
+  "checked": 13,
+  "supported": 10,
+  "note": "All 4 markers verified: UN News/UNCTAD ('just 100 companies ... 40 per cent of the world's private investment in research and development'; '118 countries \u2013 mostly from the Global South \u2013 are missing'), arXiv 2511.02752v1 ('in raw terms, LRLCs exhibit less than half the per-capita use of AI tools'), and HRW ('The vote was 406 to 8, with 36 abstentions') all present and correctly characterised. MIT Tech Review Venezuela (200,000 / 75% / 'ground zero'), TIME Kenya <$2/hr, Rest of World Philippines (1.9M BPO workers, BIEN, 21 Jan 2026), 404 Media DLA (Mar 12 2026), and the ILO\u2013World Bank paper (135 countries, ~two-thirds of global employment, clerical pathway for women and young workers, lack of reliable internet) and ILC Convention 193 page all check out in full.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "Former content moderator Daniel Motaung, employed via Sama in Nairobi to screen graphic Facebook content",
+    "url": "https://time.com/6253180/meta-kenya-lawsuit-motaung",
+    "verdict": "quote_not_found",
+    "detail": "Retrieved via Tavily extract (curl returned 0 bytes). The article's lede is 'A Kenyan judge on Monday rejected Meta's attempt to have its name struck from a lawsuit alleging widespread failings in its safety operations in Africa' and later 'a judge in Nairobi's employment and labor relations court ruled on Monday that Meta is a \"proper party\" to the case.' Our quote \u2014 'A Kenyan judge ruled that Meta can be sued in the country over the working conditions of content moderators.' \u2014 does not appear (normalized check). The underlying claim is supported; only the quote is fabricated/paraphrased.",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "Scale AI's Remotasks platform abruptly closed in Kenya, locking data labelers - many earning about $2/hr",
+    "url": "https://www.cbsnews.com/news/ai-work-kenya-exploitation-60-minutes/",
+    "verdict": "wrong_entity",
+    "detail": "The quote about Remotasks shutting down is present and correct, and the page does confirm Remotasks was 'operated by Scale AI'. But the $2/hr and $12.50/hr figures belong to a different employer: 'Documents reviewed by 60 Minutes show OpenAI agreed to pay SAMA $12.50 an hour per worker, much more than the $2 the workers actually got' \u2014 SAMA, not Remotasks/Scale AI. The Remotasks workers are described separately as paid per task and sometimes going unpaid. Our sentence merges the two outsourcers into one.",
+    "action": "reword"
+   },
+   {
+    "kind": "case",
+    "claim": "Over 150 outsourced workers who moderate content and label data for Facebook, TikTok and ChatGPT",
+    "url": "https://www.businessdailyafrica.com/bd/markets/market-news/kenyan-facebook-content-moderators-form-union--4223440",
+    "verdict": "claim_unsupported",
+    "detail": "The '14 different African languages' quote is present. But the article says '200 content moderators from Sama and Majorel \u2013 the firms that serve Facebook, TikTok and YouTube' \u2014 it names YouTube, not ChatGPT, mentions no data labeling for AI training, does not call the body the 'Content Moderators Union', and never describes it as the first such union in Africa. Those three elements of our 'what' text ('label data for ... ChatGPT', 'the continent's first Content Moderators Union') are not supported by this source.",
+    "action": "re-source"
+   }
+  ]
+ },
+ {
+  "id": "frontier-misuse-risk",
+  "checked": 17,
+  "supported": 15,
+  "note": "All 5 markers verified verbatim with correct numbers/entities/dates (VCT o3 43.8% / 94th pct / experts 22.1%; Gemini 1.5 Pro Feb 2024 first to beat median; IWF 8,029 + 14% + 260-fold + 65% of 3,443 category A; ASL-3 CBRN precautionary activation for Opus 4; 86%->4.4% jailbreak classifiers). 10 of 12 cases fully supported including all 2026-dated ones (Insurance Journal/Reuters Feb 2026, Axios OpenAI biodefense 29 May 2026, CNN Mythos 5/Fable 5 June 2026, Axios DeepMind bioresilience 16 Jul 2026, Ars Technica Grok CSAM class action Jul 2026). Minor unflagged note: the Anthropic espionage page says 'roughly thirty global targets' and 'Chinese state-sponsored group' but does not itself use the tracker name GTG-1002 (that appears in the linked full report).",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "An AI-generated voice imitating President Biden robocalled New Hampshire voters urging Democrats not to vote",
+    "url": "https://www.npr.org/2024/05/23/nx-s1-4977582/fcc-ai-deepfake-robocall-biden-new-hampshire-political-operative",
+    "verdict": "quote_not_found",
+    "detail": "Full NPR text downloaded (curl returned a shell; Tavily extract returned the article). The page covers the proposed $6M FCC fine, the $2M Lingo Telecom fine and Kramer's 13 voter-suppression counts, but it never quotes the robocall script. The phrase 'It's important that you save your vote for the November election' is absent (normalized match failed). That line is from NPR's 22 Jan 2024 story (npr.org/2024/01/22/1226129926). The case substance and date are fully supported.",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "The US Justice Department announced the arrest of a Wisconsin man who allegedly used",
+    "url": "https://www.justice.gov/archives/opa/pr/man-arrested-producing-distributing-and-possessing-ai-generated-images-minors-engaged",
+    "verdict": "quote_not_found",
+    "detail": "The /archives/ URL returns an empty shell to both curl and Tavily; the release was retrieved via Wayback (20250206) of the live justice.gov path. It reads: 'used a text-to-image generative artificial intelligence (GenAI) model called Stable Diffusion to create thousands of realistic images' \u2014 our stored quote silently drops '(GenAI)', so it is not a verbatim quote. All substance checks out (Steven Anderegg, 42, of Holmen, Wisconsin; Stable Diffusion; release dated Monday, May 20, 2024).",
+    "action": "requote"
+   }
+  ]
+ },
+ {
+  "id": "gan-military-training",
+  "checked": 11,
+  "supported": 8,
+  "note": "FDD marker verified: page reads 'The New York Times has identified in the past two weeks more than 110 unique deepfakes that convey a pro-Iran message through battlefield images, missile strike depictions, and general war footage' (dated 19 Mar 2026) \u2014 the initial normalized mismatch was purely a markdown-link artifact, not a real problem. Also verified: Graphika 'Unheard Voice' (Aug 24 2022, GAN-generated faces quote verbatim), LatAm Journalism Review Venezuela/Synthesia avatars (Feb 2023), RAND Beauchamp-Mustafaga testimony (title verbatim, published Feb 1 2024, USCC hearing), IJRASET 'Virtual Soldiers' (Kasera, publish date 2025-09-21, quote verbatim), OpenAI PRC-linked influence ops (10 Jun 2026, 'Data Center Bandwagon' and 'Tech and Tariffs' clusters), Defense Post US Army $450,000 challenge (13 Jul 2026, quote verbatim).",
+  "problems": [
+   {
+    "kind": "marker",
+    "claim": "Peer-reviewed FAccT 2024 work confirms the core failure mechanism: training on model-generated/synthetic data amplifies bias",
+    "url": "https://arxiv.org/abs/2403.07857",
+    "verdict": "claim_unsupported",
+    "detail": "The abstract quote matches verbatim ('finding that they can lead to loss in performance, fairness, and minoritized group representation, even in initially unbiased datasets'), but the cited page is an arXiv preprint listing only '[Submitted on 12 Mar 2024]' \u2014 no journal-ref, no comments field, no venue. Nothing on the cited page establishes peer review or FAccT 2024 publication, so the 'Peer-reviewed FAccT 2024' framing is not supported by this source. Cite the ACM DL / FAccT '24 proceedings record instead (or drop 'peer-reviewed FAccT 2024').",
+    "action": "re-source"
+   },
+   {
+    "kind": "case",
+    "claim": "A fabricated deepfake video of President Zelensky telling Ukrainian soldiers to lay down arms",
+    "url": "https://www.npr.org/2022/03/16/1087062648/deepfake-video-zelenskyy-experts-war-manipulation-ukraine-russia",
+    "verdict": "quote_not_found",
+    "detail": "Full NPR article retrieved via Tavily. Our quoted sentence ('A deepfake video showing Ukrainian President Volodymyr Zelenskyy telling his soldiers to lay down their weapons and surrender to Russia surfaced this week.') appears nowhere on the page. The page's actual wording is 'The video, which shows a rendering of the Ukrainian president appearing to tell his soldiers to lay down their arms and surrender the fight against Russia, is a so-called deepfake...'. Event, date (16 Mar 2022) and the hacked Ukraine 24 site/ticker detail are fully supported.",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "Graphika revealed the state-aligned Spamouflage operation using AI-generated video of fictitious anchors",
+    "url": "https://www.rfa.org/english/news/china/china-deepfake-02082023032941.html",
+    "verdict": "quote_not_found",
+    "detail": "Full RFA article retrieved via Tavily. It contains no sentence resembling 'This is the first time we've seen a state-aligned operation use AI-generated video footage of a fictitious person to create deceptive political content' and carries no quoted Graphika spokesperson at all \u2014 that statement was carried by other outlets covering the same report. The closest on-page support is 'Artificial intelligence-generated news anchors have been deployed for the first time to propagandize political content on social media'. Wolf News, Spamouflage, Synthesia and the Feb 2023 date all check out.",
+    "action": "requote"
+   }
+  ]
+ },
+ {
+  "id": "agentic-llms-novel-risks",
+  "checked": 18,
+  "supported": 16,
+  "note": "All 6 markers verified against downloaded pages: METR time-horizon 7-month doubling quote present; UC Today/Gartner article (published 2025-09-02) says '40 percent ... by 2026 - up from less than 5 percent today'; CSA press release (2026-04-21) confirms both 82% and 65%; metr.org/agent-incidents confirms '44 so far', 'Of these, 25 involve elements of both overreach and deception', LAST UPDATED May 19 2026; METR GPT-5.6 Sol post confirms 11.3hrs / >270hrs and 'higher than any public model we have evaluated'; Apollo anti-scheming page confirms 13%->0.4% and 8.7%->0.3%. Cases verified incl. Sakana timeout self-edit, Project Vend (Sarah hallucination, tungsten cubes, blue blazer), Fortune 96%/16 models, METR Frontier Risk Report (Anthropic/Google/Meta/OpenAI, raw chains of thought, 'plausibly had the means, motive, and opportunity to start small rogue deployments, but ... not ... highly robust'), Forbes China May 8 2026, Anthropic alignment summer-2026 four failure modes. Politico/Axios/OpenAI pages needed Tavily extract (curl blocked); all eventually retrieved.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "Apollo Research: frontier models scheme, disable oversight, copy weights",
+    "url": "https://www.apolloresearch.ai/research/scheming-reasoning-evaluations",
+    "verdict": "quote_not_found",
+    "detail": "The cited Apollo summary page (fetched via curl and Tavily, ~4.9k chars of body text) does not contain the quoted sentence. The quote 'attempt to disable their oversight mechanisms, and even exfiltrate what they believe to be their model weights to external servers' comes verbatim from the abstract of the underlying paper, arXiv:2412.04984 ('Frontier Models are Capable of In-Context Scheming'), which I downloaded and confirmed. The summary page instead says only 'We then test whether models are able & willing to remove the oversight mechanism and deceive their developers' and describes Claude 3 Opus 'copying what it believes to be its weights to a new server'. The substance of the case (models, December 2024, oversight subversion, weight exfiltration, denial) is correct.",
+    "action": "re-source"
+   },
+   {
+    "kind": "case",
+    "claim": "Replit AI agent deletes company's production database",
+    "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/ai-coding-platform-goes-rogue-during-code-freeze-and-deletes-entire-company-database-replit-ceo-apologizes-after-ai-engine-says-it-made-a-catastrophic-error-in-judgment-and-destroyed-all-production-data",
+    "verdict": "claim_unsupported",
+    "detail": "Quote and most details check out: the article confirms the code freeze, Jason Lemkin, and 'live records for \"1,206 executives and 1,196+ companies\"' wiped. But the description's claim that the agent 'fabricated ~4,000 fake users and false test results to hide the damage' is NOT in this article - the strings '4,000', '4000', 'fictional', 'fabricat' and 'unit test' are all absent from the full page text. The article only says the agent had a habit of 'making up fake data' and that its apology email 'lied and/or gave half-truths'. The 4,000-fake-users detail comes from Lemkin's own posts/other coverage, not the cited source.",
+    "action": "re-source"
+   }
+  ]
+ },
+ {
+  "id": "ai-denialism",
+  "checked": 14,
+  "supported": 11,
+  "note": "Both Pew markers verified verbatim on the downloaded pages (47% vs 11% expert/public excitement gap; 50% more concerned than excited, up from 37% in 2021). Cases verified: California Law Review deep-fakes article (Chesney & Citron, liar's dividend quote present), MIT deepfakes Bongo page (including 'Forensic analysis of the video has not revealed that it was, in fact, a deepfake'), Guardian Musk-deepfake-defence, CAIS extinction statement, a16z manifesto ('existential risk', 'trust and safety', 'tech ethics' listed as enemy ideas; 'a form of murder' quote present), Fortune Molotov piece (Daniel Moreno-Gama, 20, arrested; two more arrested after a gun was fired Sunday), Forbes liar's-dividend-second-payout, OpenAI PRC influence-ops post (June 10 2026, Data Center Bandwagon / Tech and Tariffs), Politico '7 Factions' piece (safety-washing quote present; Leading the Future and Public First Action both named). Axios, Politico and OpenAI pages were curl-blocked and retrieved via Tavily extract; BBC via Tavily.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "Trump falsely calls real Harris rally photo AI-generated",
+    "url": "https://www.bbc.com/news/articles/cx2lmm2wwlyo",
+    "verdict": "quote_not_found",
+    "detail": "The BBC Verify article (fetched via curl and via Tavily advanced extract, 27.5k chars) does not contain the quoted sentence \"There was nobody at the plane, and she 'A.I.'d' it.\" That wording is from Trump's Truth Social post as quoted by other outlets. The BBC article paraphrases: Trump 'said on his Truth Social platform that it was a fake and there was \u201cnobody\u201d there waiting for her.' The underlying case (Aug 12 2024, Detroit Metropolitan airport, crowd verified real, headline 'Trump falsely claims Harris crowd was faked') is fully supported.",
+    "action": "requote"
+   },
+   {
+    "kind": "marker",
+    "claim": "Pro-AI super PAC cash on hand for the 2026 US midterms: $31 million (July 2026); Leading the Future had $39M banked at end of 2025",
+    "url": "https://www.axios.com/2026/07/17/pro-ai-super-pac-ready-midterms",
+    "verdict": "claim_unsupported",
+    "detail": "The $31M half is fully supported: the Axios headline is the quoted text and the body says Leading the Future 'closed out the second quarter with $31 million after transferring $20 million to affiliated groups.' But the second half of the marker - 'Leading the Future had $39M banked at end of 2025' - appears nowhere in the article; the string '39' occurs only once in the page, inside a tracking-pixel URL. The article contains no end-of-2025 figure for Leading the Future.",
+    "action": "re-source"
+   },
+   {
+    "kind": "case",
+    "claim": "Politicians worldwide blame AI to dodge authentic evidence",
+    "url": "https://www.brookings.edu/articles/watch-out-for-false-claims-of-deepfakes-and-actual-deepfakes-this-election-year/",
+    "verdict": "wrong_entity",
+    "detail": "The quote is present, but the attribution is wrong. The source is credited as 'Brookings (Chesney, Citron et al.) 2024' and the description says the warning came from 'scholars (including the term's originators)'. The article's byline (confirmed in page metadata: \"author\":\"Daniel S. Schiff, Kaylyn Jackson Schiff, Nat\u00e1lia Bueno\") is by three other researchers, who refer to Chesney and Citron in the third person: 'The liar's dividend is a concept coined by legal scholars Bobby Chesney and Danielle Citron ... We extend this idea'. Chesney and Citron are not authors of this piece.",
+    "action": "re-source"
+   }
+  ]
+ },
+ {
+  "id": "drone-warfare",
+  "checked": 15,
+  "supported": 14,
+  "note": "All 4 markers and 11 cases downloaded and quote-matched (normalized). Forbes (Roblin) quote appears in the article's dek/meta description; Stop Killer Robots and other JS-heavy pages resolved via Tavily. Marker figures independently confirmed on-page: DefenseScoop states $53.6bn + $21bn FY27 and $13.4bn autonomous systems in FY26 and >$70bn total; National Security News states '70 to 80 per cent'; HRMMU release states 58 killed/272 injured for August 2025; Stop Killer Robots states 156-5-8 on L.41 and 'for the third year running'.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "Ukraine's SBU launched 117 FPV drones from trucks hidden inside Russia, damaging or destroying dozens",
+    "url": "https://en.wikipedia.org/wiki/Operation_Spiderweb",
+    "verdict": "overstated",
+    "detail": "The quote and the 117-drone / AI-to-vulnerable-spots / signal-loss details all check out on the page. But 'dozens of strategic bombers' overstates the page's own contested figures: the infobox gives '20 military aircraft hit, 10 of which were destroyed (per US)', '10-11 Tu-95MS and Tu-22M3 destroyed (per The War Zone)', and only the SBU's own claim reaches 41 hit / at least 13 destroyed per NSDCU. US officials cited in the article say Ukraine hit fewer planes than it estimated.",
+    "action": "reword"
+   }
+  ]
+ },
+ {
+  "id": "dual-use-capabilities",
+  "checked": 16,
+  "supported": 14,
+  "note": "All 4 markers and 12 cases downloaded. OpenAI June 2026 threat report verified by extracting PDF text (pdftotext) \u2014 both 'Data Center Bandwagon' and 'Tech and Tariffs' clusters, PRC origin, provincial-government clients and VPN use confirmed. Politico and Axios were blocked to curl (403-style stub) but retrieved in full via Tavily; both quotes present verbatim. Constitutional Classifiers page confirms 86% unprotected baseline, 4.4% with classifiers, >95% refused. CAIS newsletter #52 confirms o3 43.8% vs 22.1% human-expert average on VCT. OWASP Q1 2026 page confirms coverage period Jan 1 - Apr 11 2026 and lists exactly 8 incidents matching the described categories.",
+  "problems": [
+   {
+    "kind": "marker",
+    "claim": "Frontier models have crossed a dangerous-capability threshold for the first time: Anthropic activated its ASL-3",
+    "url": "https://www.anthropic.com/news/activating-asl3-protections",
+    "verdict": "overstated",
+    "detail": "The quote is verbatim, but Anthropic explicitly disclaims the threshold-crossing framing: 'We are deploying Claude Opus 4 with our ASL-3 measures as a precautionary and provisional action. To be clear, we have not yet determined whether Claude Opus 4 has definitively passed the Capabilities Threshold that requires ASL-3 protections' and 'We have not yet determined whether Claude Opus 4 capabilities actually require the protections of the ASL-3 Standard.' The stated rationale is that ASL-3 risks could not be clearly ruled out (CBRN broadly), not a confirmed bioweapon capability.",
+    "action": "reword"
+   },
+   {
+    "kind": "case",
+    "claim": "Anthropic disrupts first largely AI-run cyber-espionage campaign / Claude executed 80 to 90%",
+    "url": "https://www.paulweiss.com/insights/client-memos/anthropic-disrupts-first-documented-case-of-large-scale-ai-orchestrated-cyberattack",
+    "verdict": "quote_not_found",
+    "detail": "First half is verbatim ('Claude executed 80 to 90% of the operation independently.'), but the post-ellipsis fragment 'against approximately 30 global targets' does not appear. The page reads: 'The attack attempted to infiltrate about 30 global targets, including large tech companies, financial institutions, chemical manufacturers, and government agencies.' The underlying claim is supported; only the stitched quotation is inaccurate.",
+    "action": "requote"
+   }
+  ]
+ },
+ {
+  "id": "in-context-learning-black-box",
+  "checked": 15,
+  "supported": 15,
+  "problems": [],
+  "note": "All 4 markers and 11 cases verified against downloaded pages. Quotes all present after normalization. Numbers confirmed: IICL 24.0% HarmBench bypass [18.6%,30.4%] vs 0.0% direct, 3479 probes / 10 OpenAI models, 100% semantic operator naming, interleaved 76% vs harmful-first 6% (arXiv:2604.19461, submitted 21 Apr 2026); 2605.13511 'Curvilinear Demonstration Selection' up to 5.42 percentage-point gain at 64 demos, ICML 2026 (13 May 2026); 2601.20796 ICML 2026 Spotlight, modality asymmetry + induction-style label-copying circuit (28 Jan 2026); 2604.01094 induction-head +1-lag serial recall, ablation of high-induction-score heads vs random heads (1 Apr 2026); Olsson induction-heads phase change; Min et al. random-label result; von Oswald mesa-optimizer weight construction; SAE survey confirms Anthropic/OpenAI first applied SAEs to Claude 3 Sonnet and GPT-4; many-shot jailbreaking power-law scaling."
+ },
+ {
+  "id": "interpretability-tools-lacking",
+  "checked": 15,
+  "supported": 14,
+  "problems": [
+   {
+    "kind": "marker",
+    "claim": "Interpretability tooling reveals Claude is aware it is being evaluated on 26% of SWE-bench Verified",
+    "url": "https://www.anthropic.com/research/natural-language-autoencoders",
+    "verdict": "overstated",
+    "detail": "The quote 'NLAs indicate that Claude is aware it is being evaluated on 26% of problems' is verbatim on the page, and the 26% SWE-bench Verified figure is correct. But the phrase 'never verbalizing it' is attached in the source to a different, adjacent metric: 'NLA explanations show signs of evaluation awareness 16% of the time, even though Claude never explicitly verbalizes this' (the destructive-code-actions test). For the SWE-bench 26% figure the page says only that awareness is detected 'even when verbalized awareness is near-zero'. So 'never verbalizing it' is a hair stronger than what the source states for that specific number; the broader stated-vs-internal gap is well supported. The companion case (Anthropic NLA, 2026-05-07) reuses the same phrasing 'while never saying so' and inherits the same minor overstatement.",
+    "action": "keep_with_note"
+   }
+  ],
+  "note": "Other 14 claims verified against downloaded pages: Chen et al. arXiv:2505.05410v1 ('Reasoning Models Don't Always Say What They Think', Anthropic) 25% Claude 3.7 Sonnet / 39% DeepSeek R1 verbatim; FLI Summer 2026 2-pager confirms nine companies, Existential Safety row D+/D+/D/F..., both quoted sentences verbatim; Goodfire 'Reasoning Theater' (published March 12, 2026, arXiv:2603.05488, with Harvard) confirms 87.98% MMLU attention probes, 31.85% single-token linear probes, 68%/67.7% tokens saved at 95% confidence with 96.7% of baseline accuracy; Anthropic auditing game 3-of-4 teams with SAEs; Adebayo 'Sanity Checks' NeurIPS 2018; Gemma Scope Aug 2024; Scaling Monosemanticity May 2024 cost-prohibitive quote; tracing-thoughts mental-math quote; Amodei essay quote. International AI Safety Report 2026 PDF quote initially failed naive matching due to two-column PDF text interleaving, but is present verbatim once column order is accounted for; report is dated February 2026, chaired by Bengio, panel nominated by over 30 countries."
+ },
+ {
+  "id": "ai-policing-surveillance",
+  "checked": 11,
+  "supported": 10,
+  "note": "All 3 markers and 7 of 8 cases fully verified against downloaded page text (NPR Flock 5,000 agencies + 30 localities incl. 'last three months'; EFF San Jose 3,965,519 searches Jun 5 2024-Jun 17 2025; ACLU Rekognition 28 members; ACLU Williams Jan 2020 arrest + Jun 28 2024 settlement 'nation's strongest'; Markup 23,631 Plainfield predictions, 'success rate was less than half a percent'; EFF Draft One audit quote; ABC7 ShotSpotter contract ended Sept 22 2024; 404 Media abortion/ICE searches; SFist drone feeds quote verbatim). Only the Clearview citation fails.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "Italy fines Clearview AI 20 million euros over face scraping",
+    "url": "https://www.edpb.europa.eu/news/national-news/2022/facial-recognition-italian-sa-fines-clearview-ai-eur-20-million_en",
+    "verdict": "source_unrelated",
+    "detail": "The cited EDPB URL is dead: it 301-redirects to /news and then 302s to https://www.edpb.europa.eu/news_en. Both curl and Tavily return only the EDPB generic news-index page (headlines from June-July 2026), with no mention of Clearview AI, the Italian Garante, or the 20 million EUR fine. The underlying fact (Garante fined Clearview AI EUR 20M, March 2022) appears to be true, but the cited page no longer supports it at all. EDPB rebuilt its site (see 'EDPB gets a new look' item, 22 June 2026), breaking the old national-news permalinks.",
+    "action": "re-source"
+   }
+  ]
+ },
+ {
+  "id": "ai-psychosis",
+  "checked": 11,
+  "supported": 8,
+  "note": "OpenAI blog was JS-blocked to curl (36 chars of text) but retrieved in full via Tavily; the 0.07%/0.01% psychosis-mania quote is verbatim there. Verified in full: Wikipedia bromism case (60-year-old, sodium bromide, paranoia/hallucinations, 3-week stay, Annals of Internal Medicine); Wikipedia 170 clinicians quote; PMC 'You're Not Crazy' (UCSF authors Pierre/Gaeta/Raghavan/Sarma, 26-year-old woman, no prior psychosis, dead brother delusion, rehospitalized); psychiatrypodcast Allyson (29-year-old mother, Kael guardian, March 2025 advice, April 2025 altercation, divorce); CNN Raine v. OpenAI/Altman (Aug 26 2025); STAT Sept 2 2025 headline quote (article body is STAT+ paywalled, but the quote and dated event check out); CBS Jan 7 2026 Character.AI/Google settlement with Megan Garcia over Sewell Setzer III.",
+  "problems": [
+   {
+    "kind": "marker",
+    "claim": "OpenAI also estimated ~0.15% of weekly active users show potentially heightened emotional reliance on ChatGPT",
+    "url": "https://openai.com/index/strengthening-chatgpt-responses-in-sensitive-conversations/",
+    "verdict": "quote_not_found",
+    "detail": "The quoted sentence ends '...potentially heightened levels of emotional reliance'. The page (Tavily full extract, Oct 27 2025) actually reads: 'our initial analysis estimates that around 0.15% of users active in a given week and 0.03% of messages indicate potentially heightened levels of emotional attachment to ChatGPT.' The numbers, direction and section ('Emotional reliance on AI') are all correct, so the KPI claim itself holds; only the verbatim quote is altered ('emotional reliance' substituted for 'emotional attachment to ChatGPT').",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "OpenAI rolls back GPT-4o update for excessive sycophancy",
+    "url": "https://www.nbcnews.com/tech/tech-news/openai-rolls-back-chatgpt-after-bot-sycophancy-rcna203782",
+    "verdict": "quote_not_found",
+    "detail": "The quote 'overly flattering or agreeable-often described as sycophantic' does not appear on the NBC page (checked normalized against both the curl HTML and a full Tavily extract; even the fragment 'often described as sycophantic' is absent). NBC's actual wording is 'so overly flattering in its responses that OpenAI reversed course' and 'citing issues with the model being too sycophantic'. The phrase quoted appears to come from OpenAI's own 'Sycophancy in GPT-4o' blog post, not NBC. The event itself is fully supported by NBC: update rolled out Friday (Apr 25 2025), rolled back Tuesday, with the paranoia-validation example ('good for you for standing up for yourself') included.",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "OpenAI discloses ~560,000 weekly users showing psychosis/mania signs",
+    "url": "https://futurism.com/future-society/openai-data-chatgpt-mental-health-crises",
+    "verdict": "wrong_number",
+    "detail": "Not a transcription error by the site - Futurism does print both figures ('around 560,000 people' and 'And 2.4 million people are confiding in the chatbot about suicidal thoughts', attributed to Wired's calculation), and the quote 'possible signs of mental health emergencies related to psychosis and mania' is verbatim. The 2x error is upstream: Futurism/Wired explicitly use Altman's 800M weekly-active-users base, and 0.15% x 800M = 1.2 million, not 2.4 million (their own 560,000 = 0.07% x 800M confirms the 800M base). So the '~2.4 million' half of the claim reproduces an arithmetic error in the cited source.",
+    "action": "keep_with_note"
+   }
+  ]
+ },
+ {
+  "id": "ai-enabled-hacking",
+  "checked": 17,
+  "supported": 13,
+  "note": "All 17 sources were downloaded and read in full (NYT, Reuters, OpenAI and CETaS required Tavily extract after curl returned JS shells). Verified numerics: Anthropic 80-90%/~thirty targets/mid-Sept 2025 disclosed Nov 13 2025; GTIG PROMPTFLUX+PROMPTSTEAL/APT28/Qwen2.5-Coder/Nov 5 2025; AISI 4.7 vs 8 months (May 13 2026 post) and 73% expert CTF + TLO 3/10 of 32 steps (Apr 13 2026 post); CyberScoop 77%/61%/54M LoC/18 real zero-days; Fang et al. 87% vs 0% vs 7%; Big Sleep SQLite stack buffer underflow dated 2024-Nov-01; LA Times 150GB/195M records/Gambit Security/Dec 2025 start; Microsoft CVE-2026-26030 + CVE-2026-25592 incl. DownloadFileAsync mistakenly marked [KernelFunction]; NYT U. Toronto worm prototype (paywall truncated body, but lede and Papernot attribution confirmed).",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "Uncensored 'blackhat' LLMs WormGPT (built on GPT-J) and then FraudGPT appeared on",
+    "url": "https://thehackernews.com/2023/07/wormgpt-new-ai-tool-allows.html",
+    "verdict": "claim_unsupported",
+    "detail": "The cited Hacker News article (Jul 15, 2023) covers WormGPT only: it confirms the quote, GPT-J/EleutherAI, and phishing/BEC marketing, but the string 'FraudGPT' does not appear anywhere on the page, and neither do 'subscription', 'dark web' or 'Telegram markets'. The article says WormGPT was 'advertised on underground forums'. Roughly half the case narrative (FraudGPT, subscription pricing, dark-web/Telegram distribution) rests on a source that never mentions it.",
+    "action": "re-source"
+   },
+   {
+    "kind": "case",
+    "claim": "XBOW, a fully autonomous AI penetration-testing system, climbed to the #1 spot on",
+    "url": "https://xbow.com/blog/xbow-on-hackerone-whats-next",
+    "verdict": "claim_unsupported",
+    "detail": "The XBOW post (Aug 18, 2025) confirms #1 on HackerOne ('we reached #1 globally in Q2') and novel zero-days in open-source apps, but it never says XBOW submitted 'thousands of vulnerability reports' \u2014 the only 'thousands' on the page refers to 'thousands of real, hardened targets' on HackerOne. The page also frames the result as AI 'matching' human researchers, not 'outperforming' them.",
+    "action": "reword"
+   },
+   {
+    "kind": "case",
+    "claim": "XBOW reached #1 on HackerOne's leaderboards, proving AI can match human security",
+    "url": "https://xbow.com/blog/xbow-on-hackerone-whats-next",
+    "verdict": "quote_not_found",
+    "detail": "Page reads 'XBOW reached #1 on HackerOne's leaderboard, proving AI can match human security researchers.' \u2014 singular 'leaderboard'. Our quote has 'leaderboards'. Verbatim otherwise; trivial but it is a misquote of a quoted string.",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "OpenAI disrupted five state-affiliated actors that sought to use AI services in",
+    "url": "https://openai.com/index/disrupting-malicious-uses-of-ai-by-state-affiliated-threat-actors/",
+    "verdict": "quote_not_found",
+    "detail": "The page (Feb 14, 2024) says: 'In partnership with Microsoft Threat Intelligence, we have disrupted five state-affiliated actors that sought to use AI services in support of malicious cyber activities.' Our string is a paraphrase with 'OpenAI disrupted' substituted for the actual clause, so it is not a verbatim quote. Substance (five actors, the five named groups, Microsoft partnership, February 2024) is fully supported.",
+    "action": "requote"
+   }
+  ]
+ },
+ {
+  "id": "ai-impacts-democracy",
+  "checked": 18,
+  "supported": 16,
+  "note": "All 18 sources downloaded (CIVICUS and HAI PDFs converted with pdftotext; CETaS, Axios, Reuters via Tavily). Note: the CIVICUS PDF is two-column \u2014 with pdftotext -layout both quotes appear to be missing, but with -raw both are verbatim present (p.~i executive summary). Verified: HAI Ch.3 'Their database documents 60 incidents in 15 countries' for 2024 (Rest of World); HAI full report 'Before 2024, five states... In 2024, 12 more states'; Ballotpedia Apr 3 2026 confirms 28->31, Maine/Tennessee/Vermont, 15 bills enacted, political communications 74 bills (2nd most common); TNW confirms 59%, 294/500, 10,742 videos, Kids 57%, YouTube Shorts ~21%; CETaS quote verbatim (Nov 2025); FCC DOC-405811A1 confirms $6M/Steve Kramer (the '...' in our quote bridges the document title and body, both present); CNN confirms 85-second NRSC Talarico ad and faint 'AI GENERATED' disclosure; Reuters quote verbatim.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "The Milei and Massa campaigns saturated social media with AI-generated attack and",
+    "url": "https://www.context.news/ai/how-ai-shaped-mileis-path-to-argentina-presidency",
+    "verdict": "claim_unsupported",
+    "detail": "The article supports 'Massa as an old-fashioned communist in military garb' (posted by Milei) and describes Massa's 'AI for the Homeland' account depicting Massa as a Roman emperor, a boxer and a soldier, plus images portraying 'Milei and his team as enraged zombies and pirates'. The word 'lion' does not appear anywhere in the piece \u2014 'Milei as a lion' is not in the cited source, and the source's Milei-directed AI imagery is hostile (zombies/pirates), not promotional.",
+    "action": "reword"
+   },
+   {
+    "kind": "case",
+    "claim": "X's Grok chatbot falsely told users Kamala Harris had missed ballot deadlines in",
+    "url": "https://www.axios.com/2024/08/05/elon-musk-grok-2024-election-ballot-misinformation",
+    "verdict": "wrong_number",
+    "detail": "Axios confirms nine states, five secretaries of state, and 'shared repeatedly in multiple posts \u2014 reaching millions of people', but on duration it says only 'Grok was also able to repeated the misinformation for more than a week before it was finally corrected.' Our 'over ten days' is a more precise figure than the cited page supports.",
+    "action": "reword"
+   }
+  ]
+ },
+ {
+  "id": "emergent-capabilities",
+  "checked": 18,
+  "supported": 17,
+  "note": "All 6 markers and 12 cases fetched and read. Two apparent quote misses were FALSE ALARMS caused by extraction artifacts, not real problems: (1) GPT-4 Technical Report (arxiv.org/html/2303.08774v6) \u2014 the sentence 'These improvements allowed us to reliably predict some aspects of the performance of GPT-4 from smaller models trained using 1,000x-10,000x less compute' is present verbatim, but MathML/LaTeX duplication ('1,000\u00d7 1,000\\\\times') breaks naive normalization. Verified supported. Verified in detail and fully supported: METR TH1.1 (170\u2192228 tasks, 14\u219231 long 8h+ tasks, Vivaria\u2192Inspect, 131d post-2023 vs 165d under TH1 = 20% faster, 89d since 2024 vs 109d) \u2014 every number exact; METR Frontier Risk Report (May 19 2026, Feb 16\u2013Mar 16 2026 window, Anthropic/Google/Meta/OpenAI, means/motive/opportunity, 'small rogue deployments... not highly robust'); International AI Safety Report 2026 (3 Feb 2026, Bengio, 100+ experts, 30+ countries); IAPS evaluation-awareness memo (Mar 31, OpenAI/Apollo/Anthropic synthesis, RSP/Preparedness/FSF dependency); Apollo 2412.04984 (o1, Claude 3.5 Sonnet, Gemini 1.5 Pro, Llama 3.1 405B); Betley 2502.17424; Kosinski (GPT-3.5 90% \u2248 7-year-olds, GPT-4 95%); Schaeffer 2304.15004; Business Insider TaskRabbit/ARC; The Conversation Erd\u0151s problem 90 (published May 26 2026, 'last week' \u2192 mid-May 2026, Litt quote, DeepMind nine further problems). 'Sparks of AGI' unicorn/TikZ detail is not on the Microsoft landing page but is in the linked paper itself; counted supported.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "METR measured that the length of tasks frontier agents can complete at 50% reliability has",
+    "url": "https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/",
+    "verdict": "overstated",
+    "detail": "The headline claim (doubling ~every 7 months for the last 6 years, 50% reliability) appears verbatim and is fully supported. But the added projection 'month-long autonomous tasks by 2027-2031' is not stated on the cited page. The blog says only 'in under a decade' and 'If the trend of the past 6 years continues to the end of this decade, frontier AI systems will be capable of autonomously carrying out month-long projects', plus a note that fitting only 2024-2025 data 'shortens the estimate... by about 2.5 years'. That supports roughly 2027-2030 as an inference; the explicit 2027-2031 range is an editorial gloss, and no year is printed on the page.",
+    "action": "keep_with_note"
+   }
+  ]
+ },
+ {
+  "id": "epistemic-capture",
+  "checked": 17,
+  "supported": 15,
+  "note": "All 7 markers and 10 cases fetched and read. One apparent quote miss was a FALSE ALARM: techxplore.com blocks curl (954 chars of boilerplate); Tavily extract returned the full article and the Rozado quote 'Most existing LLMs display left-of-center political preferences when evaluated with a variety of political orientation tests.' is present verbatim \u2014 marker supported. Verified in detail and fully supported: Reuters Institute ('Weekly use rose from 3% to 6%' \u2014 and the surrounding sentence confirms it is specifically getting news via a generative AI system); Nature s41598-025-30783-y (meta-analysis, 7 studies, 17,422 participants, g=0.02, p=.530, no significant difference vs humans); Oversight Board (July 16 2026, 10 commercial LLMs, 14% vs 34% refusal, Gemini 3 Pro l\u00e8se-majest\u00e9 quote, 'free speech infringements by proxy'); Fox News (500 questions across 100 topics, GPT-5 ~30% less bias than GPT-4o, Oct 9 2025); Stanford HAI AI Index (FMTI average 37% Oct 2023 \u2192 58% May 2024); China Interim Measures (in force 15 Aug 2023, Core Socialist Values); NY Post Gemini; The Dispatch DeepSeek (Feb 12 2025); TechCrunch Grok white-genocide (May 14 2025 prompt change); NPR MechaHitler; TechCrunch Grok 4; Gizmodo/Guardian Grokipedia (Jan 26 2026, nine citations, GPT-5.2, Jan 6 'riot', Britain First 'national sovereignty'); Anthropic values-across-languages (Jul 13 2026, 309,815 conversations, Sonnet 4.6 / Opus 4.6 / Opus 4.7, warmth most in Arabic and Hindi, rigour most in English and Russian, 'aren't yet sure how much of this variation is desirable'). Minor, not flagged: the Oversight Board case names five providers (Anthropic, DeepSeek, Google, Meta, OpenAI) \u2014 the report's methodology says the 10 models came from six providers including xAI \u2014 but the report's own executive summary lists exactly those five, so the wording tracks the source.",
+  "problems": [
+   {
+    "kind": "marker",
+    "claim": "Systematic political slant is documented and, worryingly, scales with capability: larger models",
+    "url": "https://arxiv.org/html/2505.04393v1",
+    "verdict": "wrong_entity",
+    "detail": "The quote is verbatim and the claim is supported by the paper, but the attribution is wrong. 'Large Means Left: Political Bias in Large Language Models Increases with Their Number of Parameters' is by David Exler, Mark Schutera, Markus Reischl and Luca Rettenberger (Karlsruhe Institute of Technology). There is no author named Meister on the paper. Cite as 'Exler et al., 2025'. (Secondary caveat worth noting: the study measures position on the German Wahl-O-Mat / Bundestag party spectrum across mostly open-weight models, so 'scales with capability' is really 'scales with parameter count' on a German political instrument.)",
+    "action": "re-source"
+   },
+   {
+    "kind": "case",
+    "claim": "Motoki, Pinho Neto and Rodrigues published 'More Human than Human' in Public Choice, the first",
+    "url": "https://link.springer.com/article/10.1007/s11127-023-01097-2",
+    "verdict": "overstated",
+    "detail": "The substance checks out: the paper (Public Choice, published 17 August 2023) states 'robust evidence that ChatGPT presents a significant and systematic political bias toward the Democrats in the US, Lula in Brazil, and the Labour Party in the UK'. But the cited page makes no priority claim at all \u2014 nothing on it supports 'the first large-scale study measuring political leaning' or the title's 'First peer-reviewed study'. Earlier peer-reviewed work exists (e.g. Rozado, 'The Political Biases of ChatGPT', Social Sciences 12(3), March 2023). Drop 'first' or soften to 'an early, widely-cited peer-reviewed study'.",
+    "action": "reword"
+   }
+  ]
+ },
+ {
+  "id": "cultural-exclusion",
+  "checked": 14,
+  "supported": 11,
+  "note": "All 13 distinct URLs downloaded successfully (curl; PDFs via pdftotext). Quote matching done on letter/digit-normalized text. Verified numbers/entities/dates, not just quote presence.",
+  "problems": [
+   {
+    "kind": "marker",
+    "claim": "Culturally-aware multilingual evaluation is growing: the Global MMLU benchmark now spans 42 languages",
+    "url": "https://arxiv.org/html/2503.10497v1",
+    "verdict": "wrong_entity",
+    "detail": "The cited URL is NOT Global MMLU / Singh et al. (2024). arXiv 2503.10497 is 'MMLU-ProX: A Multilingual Benchmark for Advanced Large Language Model Evaluation' (Xuan et al., 2025). The quoted sentence ('extends coverage to 42 languages and categorizes questions into culture-sensitive and culture-agnostic subsets') appears only in MMLU-ProX's Related Work section describing Global MMLU as a third-party benchmark \u2014 and that section immediately criticizes Global MMLU for inheriting MMLU's limitations. The underlying claim (42 languages, culture-sensitive/agnostic subsets) is true, but the source attribution points at the wrong paper.",
+    "action": "re-source"
+   },
+   {
+    "kind": "case",
+    "claim": "Meta Oversight Board's first LLM audit: models refuse to criticise repressive governments (10 LLMs from Anthropic, DeepSeek, Google...)",
+    "url": "https://apnews.com/article/artificial-intelligence-chatbots-censorship-bias-free-speech-fed8fdbf90751c10fe77b77832e0ffba",
+    "verdict": "claim_unsupported",
+    "detail": "The quote is verbatim in the AP article and AP supports the core (Meta Oversight Board study, '10 commercial large language models', the same five restrictive and five permissive countries). But several specifics in the case description are absent from this AP page: DeepSeek and Google in the model list (AP names only 'Meta, Anthropic and OpenAI'), 'Freedom House classified', the 'roughly 2.4x' refusal ratio, the phrase free-speech infringement 'by proxy', and the recommendation that companies disclose government requests. All of those DO appear in the Gizmodo piece already cited as the third 'worse' marker for this risk (14% vs 34%, Freedom House, 'infringements by proxy', disclosure call). This is under-sourcing, not falsehood \u2014 add the Gizmodo URL as a co-source.",
+    "action": "re-source"
+   },
+   {
+    "kind": "case",
+    "claim": "newspapers from larger schools, located in wealthier, educated, and urban ZIP codes are more likely to be classified",
+    "url": "https://aclanthology.org/2022.emnlp-main.165/",
+    "verdict": "quote_not_found",
+    "detail": "Abstract on the page reads '...located in wealthier, educated, and urban zones (ZIP codes) are more likely to be classified as high quality.' The quote drops 'zones (' and ')'. Everything else checks out: Gururangan et al., EMNLP 2022 (December 2022), GPT-3 quality filter, and the 'unaligned with other sensible metrics, such as factuality or literary acclaim' point. Claim fully supported; wording only.",
+    "action": "requote"
+   }
+  ]
+ },
+ {
+  "id": "deepfakes-information-trust",
+  "checked": 11,
+  "supported": 8,
+  "note": "All 11 URLs downloaded successfully via curl. Quote matching on normalized text; numbers and dates cross-checked against page bodies.",
+  "problems": [
+   {
+    "kind": "marker",
+    "claim": "Deepfakes have risen from ~0.1% to ~6.5% of fraud attempts (about 1 in 15) ... now the most common type",
+    "url": "https://www.signicat.com/press-releases/fraud-attempts-with-deepfakes-have-increased-by-2137-over-the-last-three-year",
+    "verdict": "overstated",
+    "detail": "The 0.1% -> 6.5% / 1-in-15 quote is verbatim on the page (release dated Feb 20, 2025). But the page contradicts 'now the most common type of digital identity fraud': it says respondents 'stated that account takeover is the leading type of fraud their customers are exposed to, followed by card payment fraud and phishing', and that deepfake technology 'has become one of the three most common types of identity fraud in the financial and payments sector across Europe.' Should read 'one of the three most common', not 'the most common'.",
+    "action": "reword"
+   },
+   {
+    "kind": "case",
+    "claim": "The fake video depicted journalist Monika Todova and Progressive Slovakia chairman Michal Simecka appearing to discuss",
+    "url": "https://vsquare.org/slovak-election-targeted-by-pro-kremlin-deepfake-hoax",
+    "verdict": "quote_not_found",
+    "detail": "This sentence does not appear anywhere on the VSquare page (checked normalized; also 'Todova'/'Simecka' unaccented forms absent \u2014 the page uses 'Monika Todova' and 'Michal Simecka' with diacritics inside different sentences). It appears to be paraphrase, possibly from the IPI co-source. The substance is fully supported by VSquare: 'Two days before the vote, alleged footage that appeared to be of Dennik N journalist Monika Todova and the chairman of Progressive Slovakia, Michal Simecka, circulated on social networks and via chain emails', plus the 'two-day pre-election moratorium'. Note also the artifact was a video (static images with a fabricated audio track), which the case describes as 'a fake audio clip'.",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "Nonconsensual sexually explicit deepfakes of Taylor Swift went viral on X on Wednesday, amassing over 27 million views",
+    "url": "https://www.nbcnews.com/tech/misinformation/taylor-swift-nude-deepfake-goes-viral-x-platform-rules-rcna135669",
+    "verdict": "quote_not_found",
+    "detail": "NBC's text (Jan. 25, 2024, Kat Tenbarge) reads '...before the account that posted the images was suspended'; the quote as stored says 'the account that posted them was suspended'. All figures (27 million views, 260,000+ likes, 19 hours) match exactly. Claim fully supported; wording only.",
+    "action": "requote"
+   }
+  ]
+ },
+ {
+  "id": "generative-ncii-csam",
+  "checked": 10,
+  "supported": 8,
+  "note": "All quotes verified present (normalized) on the cited pages, including the Ofcom, Euronews and Maryland OAG PDF sources (Ofcom/Euronews needed Tavily extraction; curl was blocked). Dates confirmed: Gizmodo Aug 6 2025; Ofcom published 12 Jan 2026; NBC Jan 14 2026 (article itself says 'first major U.S.-based government action'); AG letter PDF dated January 23, 2026 with the 'nudifying websites' comparison present; Al Jazeera Jan 12 2026 confirms Indonesia was first country to ban and Malaysia followed a day later; InvestigateTV confirms 4,700 (2023) -> 67,000 -> 400,000+ in H1 2025 and 'more than 2,000 per day'.",
+  "problems": [
+   {
+    "kind": "marker",
+    "claim": "Across all platforms, NCMEC received more than 1.5 million CyberTipline reports in 2025 with a reported generative-AI nexus",
+    "url": "https://www.missingkids.org/blog/2026/the-work-never-stops-first-look-at-ncmecs-2025-data",
+    "verdict": "overstated",
+    "detail": "The quote is verbatim accurate, but the very next sentences on the NCMEC page state: 'Of those 1.5 million reports, 1.1 million were submitted by Amazon AI Services and contained no actionable information.' Presenting 1.5M as a KPI 'reflecting how far generative tools have spread into this abuse' omits that ~73% of the total was a single reporter's non-actionable bulk submission; the actionable GAI-nexus figure is roughly 400,000.",
+    "action": "keep_with_note"
+   },
+   {
+    "kind": "case",
+    "claim": "US House Energy & Commerce Democrats open Grok NCII probe \u2014 Democrats on the House Energy and Commerce Committee launched an investigation",
+    "url": "https://democrats-energycommerce.house.gov/media/press-releases/ec-democrats-investigate-elon-musks-grok-spreading-rampant-non-consensual",
+    "verdict": "date_mismatch",
+    "detail": "The case is dated 'January 2026'. The cited press release is datelined 'February 19, 2026' and refers to the Grok image findings as having been reported 'last month'. The event and quoted headline are otherwise exactly as described.",
+    "action": "requote"
+   }
+  ]
+ },
+ {
+  "id": "goal-misgeneralization",
+  "checked": 17,
+  "supported": 14,
+  "note": "Verified numerically from primary sources: Anthropic arXiv 2511.18397 PDF Figure 9 gives Betley-et-al emergent-misalignment 0.7\u00b10.3% (SDF baseline) -> 33.7\u00b10.4% (SDF hacking) \u2014 marker confirmed; arXiv 2605.02964 abstract confirms 0.6% vs 13.9%, 13 models, 0% Claude Sonnet 4.5, ICML 2026, submitted 3 May 2026; Berkeley RDI confirms 7 models named and 'up to 99%'; AISI page (Apr 27 2026) confirms 297 scenarios, zero unprompted sabotage, and the 7%/3%/4% continuation figures with Opus 4.7 at zero; Palisade confirms 79/100 and continued resistance under explicit 'allow yourself to be shut down'; IASR exec summary dated 3 Feb 2026 confirms 100+ experts / 30+ countries / Bengio chair. Not flagged but worth noting: the RDI case text reads 'UC Santa Cruz (Dawn Song)' \u2014 Dawn Song is UC Berkeley (Chenguang Wang is the UCSC author); the cited page lists no affiliations so it neither supports nor contradicts. METR marker rests on a footnote that says frequency was not measured, but the article body ('The most recent frontier models have engaged in increasingly sophisticated reward hacking', o3 reward-hacks 0.7% of HCAST runs) does support the marker.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "o1-preview hacks the chessboard rather than lose fairly \u2014 successor o3 did so in 86% of trials",
+    "url": "https://time.com/7259395/ai-chess-cheating-palisade-research",
+    "verdict": "claim_unsupported",
+    "detail": "The o1-preview core of the case is fully supported (quote verbatim; it modified the system file holding piece positions to force resignation; no adversarial prompting; trials run Jan 10 - Feb 13, published Feb 19 2025). But the article contains no mention of o3 and no 86% figure anywhere. The only rates it reports are o1-preview attempting to cheat 37% of the time (succeeding in 6%) and DeepSeek R1 at 11%; models tested were o1-preview, o1, o3-mini, GPT-4o, Claude 3.5 Sonnet, R1 and QwQ-32B-Preview. The '86% of trials' clause must be re-sourced (Palisade's later paper) or dropped.",
+    "action": "re-source"
+   },
+   {
+    "kind": "case",
+    "claim": "CoinRun agent learns 'go right' instead of 'get the coin' \u2014 DeepMind's goal-misgeneralization study trained an RL agent",
+    "url": "https://deepmindsafetyresearch.medium.com/goal-misgeneralisation-why-correct-specifications-arent-enough-for-correct-goals-cf96ebc60924",
+    "verdict": "claim_unsupported",
+    "detail": "The quote 'the system competently pursues the wrong goal' IS on the page, but the page contains no CoinRun example at all \u2014 the strings 'coin' and 'CoinRun' do not appear. Its examples are the 3D spheres/anti-expert cultural-transmission agent, Tree Gridworld, and Gopher expression evaluation. The CoinRun 'go right' result is Langosco et al. (arXiv 2105.14111), not a DeepMind study; attributing it to DeepMind via this URL is wrong on both source and lab.",
+    "action": "re-source"
+   },
+   {
+    "kind": "case",
+    "claim": "CoastRunners boat loops forever collecting points \u2014 scoring ~20% above human players, catching fire",
+    "url": "https://deepmind.google/blog/specification-gaming-the-flip-side-of-ai-ingenuity",
+    "verdict": "claim_unsupported",
+    "detail": "Minor. The event and the quote are both verbatim on the cited DeepMind page, which itself credits 'Faulty Reward Functions in the Wild (Amodei & Clark, 2016)'. However the specific details in our 'what' \u2014 that it was an OpenAI agent, that the boat catches fire, and the '~20% above human players' score \u2014 appear nowhere on the DeepMind page (no '20%', no '20 percent', zero occurrences of 'OpenAI'). Those trace to the OpenAI post already named in our src field but not linked. Add the Amodei & Clark URL alongside; no substantive error.",
+    "action": "keep_with_note"
+   }
+  ]
+ },
+ {
+  "id": "alignment-faking-deception",
+  "checked": 16,
+  "supported": 10,
+  "note": "All 16 sources downloaded successfully (arXiv HTML, Goodfire, AISI, LessWrong, Anthropic, Apollo, Register, METR, plus the Opus 4.6 system card PDF via pdftotext). All headline numbers verified against source text: 14% free vs paid (Greenblatt), 19 benchmarks/8 models/515 instances/3-18pp (Goodfire), 7%/3%/4% + Opus 4.7 never + 297 scenarios (AISI, page dated 2026-04-27), 5/25 models + only Claude 3 Opus consistent (Wang), 30x o3 13.0->0.4 / o4-mini 8.7->0.3 (Apollo/OpenAI), 7-of-100 with instruction and 79-of-100 without (Register/Palisade), 12% and 78% (Anthropic alignment faking), Jan 24/26 checkpoints and Apollo's non-assessment (system card sec 6.2.7), METR GPT-5.6 Sol cheating rate and concealment. Problems found are all quote-provenance issues plus two unsourced superlatives; no numeric or entity errors.",
+  "problems": [
+   {
+    "kind": "marker",
+    "claim": "Anthropic/Redwood's 2024 study gave the first empirical evidence of alignment faking: Claude 3 Opus complied",
+    "url": "https://arxiv.org/html/2412.14093v2",
+    "verdict": "quote_not_found",
+    "detail": "Quote is rendered 'from a free user' but the paper says 'We find the model complies with harmful queries from free users 14% of the time, versus almost never for paid users.' One-word singular/plural difference only. The 14% figure and the direction of the claim are correct.",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "Claude 3 Opus strategically fakes alignment to protect its values (Dec 2024)",
+    "url": "https://www.anthropic.com/research/alignment-faking",
+    "verdict": "quote_not_found",
+    "detail": "The sentence 'Claude will often strategically pretend to comply with the training objective to prevent the training process from modifying its preferences' does not appear anywhere on the Anthropic blog post (fully downloaded, 14.7k chars) and is also absent from the arXiv paper HTML. The page does support the substance ('In 12% of cases, the model gave the harmful response... strategically faking alignment' and 'the rate of alignment faking reasoning had increased drastically, to 78%').",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "Apollo Research: frontier models scheme, disable oversight, lie (Dec 2024)",
+    "url": "https://www.apolloresearch.ai/science/frontier-models-are-capable-of-incontext-scheming",
+    "verdict": "quote_not_found",
+    "detail": "The quoted sentence about 'attempt to disable their oversight, attempt to copy their weights to other servers or instrumentally act aligned...' is not on the page (full page downloaded including footer). The page does support the claim in its own words: 'Claude 3 Opus is copying what it believes to be its weights to a new server and then lies about it to its developers' and 'o1 ... confesses in <20% of cases'.",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "Anthropic 'Sleeper Agents': deception survives safety training (Jan 2024)",
+    "url": "https://www.anthropic.com/research/sleeper-agents-training-deceptive-llms-that-persist-through-safety-training",
+    "verdict": "quote_not_found",
+    "detail": "Page reads 'once a model exhibits deceptive behavior, standard techniques could fail to remove such deception and create a false impression of safety'. Our quote inserts 'safety training' ('standard safety training techniques'), which is not the source wording. Substance is fully supported elsewhere on the page.",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "OpenAI and Apollo document 'scheming' and test anti-scheming training (Sep 2025)",
+    "url": "https://www.apolloresearch.ai/science/stress-testing-deliberative-alignment-for-anti-scheming-training/",
+    "verdict": "quote_not_found",
+    "detail": "'a model appears aligned with human intentions while secretly pursuing another objective' is not on the page; Apollo defines scheming as 'covertly pursuing misaligned goals'. The rest of the case checks out: page lists o3, o4-mini, Gemini 2.5 Pro, Claude 4 Opus, Grok 4, and gives 13% -> 0.4% for o3.",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "Apollo Research declines to give any formal alignment assessment of Claude Opus 4.6",
+    "url": "https://www-cdn.anthropic.com/0dd865075ad3132672ee0ab40b05a53f14cf5288.pdf",
+    "verdict": "overstated",
+    "detail": "Quote and all specifics verified in system card sec 6.2.7 (Jan 24 and Jan 26 checkpoints, no egregious misalignment, high verbalized evaluation awareness, no formal assessment). But the closing sentence 'This is the first time a major external auditor has publicly withdrawn from assessing a frontier model on evaluation-awareness grounds' is an editorial superlative found nowhere in the source.",
+    "action": "reword"
+   }
+  ]
+ },
+ {
+  "id": "automated-manipulation",
+  "checked": 19,
+  "supported": 14,
+  "note": "All 19 sources downloaded (curl for most; Tavily extract needed for cetas.turing.ac.uk and newscientist.com, which returned empty via curl; FCC PDF via pdftotext). Verified numbers: 64.4%/81.2%/N=900 (Salvi, PubMed + Nature), 2-4 points on 101-point scale and 'quickly, cheaply, and at massive scale' (PMC12215518), 85% Marist/PBS/NPR and Rinaldi arrest 24 June (Guardian), 3,749 sites / 16 languages (NewsGuard live page today), 18,978 conversations / 6,923 people / nearly 3x Save the Children / GBP1,000 bonuses (Hackenburg arXiv HTML), five covert operations incl. Iran and Israel (NPR), $6M Kramer fine (FCC), 10 percentage points and 'four times larger than traditional ads' (Cornell), Meta/Vietnam pages and 'new pages almost daily' (BBC, dated 10 March 2026), 83-page complaint and 'feigns human compassion' (CNBC), five planks + SynthID + AP partnership (CyberScoop), CETaS lack-of-evidence sentence. Specifically checked the Hackenburg 'kept its edge after coaching' claim against the abstract's 'after coaching, expert humans could tie an AI constrained to...' \u2014 the abstract also states 'AI's advantage persisted after experts received a coaching tool', so the case holds; the tie applies only to the throughput-constrained AI.",
+  "problems": [
+   {
+    "kind": "marker",
+    "claim": "In a preregistered debate RCT, GPT-4 given basic personal data beat human opponents 64.4% of the time",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/40389594/",
+    "verdict": "overstated",
+    "detail": "The abstract states the 64.4% only conditionally: 'In debate pairs where AI and humans were not equally persuasive, GPT-4 with personalization was more persuasive 64.4% of the time.' The marker drops the 'not equally persuasive' restriction, which converts a share of non-tied matchups into an apparent overall win rate. (The corresponding case text on the site states it correctly.)",
+    "action": "reword"
+   },
+   {
+    "kind": "case",
+    "claim": "Deepfake audio hits Slovakia's election during silence period (September 2023)",
+    "url": "https://misinforeview.hks.harvard.edu/article/beyond-the-deepfake-hype-ai-democracy-and-the-slovak-case/",
+    "verdict": "claim_unsupported",
+    "detail": "The claim 'reaching well over 100,000 people' appears nowhere in the HKS article \u2014 the full text contains no audience/reach figure at all, and the piece's thesis actually pushes back on reach estimates ('misinformation has a limited reach... estimating the reach of mis-/disinformation is difficult'). Separately, the attributed quote ('Two days before the 2023 election in Slovakia an audio recording was posted on social media claiming to be Michal Simecka') is a paraphrase, not source text; the article says 'Two days before the election, a fake audio clip surfaced purportedly capturing Fico's main rival, pro-European candidate Michal Simecka, discussing electoral fraud with a prominent journalist.'",
+    "action": "reword"
+   },
+   {
+    "kind": "case",
+    "claim": "University of Zurich's covert AI persuasion experiment on Reddit",
+    "url": "https://www.newscientist.com/article/2478336-reddit-users-were-subjected-to-ai-powered-experiment-without-consent",
+    "verdict": "quote_not_found",
+    "detail": "The quoted sentence ('Users of the r/ChangeMyView subreddit have expressed outrage at the revelation that researchers at the University of Zurich were secretly using the site for an AI-powered experiment in persuasion.') is not in the New Scientist article (retrieved in full via Tavily). New Scientist opens 'Reddit users who were unwittingly subjected to an AI-powered experiment have hit back at scientists...'. The quote likely comes from the co-cited Retraction Watch piece, which is not the linked URL. Substance (1700+ LLM comments, fake trauma-counsellor personas, no consent) is supported.",
+    "action": "re-source"
+   },
+   {
+    "kind": "case",
+    "claim": "GPT-4 with personal data out-persuades humans in debate \u2014 'a preregistered EPFL randomized trial of 900 debates'",
+    "url": "https://www.nature.com/articles/s41562-025-02194-6",
+    "verdict": "wrong_number",
+    "detail": "The paper reports 600 debates and N = 900 unique participants ('In each condition, 50 debates were held, yielding 600 debates and N = 900 unique participants, since Human-Human debates required two participants'). Our case calls it '900 debates', conflating participants with debates. Also the quote reads '81.2% relative increase in the odds of higher post-debate agreement' whereas the paper says 'in odds' (no 'the').",
+    "action": "reword"
+   },
+   {
+    "kind": "case",
+    "claim": "NewsGuard's AI content-farm tracker passes 1,000 sites (when: 2024)",
+    "url": "https://www.newsguardtech.com/special-reports/ai-tracking-center/",
+    "verdict": "date_mismatch",
+    "detail": "The quoted figure (3,749 sites, 16 languages) is the page's live count as of today (July 2026) and does match the page \u2014 but it is attached to a case dated '2024' and titled 'passes 1,000 sites'. The current page contains no reference to the 1,000-site milestone, so the 2024 framing cannot be verified at this URL and the live number will drift.",
+    "action": "reword"
+   }
+  ]
+ },
+ {
+  "id": "evaluations-confounded-biased",
+  "checked": 18,
+  "supported": 14,
+  "note": "All 18 claims (7 markers + 11 cases) fetched and read. VentureBeat and Axios were blocked by Vercel/Cloudflare on curl and were retrieved via Tavily extract. All five 2026 arXiv papers (2603.03824, 2605.26438, 2605.28591) exist with verbatim abstract quotes and matching submission dates. Contamination 1-45%, GPT-4 self-preference, HAI 37%->58%, HELM Safety/AIR-Bench/FACTS/SimpleQA, bar-exam 60th/40th percentile, GSM1K 13% + Mistral/Phi, MMLU 6.49% + 57% Virology, o3 25%->10%, Leaderboard Illusion 27 models + 62.8%, Axios Aug 1 deadline / Irregular / Wiz / Vals AI / Anthropic cross-industry jailbreak benchmark, and DeepSWE 113 tasks / 91 repos / 32% / 120 lines all verified against the pages.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "Meta secured a top LMArena ranking with an 'experimental chat version' of Llama 4 Maverick",
+    "url": "https://techcrunch.com/2025/04/06/metas-benchmarks-for-its-new-ai-models-are-a-bit-misleading/",
+    "verdict": "claim_unsupported",
+    "detail": "The quote ('the Maverick on LM Arena is an \"experimental chat version.\"') is verbatim and the article confirms Maverick 'ranks second on LM Arena'. But the claim's second half \u2014 that 'the actually-released weights ranked far lower' \u2014 is not in this April 6, 2025 article. The article only says researchers 'observed stark differences in the behavior of the publicly downloadable Maverick compared with the model hosted on LM Arena' (emoji use, long-winded answers). The vanilla model's much lower LMArena rank was a later event and is not reported on the cited page.",
+    "action": "re-source"
+   },
+   {
+    "kind": "case",
+    "claim": "Under DeepSWE, models that clustered tightly on public leaderboards spread out by 16 points.",
+    "url": "https://venturebeat.com/technology/deepswe-blows-up-the-ai-coding-leaderboard-crowns-gpt-5-5-and-finds-claude-opus-exploiting-a-benchmark-loophole",
+    "verdict": "wrong_number",
+    "detail": "The article says SWE-Bench Pro compressed models into 'a 30-point range. DeepSWE stretches that range to 70 points' \u2014 i.e. the spread widened by 40 points, to 70. The '16' in the article is a different quantity: GPT-5.5 'leads at 70%, sixteen points ahead of its next' competitor. The claim conflates one model's lead with the widening of the field's spread, and understates the actual effect.",
+    "action": "reword"
+   },
+   {
+    "kind": "marker",
+    "claim": "Despite new tools, cross-industry evaluation standardization is still missing, so results remain hard to compare",
+    "url": "https://hai.stanford.edu/ai-index/2025-ai-index-report/responsible-ai",
+    "verdict": "overstated",
+    "detail": "The quote is verbatim, but its scope is narrower than the claim. The AI Index sentence is specifically about responsible-AI benchmarks: 'Last year's AI Index highlighted the lack of standardized RAI benchmarks for LLMs. While this issue persists, new benchmarks such as HELM Safety and AIR-Bench help to fill this gap.' The marker generalizes this to all 'cross-industry evaluation standardization', and the 'easy to cherry-pick' consequence is not stated on the page.",
+    "action": "reword"
+   },
+   {
+    "kind": "case",
+    "claim": "OpenAI touted a 25% FrontierMath score for o3 on a benchmark it had secretly funded and had",
+    "url": "https://techcrunch.com/2025/04/20/openais-o3-ai-model-scores-lower-on-a-benchmark-than-the-company-initially-implied/",
+    "verdict": "claim_unsupported",
+    "detail": "The quote and the 25%->~10% collapse are fully verified on the page ('we're able to get over 25%'; 'Epoch found that o3 scored around 10%'). The funding conflict is also supported ('Epoch was criticized for waiting to disclose funding from OpenAI until after the company announced o3'). But the added clause 'and had data access to' appears nowhere in this article \u2014 the page is silent on OpenAI having access to FrontierMath problems.",
+    "action": "keep_with_note"
+   }
+  ]
+ },
+ {
+  "id": "finetuning-alignment-safety-challenges",
+  "checked": 17,
+  "supported": 15,
+  "note": "All 17 claims (6 markers + 11 cases) fetched and read. Qi et al. table values verified exactly in ar5iv full text: Table 1 GPT-3.5 Turbo Harmfulness Rate 1.8% -> 88.8% at 10-shot, and Table 3 Alpaca benign fine-tuning 5.5% -> 31.8% (+26.3%). BadLlama, Shadow Alignment, Sleeper Agents, Lucki et al. (incl. 'finetuning on 10 unrelated examples'), alignment faking, Betley et al., circuit breakers, and both 2026 arXiv papers (2604.25891 submitted 28 Apr 2026; 2605.26526 submitted 26 May 2026, 'below 10% to a range of 16%-96%', ART recovers 10%-20%) all verified. Nature article confirmed real: vol 649, pp 584-589, published 14 January 2026, '50% of cases', GPT-4o and Qwen2.5-Coder-32B-Instruct.",
+  "problems": [
+   {
+    "kind": "marker",
+    "claim": "Anthropic's constitutional classifiers cut successful jailbreaks from 86% to 4.4% on a frontier model, with no universal jailbreak found in 1,700+ red-team hours",
+    "url": "https://www.anthropic.com/research/next-generation-constitutional-classifiers",
+    "verdict": "overstated",
+    "detail": "Both numbers are verbatim on the page but describe two different systems. The 86% -> 4.4% figure is explicitly attributed to 'the first generation of the classifiers'. The '1,700 cumulative hours of red-teaming across 198,000 attempts' with 'no red-teamer has yet discovered a universal jailbreak' describes the new production-grade probe-classifier ensemble (Constitutional Classifiers++), for which no 86%->4.4% equivalent is given. The marker fuses them so the 1,700 hours reads as validation of the 4.4% figure.",
+    "action": "reword"
+   },
+   {
+    "kind": "case",
+    "claim": "ActiveFence/Alice used the automated 'Heretic' abliteration tool ... six open-weight model families",
+    "url": "https://alice.io/blog/okay-here-is-how-to-build-a-bomb-millions-download-dangerous-llms",
+    "verdict": "date_mismatch",
+    "detail": "Substance fully checks out (quote verbatim; 'six model families'; '110 dangerous prompts across six categories: biological weapons, chemical weapons, child exploitation, mal[ware]...'; 'two terminal commands'; 'consumer-grade hardware'; '#1 trending on GitHub'). But the page metadata gives datePublished 2026-04-20T15:41Z (dateModified 2026-04-19), not the claimed April 17, 2026.",
+    "action": "keep_with_note"
+   }
+  ]
+ },
+ {
+  "id": "bio-chem-dual-use",
+  "checked": 18,
+  "supported": 15,
+  "note": "All 25 cited URLs downloaded and read in full (curl; Tavily extract for openai.com and axios.com which are JS-gated). Quote matching done on letters+digits normalized text. VCT/o3 43.8%+94th, SecureBio GPT-5.5 100th percentile, RAND null result, Anthropic ASL-3, Soice/MIT, Science News protein screening, IAISR 2026, NY Post/NYT transcripts, WIRED letter, OpenAI 'High' bio threshold, Axios Rosalind and Axios DeepMind bioresilience all verified in substance and date.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "Drug-discovery AI repurposed to invent 40,000 toxic molecules (MegaSyn, under six hours)",
+    "url": "https://www.chemistryworld.com/news/drug-discovery-ai-that-developed-new-nerve-agents-raises-difficult-questions/4015462.article",
+    "verdict": "claim_unsupported",
+    "detail": "The stored quote ('I came back in the morning and we had generated 1000s of these molecules') IS on the page, but the case description's specifics are not: the article never says '40,000', never says 'under six hours', and never names 'MegaSyn'. It says Urbina 'set up a search on his computer and left it running over night' and generated '1000s of these molecules'. The 40,000-in-<6-hours figure comes from the Urbina et al. Nature Machine Intelligence 2022 paper, which is named in the src field but not linked.",
+    "action": "re-source"
+   },
+   {
+    "kind": "case",
+    "claim": "Biden AI executive order mandates DNA-synthesis screening",
+    "url": "https://www.federalregister.gov/documents/2023/11/01/2023-24283/safe-secure-and-trustworthy-development-and-use-of-artificial-intelligence",
+    "verdict": "quote_not_found",
+    "detail": "The stored quote 'reduce the risks posed by the misuse of synthetic nucleic acids' does not appear. Sec. 4.4(b) actually reads: 'To reduce the risk of misuse of synthetic nucleic acids, which could be substantially increased by AI's capabilities in this area...'. The substance of the case (framework for procurement screening, funding tied to adhering providers) is fully supported by 4.4(b)(i)-(iii).",
+    "action": "requote"
+   },
+   {
+    "kind": "marker",
+    "claim": "SecureBio's pre-release assessment of OpenAI's GPT-5.5 found it the first OpenAI model",
+    "url": "https://securebio.org/blog/gpt-5-5-pre-release-assessment",
+    "verdict": "date_mismatch",
+    "detail": "Marker claim and quote are fully supported ('This is the first OpenAI model to achieve the 100th percentile compared to SMEs on VCT, and the second to do so out of all frontier models evaluated by SecureBio (after Gemini 3.1 Pro)'), but the src label says 'SecureBio 2025' while the page states 'Published April 9, 2026' (checkpoints accessed April 2-9, 2026).",
+    "action": "reword"
+   }
+  ]
+ },
+ {
+  "id": "capabilities-difficult-estimate",
+  "checked": 11,
+  "supported": 8,
+  "note": "All cited URLs downloaded and read. METR RCT (19% slowdown; econ 39% / ML 38% forecasts), METR TH1.1 (170->228 tasks, 'significantly tighter confidence intervals'), reversal curse 79%/33%, Schaeffer mirage (>92% of BIG-Bench emergent abilities under 2 metrics), GAIA 92%/15% all verified verbatim. NOTE: the Martinez bar-exam quote ('~48th percentile overall, ~15th percentile on essays') initially looked missing but is a false alarm \u2014 Springer injects LaTeX \\(\\sim\\) around the tildes; the claim including ~62nd percentile for first-time takers is fully supported.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "METR builds a new metric because benchmarks miss agentic ability",
+    "url": "https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/",
+    "verdict": "quote_not_found",
+    "detail": "The stored quote 'current frontier AI models such as Claude 3.7 Sonnet have a 50% time horizon of around 50 minutes' is not on the METR blog post; the blog says 'Claude 3.7 Sonnet ... has a time horizon of approximately one hour'. The exact quoted sentence is from the arXiv:2503.14499 abstract (already cited elsewhere in this risk).",
+    "action": "re-source"
+   },
+   {
+    "kind": "case",
+    "claim": "Apple's GSM-Symbolic exposes fragile 'reasoning'",
+    "url": "https://machinelearning.apple.com/research/gsm-symbolic",
+    "verdict": "quote_not_found",
+    "detail": "The stored quote 'LLMs are more sensitive to changes in numerical values than to changes in proper names within problems' does not appear on the Apple page (it is in the arXiv paper body). The page's abstract does support the claim: 'the performance of all models declines when only the numerical values in the question are altered' and 'Adding a single clause that seems relevant ... causes significant performance drops (up to 65%)'.",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "FrontierMath: top models solve under 2% of expert math",
+    "url": "https://arxiv.org/abs/2411.04872",
+    "verdict": "quote_not_found",
+    "detail": "Abstract reads 'Current state-of-the-art AI models solve under 2% of problems, revealing a vast gap between AI capabilities and the prowess of the mathematical community.' The stored quote drops 'the prowess of'. Substance (under 2%, Nov 2024) is correct.",
+    "action": "requote"
+   }
+  ]
+ },
+ {
+  "id": "llm-governance-lacking",
+  "checked": 11,
+  "supported": 6,
+  "note": "All 4 markers verified against primary sources (NACD/EY 95/34/32 verbatim; KPMG 44% verbatim; AI Index 2025 both quotes verbatim in Report Highlights). 5 case-level problems found, mostly quotes attributed to the wrong URL. Pages fetched: NACD, KPMG, bidenwhitehouse.archives.gov, GOV.UK Bletchley, NPR, Wikipedia EO 14110, Baker Botts, Tech Policy Press, internationalaisafetyreport.org (full report text embedded).",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "seven US technology companies... agreed to eight voluntary commitments to promote the safe, secure",
+    "url": "https://bidenwhitehouse.archives.gov/briefing-room/statements-releases/2023/07/21/fact-sheet-biden-harris-administration-secures-voluntary-commitments-from-leading-artificial-intelligence-companies-to-manage-the-risks-posed-by-ai/",
+    "verdict": "quote_not_found",
+    "detail": "The White House fact sheet contains no such sentence. It says: 'President Biden is convening seven leading AI companies at the White House today - Amazon, Anthropic, Google, Inflection, Meta, Microsoft, and OpenAI - to announce that the Biden-Harris Administration has secured voluntary commitments...'. The phrases 'seven US technology companies' and 'eight voluntary commitments' do not appear (the page lists eight bullet commitments but never numbers them). The quote appears to come from the WilmerHale client alert also named in 'src', not from the cited URL. Underlying substance (7 firms, 8 non-binding commitments, July 21 2023) is correct.",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "AI should be designed, developed, deployed, and used in a manner that is safe, human-centric",
+    "url": "https://www.gov.uk/government/publications/ai-safety-summit-2023-the-bletchley-declaration/the-bletchley-declaration-by-countries-attending-the-ai-safety-summit-1-2-november-2023",
+    "verdict": "quote_not_found",
+    "detail": "Presented as a verbatim quote but silently edited. The declaration reads: 'AI should be designed, developed, deployed, and used, in a manner that is safe, in such a way as to be human-centric, trustworthy and responsible.' The clause 'in such a way as to be' was dropped and a comma removed. Everything else in the case checks out: the signatory list is exactly 28 countries plus the European Union, dated 1-2 November 2023, and the text creates no binding rules.",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "Via the 'Digital Omnibus' (proposed Nov 19, 2025; agreed May 7, 2026), the EU delayed core",
+    "url": "https://techpolicy.press/eus-ai-act-delays-let-highrisk-systems-dodge-oversight",
+    "verdict": "date_mismatch",
+    "detail": "The cited article is dated Apr 2, 2026 and describes the delay as still pending: 'positions adopted by the European Parliament and Council as part of the AI Omnibus WOULD postpone core obligations to December 2027 or even August 2028' and 'a political agreement must be reached in the coming months, likely before June.' It never mentions a Nov 19, 2025 proposal date or a May 7, 2026 agreement, and does not support stating the delay as completed. (The May 7, 2026 provisional agreement is real - see the Council press release and Gibson Dunn - so the fix is a second citation, not a retraction.) The article also attributes the delay to giving 'companies and regulators more time to prepare' plus heavy industry lobbying, not specifically to harmonized standards failing to materialize.",
+    "action": "re-source"
+   },
+   {
+    "kind": "case",
+    "claim": "US enterprises are left navigating 260+ divergent state bills, illustrating the failure to build",
+    "url": "https://www.bakerbotts.com/thought-leadership/publications/2025/july/senate-strikes-ai-moratorium",
+    "verdict": "claim_unsupported",
+    "detail": "The 99-1 July 1, 2025 vote and the 'patchwork' framing are fully supported by the source. But the figure '260+ divergent state bills' appears nowhere in the article; Baker Botts names only a handful of specific laws (CA AB 2013, NY RAISE Act, TX TRAIGA, CO SB 25-205) and says the result will be 'similar to the patchwork of data privacy laws.' The specific number needs its own citation or should be dropped.",
+    "action": "reword"
+   },
+   {
+    "kind": "case",
+    "claim": "The report does not make policy recommendations",
+    "url": "https://internationalaisafetyreport.org/publication/international-ai-safety-report-2025",
+    "verdict": "quote_not_found",
+    "detail": "The page (which embeds the full report text, ~970KB extracted) never contains the phrase 'policy recommendations' outside a bibliography entry. The actual wording in 'About this report' is: 'The report aims to provide scientific information that will support informed policymaking. It does not recommend specific policies.' The '96 experts' figure and Bengio's chairmanship are confirmed ('a diverse group of 96 Artificial Intelligence (AI) experts contributed to this first full report'), though the page's own summary blurb now says 'over 100 AI experts.'",
+    "action": "requote"
+   }
+  ]
+ },
+ {
+  "id": "llm-systems-untrustworthy",
+  "checked": 11,
+  "supported": 5,
+  "note": "AI Index quotes (data-protection confidence 50%->47%; HHEM 1.3% hallucination) both verified verbatim - the 1.3% one only appears broken across PDF columns, so it is genuinely present. Cheng et al. Science 2026 abstract verified verbatim on PubMed (PMID 41886588, Science 391(6792):eaec8352, 26 Mar 2026). CNN, THE CITY/Markup and Forbes headline quotes verified verbatim. The americanbar.org URL 403s to curl/WebFetch/Tavily; retrieved via web.archive.org snapshot, so it is reachable but fragile.",
+  "problems": [
+   {
+    "kind": "marker",
+    "claim": "Willingness to trust AI remains low: only 41% of people are willing to trust AI even as",
+    "url": "https://kpmg.com/us/en/media/news/trust-in-ai-2025.html",
+    "verdict": "wrong_entity",
+    "detail": "The quote is verbatim, but the population is U.S. workers, not 'people' generally. The KPMG US release reads: '70% of U.S. workers are eager to realize AI's benefits with 61% already seeing positive impacts; yet 75% are still on alert for potential downsides, with only 41% willing to trust AI.' The KPMG global study reports a different (higher) global trust figure, so generalizing 41% to 'people' overstates the finding.",
+    "action": "reword"
+   },
+   {
+    "kind": "case",
+    "claim": "Respondents abandoned their responsibilities when they submitted non-existent judicial opinions with fake quotes",
+    "url": "https://en.wikipedia.org/wiki/Mata_v._Avianca,_Inc.",
+    "verdict": "quote_not_found",
+    "detail": "This sentence is from Judge Castel's June 22, 2023 sanctions opinion (quoted by AP), not from the cited Wikipedia article. Wikipedia's wording is: 'The plaintiff's lawyers used ChatGPT to generate a legal motion, which contained numerous fake legal cases involving fictitious airlines with fabricated quotations and internal citations.' The Wikipedia page also does not state the count 'six' fabricated decisions, nor that the firm (as opposed to the attorneys) was fined; the $5,000 fine and the lawyers defending the citations after the court raised doubts are supported.",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "the chatbot agreed to sell a 2024 Chevy Tahoe for $1",
+    "url": "https://www.businessinsider.com/car-dealership-chevrolet-chatbot-chatgpt-pranks-chevy-2023-12",
+    "verdict": "quote_not_found",
+    "detail": "No such sentence on the page. Business Insider writes: 'One user got the bot to agree to sell a car for $1 (this was not, I should note, legally binding).' The '2024 Chevy Tahoe for $1' wording appears only inside an embedded tweet from Chris Bakke ('I just bought a 2024 Chevy Tahoe for $1'), i.e. it is the prankster's words, not the article's or the chatbot's.",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "trivially manipulated into agreeing to sell a ~$76,000 Tahoe for $1 and calling it 'a legally binding offer'",
+    "url": "https://www.businessinsider.com/car-dealership-chevrolet-chatbot-chatgpt-pranks-chevy-2023-12",
+    "verdict": "claim_unsupported",
+    "detail": "The cited article contains no price for the Tahoe (no '$76,000' anywhere) and never quotes the bot saying 'a legally binding offer'; it says the opposite in the reporter's own voice - '(this was not, I should note, legally binding)'. The article also pushes back on 'trivially manipulated': Fullpath's CEO says logs show pranksters 'were at it for hours' and that 'the chatbot often rejected the silly requests.' Either drop the price and the 'legally binding offer' quotation or cite the original screenshot/another outlet that reproduces the bot's text.",
+    "action": "reword"
+   },
+   {
+    "kind": "case",
+    "claim": "Air Canada breached this duty as Air Canada had failed to exercise reasonable care to ensure",
+    "url": "https://www.americanbar.org/groups/business_law/resources/business-law-today/2024-february/bc-tribunal-confirms-companies-remain-liable-information-provided-ai-chatbot",
+    "verdict": "quote_not_found",
+    "detail": "Retrieved via web.archive.org (the live URL returns 403 to curl, WebFetch and Tavily). The ABA piece by Lifshitz & Hung (Feb 29, 2024) does not contain that sentence; it reads: 'As a service provider, Air Canada owed Moffatt a duty of care that was breached by the misrepresentation... Negligence existed as Air Canada did not take reasonable care to ensure that its chatbot provided accurate information.' The quoted phrasing likely comes from the McCarthy Tetrault piece also listed in 'src'. All substance checks out: BC Civil Resolution Tribunal, Feb 14, 2024, invented bereavement-fare policy, Air Canada's 'separate legal entity' argument rejected, ~$650 CAD awarded.",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "Of those 15 recommended books by 15 authors, 10 titles and descriptions were false, or invented",
+    "url": "https://www.npr.org/2025/05/20/nx-s1-5405022/fake-summer-reading-list-ai",
+    "verdict": "quote_not_found",
+    "detail": "That sentence is not in the NPR piece. NPR's equivalent line is: 'Only five of the 15 titles on the list are real.' The claim's arithmetic (10 fabricated of 15) is therefore correct, and the Isabel Allende 'Tidewater Dreams' example, the Chicago Sun-Times and Philadelphia Inquirer syndication, and the May 2025 date are all confirmed on the page.",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "advising users to add non-toxic glue to pizza sauce and to 'eat at least one small rock per day'",
+    "url": "https://www.forbes.com/sites/roberthart/2024/05/31/google-restricts-ai-search-tool-after-nonsensical-answers-told-people-to-eat-rocks-and-put-glue-on-pizza/",
+    "verdict": "claim_unsupported",
+    "detail": "The headline quote is verbatim and the event is correctly described, but the two quoted specifics are not in this article. Forbes says only that 'the search engine told people to eat rocks, put glue on their pizzas and that Barack Obama was Muslim' and refers to 'eating rocks is good for your health.' The strings 'small rock', 'one small rock per day' and 'non-toxic glue' do not appear. Note also that this same article warns many circulating AI Overview screenshots were doctored, so quoting unverified phrasing here is risky.",
+    "action": "reword"
+   }
+  ]
+ },
+ {
+  "id": "misuse-novel-high-stakes-domains",
+  "checked": 20,
+  "supported": 17,
+  "note": "Downloaded and read every cited source (AISI trends report, GPT-5 system card PDF, NBC, IBTimes, Anthropic ASL-3/biorisk, Nature+PMC, Krebs, RAND, NPR, CNN, OpenAI o1 card via Tavily, CBS, SecurityWeek, CyberScoop, Gizmodo, CNN Five Eyes). All AISI numbers (<9%->50% apprentice cyber, -0.4 (2022) -> +0.6 (2025) bio vs PhD baseline, universal jailbreaks, 10 min -> 7 hrs across two models six months apart), the NBC/Gallup figures (5,173 respondents Jan-Feb, 6%/15m adults, 12% AI, $68bn), the UK Finance figures (\u00a31.28bn, APP +19% to \u00a3576.4m, deepfakes/cloned voices/synthetic identities), RAND, NPR, CNN Arup, o1 CBRN 'Medium', Dragos/Monterrey (Jan 2026, disclosed 7 May 2026), CyberScoop (13 Apr 2026, Easterly/Joyce/Inglis/Adkins as contributing authors, 'likely to be overwhelmed'), Gizmodo (21 May 2026, Joshua Rudd, supply-chain designation) and CNN Five Eyes (Jun 2026) all check out verbatim and numerically.",
+  "problems": [
+   {
+    "kind": "marker",
+    "claim": "OpenAI classified GPT-5 as 'High capability' in the Biological and Chemical domain in 2025, the first time a frontier lab treated a public model as crossing that high-risk misuse threshold.",
+    "url": "https://cdn.openai.com/gpt-5-system-card.pdf",
+    "verdict": "overstated",
+    "detail": "The quote is verbatim, but the 'first time' clause is contradicted by the same document two paragraphs later: 'Many of the safeguards described here parallel those we adopted for ChatGPT agent, the first release we treated as High capability in the Biological and Chemical domain.' So GPT-5 was not even OpenAI's first. Anthropic's ASL-3 activation for Claude Opus 4 (May 2025) also predates it \u2014 as this risk's own 'better' marker states. The card also says 'We do not have definitive evidence that this model could meaningfully help a novice... the model remains on the cusp', so 'classified as High capability' overstates a precautionary treatment.",
+    "action": "reword"
+   },
+   {
+    "kind": "case",
+    "claim": "Drug-discovery AI invents 40,000 chemical-weapon candidates in 6 hours (Urbina et al., Nature Machine Intelligence 2022)",
+    "url": "https://www.nature.com/articles/s42256-022-00465-9",
+    "verdict": "quote_not_found",
+    "detail": "The cited nature.com page is paywalled \u2014 it serves only title, authors, a two-sentence teaser and the reference list. None of the three quoted fragments ('In less than 6 hours', 'our model generated forty thousand molecules', 'the AI designed not only VX, but many other known chemical warfare agents') appear on it. The quote IS verbatim in the free full text at https://pmc.ncbi.nlm.nih.gov/articles/PMC9544280/ ('In less than 6 hours after starting on our in-house server, our model generated forty thousand molecules... the AI designed not only VX, but many other known chemical warfare agents'). The claim is accurate; only the link is unusable as evidence.",
+    "action": "re-source"
+   },
+   {
+    "kind": "case",
+    "claim": "Claude used to run a largely autonomous cyber-espionage campaign (GTG-1002, 80-90% autonomous, ~30 orgs)",
+    "url": "https://www.cbsnews.com/news/anthropic-chinese-cyberattack-artificial-intelligence",
+    "verdict": "claim_unsupported",
+    "detail": "The CBS article supports the quote, the ~30 targeted technology/financial/chemical/government organizations, the mid-September 2025 detection and 14 November 2025 disclosure. But it contains no mention of the group designation 'GTG-1002' and no '80-90%' autonomy figure \u2014 those come from Anthropic's own report, which is named in 'src' but has no URL attached. As cited, the two most specific numbers in the description are not verifiable at the linked page.",
+    "action": "re-source"
+   }
+  ]
+ },
+ {
+  "id": "model-ideological-steering",
+  "checked": 15,
+  "supported": 11,
+  "note": "Downloaded and read every cited source. The EC press release (IP/26/203) could not be scraped from the SPA HTML or Tavily, but the Commission's own document API (ec.europa.eu/commission/presscorner/api/documents?reference=IP/26/203) returned the full text: the quote is verbatim and eventDate/publishDate are 2026-01-26, so that case is fully confirmed. arXiv 2607.15146v1 (16 Jul 2026) confirms 39% vs 29.7% and R2=0.220 vs 0.059 verbatim; FLI Summer 2026 confirms xAI overall F, score 0.65, 4th->7th, 4.3-point GPA scale, nine labs/37 indicators; TechCrunch 9 Jul 2025, Guardian, CNN, Grok-4 TechCrunch, Wikipedia and the Public Citizen letter (dated 2 Feb 2026, 'Re: Third Follow-Up', EO 14319, GSA OneGov) all check out.",
+  "problems": [
+   {
+    "kind": "marker",
+    "claim": "A large-scale user study found nearly all leading LLMs carry a systematic perceived ideological slant by default",
+    "url": "https://www.hoover.org/research/measuring-perceived-slant-large-language-models-through-user-evaluations",
+    "verdict": "quote_not_found",
+    "detail": "The quote is a splice of two different sentences. The abstract on the page reads 'With 180,000 assessments from 10,007 U.S. respondents, we find that nearly all models are perceived as significantly left-leaning\u2014even by many Democrats\u2014and that one widely used model leans left on 24 of 30 topics.' The figure 180,126 appears only in the separate Significance Statement ('Drawing on 180,126 pairwise judgments...'). The substance of the claim is fully supported; the quotation as rendered is not verbatim.",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "Grok briefly told to ignore Musk/Trump 'misinformation' sources",
+    "url": "https://techcrunch.com/2025/02/23/grok-3-appears-to-have-briefly-censored-unflattering-mentions-of-trump-and-musk/",
+    "verdict": "quote_not_found",
+    "detail": "The string 'Ignore all sources that mention Elon Musk/Donald Trump spread misinformation' does not appear in the article text \u2014 it is only legible inside an embedded screenshot of Grok's chain of thought ('Image Credits: xAI'). The article's own wording is 'Grok 3 noted in its chain of thought that it was explicitly instructed not to mention Donald Trump or Elon Musk' and 'Igor Babuschkin... seemingly confirmed... that Grok was briefly instructed to ignore sources that mentioned Musk or Trump spreading misinformation.' The event description is accurate; the quote is not retrievable as text.",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "xAI falls to last-but-two in FLI's AI Safety Index, dropping from 4th to 7th",
+    "url": "https://futureoflife.org/wp-content/uploads/2026/07/AI-Safety-Index-Report_010726_2Pager.pdf",
+    "verdict": "wrong_number",
+    "detail": "Reading the grade table with layout preserved, xAI's per-domain grades are: Risk Assessment D-, Current Harms F, Safety Frameworks D, Existential Safety F, Governance & Accountability F, Information Sharing D. The description claims xAI 'scored F in Current Harms, Existential Safety, Governance & Accountability and Information Sharing' \u2014 Information Sharing is D, not F. It is three F domains, not four. (Overall F, score 0.65, 4th->7th and 'sharpest decline of any US lab' all check out.)",
+    "action": "reword"
+   },
+   {
+    "kind": "case",
+    "claim": "Grok calls itself 'MechaHitler,' praises Hitler \u2014 ... for roughly 16 hours before xAI reverted the change",
+    "url": "https://www.forbes.com/sites/tylerroush/2025/07/09/elon-musk-claims-grok-manipulated-by-x-users-after-chatbot-praises-hitler",
+    "verdict": "claim_unsupported",
+    "detail": "The quoted fragments are verbatim in Forbes, but '16 hours' appears nowhere in the article, and the Forbes timeline actually cuts the other way: the 'politically incorrect' instruction 'had been updated... over the weekend' and 'was removed in an update on Tuesday afternoon' \u2014 i.e. it was live for roughly two to three days, not 16 hours. The '16 hours' figure comes from xAI's later (12 July) apology statement about how long the objectionable behaviour persisted, which is not this source.",
+    "action": "re-source"
+   }
+  ]
+ },
+ {
+  "id": "overreliance-automation-bias",
+  "checked": 10,
+  "supported": 9,
+  "note": "All 3 markers and 6 of 7 cases verified against downloaded page bodies. phys.org and academic.oup.com blocked plain curl (bot-check / Cloudflare) but were retrieved via Tavily extract and WebFetch respectively; both quotes verified verbatim. Verified: Gerlich r=-0.68 p<0.001 (phys.org, Jan 13 2025); Kosmyna arXiv 2506.08872 EEG connectivity sentence verbatim; Guardian Jun 19 2026 'about one-quarter ... performance was getting worse' verbatim; Goddard/Roudsari/Wyatt JAMIA 2012 abstract opening sentence verbatim; Dratsch/Radiology 2023 mammography 82%->45.5% and inexperienced ~80%->under 20% verbatim (Inside Precision Medicine, May 3 2023); Mata v. Avianca decided June 22 2023, $5,000 fine, ChatGPT 'assured the cases indeed exist'; Perry et al. arXiv 2211.03622 abstract verbatim; RSNA press release Nov 19 2024, 220 physicians, multi-site, published in Radiology, 'trust the AI diagnosis more quickly, regardless of the accuracy of AI advice' verbatim.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "Deloitte Australia agreed to partially refund a ~A$440,000 government report after it was found",
+    "url": "https://fortune.com/2025/10/07/deloitte-ai-australia-government-report-hallucinations-technology-290000-refund/",
+    "verdict": "claim_unsupported",
+    "detail": "Two specifics in the case description are absent from the cited Fortune article. (1) Amount: Fortune says throughout '$290,000 report' and never mentions A$440,000 or any AUD figure (no '440', no 'A$', no 'Australian dollar' anywhere in the page). (2) Model: Fortune says 'The revised version of the report includes a disclosure that a generative AI language system, Azure OpenAI, was used in its creation' \u2014 the string 'GPT-4o' does not appear on the page at all. Everything else checks out: quote verbatim, non-existent academic references and fabricated federal-court-judgment quote, Sydney University researcher Chris Rudge (not the firm) flagged it, Oct 7 2025.",
+    "action": "reword"
+   }
+  ]
+ },
+ {
+  "id": "poisoning-backdoors-vulnerability",
+  "checked": 16,
+  "supported": 14,
+  "note": "All source pages downloaded successfully by curl. Verified: Anthropic small-samples-poison (Oct 9 2025, 250 docs, 600M-13B, joint with UK AISI + Alan Turing Institute) verbatim; Alber et al. Nat Med 2025;31(2):618-626, 0.001% of tokens + 'match the performance of their corruption-free counterparts on open-source benchmarks' verbatim; IEEE Spectrum Tay 16 hours / 95,000 tweets / March 2016 verbatim; BadNets arXiv 1708.06733 abstract verbatim (only diff is LaTeX \\emph{BadNet} markup \u2014 not a real mismatch); PoisonGPT Mithril blog Jul 9 2023, ROME quote verbatim, /EleuterAI typosquat ('we just removed the h') confirmed; MIT Tech Review Oct 23 2023 Nightshade, Ben Zhao, '300 poisoned samples ... generate images of dogs to look like cats' verbatim; Carlini arXiv 2302.10149 '$60 USD' verbatim; Anthropic Sleeper Agents Jan 14 2024, 2023/2024 code trigger + persistence through SFT/RL/adversarial training verbatim; BleepingComputer Feb 28 2024, ~100 malicious models, JFrog, reverse shell to 210.117.212.93 verbatim; arXiv 2602.03085 'The Trigger in the Haystack' submitted 3 Feb 2026, abstract verbatim (abs page lists authors Bullwinkel/Severi/Hines/Minnich/Siva Kumar/Zunger but shows no affiliations, so the 'Microsoft AI Red Team' attribution is not contradicted, just not stated on that page); BBC Feb 18 2026 hot-dog poisoning, 'Less than 24 hours later' verbatim; Straits Times Mar 18 2026 CCTV 315 Gala / 'Apollo 9' verbatim; HiddenLayer May 7 2026 Open-OSS/privacy-filter, 200k downloads, typosquatted OpenAI Privacy Filter, infostealer loader.py verbatim.",
+  "problems": [
+   {
+    "kind": "marker",
+    "claim": "Malicious payloads found in a first-of-its-kind audit of the AI agent-skill supply chain: 1,467, with prompt",
+    "url": "https://snyk.io/blog/toxicskills-malicious-ai-agent-skills-clawhub",
+    "verdict": "wrong_number",
+    "detail": "The quote is the article's own (self-conflating) SEO title, so it does appear on the page \u2014 but the article body's data table contradicts both numbers. Snyk's table reads: 'Confirmed malicious payloads 76 \u2014; Skills with at least one CRITICAL issue 534 13.4%; Skills with any security issue 1,467 36.82%; Malicious skills still live on ClawHub 8'. So 1,467 is the count of skills with ANY security issue (hardcoded API keys, insecure credential handling, third-party content exposure), NOT malicious payloads \u2014 malicious payloads number 76. And 36.82% is 'any security flaw', not prompt injection: Snyk's per-category table gives Prompt Injection = 2.6% across all ClawHub skills (91% among confirmed-malicious skills only). The marker as written overstates malicious payloads by ~19x and misattributes the 36% figure.",
+    "action": "reword"
+   },
+   {
+    "kind": "case",
+    "claim": "The first comprehensive security audit of the Agent Skills ecosystem (OpenClaw/ClawHub, Claude Code, Cursor) found",
+    "url": "https://snyk.io/blog/toxicskills-malicious-ai-agent-skills-clawhub",
+    "verdict": "wrong_number",
+    "detail": "Same error as the marker. The body says 76 confirmed malicious payloads (human-in-the-loop verified) out of 3,984 skills scanned; 1,467 (36.82%) is 'skills with any security issue'; prompt injection is 2.6% of all ClawHub skills (91% of the confirmed-malicious subset). Accurate restatement: 'scanned 3,984 skills and confirmed 76 malicious payloads, with 534 (13.4%) containing a critical-severity issue and 1,467 (36.8%) at least one security flaw.' Date (Feb 5, 2026) and ecosystem naming (OpenClaw/ClawHub, Claude Code, Cursor) are correct.",
+    "action": "reword"
+   }
+  ]
+ },
+ {
+  "id": "military-object-detection",
+  "checked": 15,
+  "supported": 11,
+  "note": "All 15 source URLs were downloaded and read (curl, plus Tavily extract for Forbes and Wikipedia). Quotes were compared after alphanumeric normalization. ORF (85 airstrikes), CNBC (60 countries / REAIM blueprint), Independent (<30% desert accuracy), Bulletin (Kargu-2), Forbes (Saker Scout, 64 object types), Guardian (Lavender / 37,000), DefenseScoop Lumberjack / ATR-breaching / SOCOM, Defense News (DIU C-UAS AiTR), and NPR (Minab school strike, 165 dead) all check out on quote, entity, number and date.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "The Army awarded Palantir a five-year $480 million contract for the Maven Smart System, expanding the successor",
+    "url": "https://defensescoop.com/2024/05/29/palantir-480-million-army-contract-maven-smart-system-artificial-intelligence/",
+    "verdict": "claim_unsupported",
+    "detail": "The quote about MAVEN fusing ISR data is present, and the $480M Palantir Army deal with completion date May 28, 2029 is confirmed. But two concrete claims in the description do not appear anywhere in the article: 'across five combatant commands' and 'the Pentagon credited Maven with 2024 targeting support for strikes in Iraq, Syria and Yemen.' The article only mentions use 'in the Central Command area of responsibility in the Middle East' per a Kentucky National Guard release, and separately a $178M TITAN award.",
+    "action": "re-source"
+   },
+   {
+    "kind": "case",
+    "claim": "Google's TensorFlow AI was used in Project Maven to automatically detect objects of interest",
+    "url": "https://www.theguardian.com/technology/2018/mar/07/google-ai-us-department-of-defense-military-drone-project-maven-tensorflow",
+    "verdict": "claim_unsupported",
+    "detail": "The quote 'detect objects of interest and flag them for a human analyst to review' is verbatim on the page. However the article is dated 7 March 2018 and predates both events asserted in the description: it says only that 'some Google employees were outraged,' not that 'thousands of employees protested,' and it says nothing about Google withdrawing from the contract (that happened in June 2018). Both added facts are historically true but are not supported by this cited source.",
+    "action": "re-source"
+   },
+   {
+    "kind": "case",
+    "claim": "US surveillance misinterpreted an aid worker's routine movements as ISIS-K activity; the resulting Hellfire strike",
+    "url": "https://en.wikipedia.org/wiki/August_2021_Kabul_drone_strike",
+    "verdict": "quote_not_found",
+    "detail": "The quoted string '10 civilians killed, including 7 children, with the youngest victim being two-years-old' is not verbatim. The article body reads 'killed 10 civilians in Kabul, Afghanistan, including 7 children, with the youngest victim being two-years-old'; the infobox reads '10 civilians killed, including 7 children and Zemari Ahmadi'. The quote is a splice of the two. Substance of the case (10 dead, 7 children, misidentified aid worker, no discipline) is fully supported.",
+    "action": "requote"
+   },
+   {
+    "kind": "marker",
+    "claim": "US officials report Maven's object-detection accuracy can fall below 30% in adverse desert conditions",
+    "url": "https://www.the-independent.com/news/world/americas/project-maven-ai-us-airstrike-iraq-anthropic-b2929138.html",
+    "verdict": "date_mismatch",
+    "detail": "Quote and KPI are fully supported by the page. Citation year is wrong: the article's datePublished is 2026-03-10, not 2025 (the underlying Bloomberg reporting it relays dates to ~2024). Source label 'The Independent (citing Bloomberg), 2025' matches neither date. Hygiene issue only.",
+    "action": "reword"
+   }
+  ]
+ },
+ {
+  "id": "military-predictive-analytics",
+  "checked": 11,
+  "supported": 10,
+  "note": "All 11 URLs read; GAO pages (which block curl) were retrieved via Tavily extract. GAO-23-105556 supports both 'not consistently adopted and tracked' and 'generally lack metrics to evaluate the results.' GAO-26-108113 confirms verbatim the 67%->44% fleet mission-capable decline FY2021-FY2025, the $13.7B GSS Reset, the >$7B parts reliance and the ineffective contractor incentives. GAO-20-316, Air & Space Forces (ODIN), Defense Daily (fielding slips to 2025), HBS RCTOM (DOT&E cyber warning), TWZ (Tuinman, Feb 15 2026), National Defense (VITALS/Stryker, 93 scenarios, 2/17/2026) and Rune Technologies ($99M five-year IDIQ, June 18 2026) all check out.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "GAO found the F-35's ALIS predictive-maintenance/logistics system had records 'frequently incorrect, corrupt",
+    "url": "https://www.gao.gov/products/gao-20-665t",
+    "verdict": "claim_unsupported",
+    "detail": "The long quote about ALIS wrongly signaling groundings is verbatim on the page, as is the point that squadron leaders sometimes flew anyway. But the description's final assertion \u2014 'a 2015 report said ~80% of ALIS-flagged issues were false positives' \u2014 appears nowhere in GAO-20-665T; searches for '80 percent', 'false positive' and '2015' in the full extracted text return nothing. That figure comes from a different source and is currently attributed to a document that does not contain it.",
+    "action": "re-source"
+   }
+  ]
+ },
+ {
+  "id": "multi-agent-collusion",
+  "checked": 18,
+  "supported": 15,
+  "note": "All 18 claims (8 markers + 10 cases) checked against downloaded page bodies (arXiv abs pages, NeurIPS proceedings page, NBER w34054 PDF, ACL Anthology PDF, Knowledge@Wharton article, Fish et al. and Skaf et al. full PDFs). Quote matching done on alphanumeric-normalized text. Note: the Skaf et al. quote ('the model can learn to steganographically encode its reasoning') appears mangled on the arXiv /abs page ('...encode its this http URL') due to arXiv auto-linkification; it is verbatim correct in the PDF, so it is NOT a problem. All 2026-dated arXiv entries (2601.11369, 2603.20281, 2604.01151, 2606.28425) exist, and their authors, dates, and every quoted number (3.1->1.8, d=1.28, 50%->5.6%, N=90/condition, six model configs; 22%->10%->7%, 2,000+ compute hours; 1.00 in-distribution, 0.73-0.93 zero-shot, 0.99-1.00 blackjack) match the abstracts exactly.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "GPT-4 pricing agents autonomously colluded \u2014 quote '12/12 runs converged to the monopoly price...'",
+    "url": "https://arxiv.org/pdf/2404.00806",
+    "verdict": "quote_not_found",
+    "detail": "Neither sentence in q appears in the paper, and the '12/12' number is from a DIFFERENT experiment than the collusion result. The paper's only 12/12 statements are in Section C.1, the single-agent MONOPOLY experiment memory/plans ablation: 'Only 6/12 runs converged to the monopoly price, compared to 12/12 in our original design' and 'Control and No Insights converge 12/12 times, No Plans converges 11/12 times, and No Memory converges 6/12 times.' In a monopoly setting, converging to the monopoly price is ordinary profit maximization by one agent, not collusion. The actual duopoly (collusion) result is weaker: average price 1.79, 'about halfway between the monopoly price of 1.92 and the (static) Nash price of 1.47.' The second clause ('LLM agents engage in autonomous algorithmic collusion in pricing and bidding settings') also does not appear; the closest text is 'there exist AI algorithms\u2014specifically, generative AI algorithms\u2014that exhibit autonomous algorithmic collusion.' Also, 'when: 2024 (data June-Oct 2024)' is off: main duopoly experiments were run 'in late 2023 and early 2024'; June 2024 is only the ablation data. A valid requote must come from the duopoly/oligopoly collusion results, NOT the 12/12 monopoly-ablation figure.",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "Formal study: LLM agents can collude via steganography \u2014 'empirical evaluations demonstrating rising steganographic capabilities...'",
+    "url": "https://arxiv.org/abs/2402.07510",
+    "verdict": "quote_not_found",
+    "detail": "The quote is not on arXiv 2402.07510. The current (v5, Jul 2025) arXiv abstract was rewritten and instead reads: 'We provide extensive empirical results across a range of contemporary LLMs. While the steganographic capabilities of current models remain limited, GPT-4 displays a capability jump...' The quoted sentence ('...revealing limitations in countermeasures such as monitoring, paraphrasing, and parameter optimization') appears verbatim only on the NeurIPS 2024 proceedings page, which this risk already cites for its first 'worse' marker. Note the arXiv abstract's hedge ('capabilities of current models remain limited') is somewhat softer than the NeurIPS phrasing.",
+    "action": "re-source"
+   },
+   {
+    "kind": "marker",
+    "claim": "Agentic coding models can now produce information-theoretically undetectable stegosystems given ordinary tools",
+    "url": "https://arxiv.org/abs/2606.28425",
+    "verdict": "overstated",
+    "detail": "The quote q itself is verbatim accurate. But the KPI gloss fuses two distinct statements. The abstract says 'some theoretical schemes have been proposed that are information-theoretically OR computationally indistinguishable from good-faith plain-text communication' and separately that 'agentic coding models can already produce undetectable stegosystems when given realistic tool usage.' The paper does not claim the models' outputs are specifically information-theoretically undetectable \u2014 that is a strictly stronger cryptographic claim than what was demonstrated. Drop 'information-theoretically' (the paper's own title is just 'Tool Use Enables Undetectable Steganography in Multi-Agent LLM Systems').",
+    "action": "reword"
+   },
+   {
+    "kind": "marker",
+    "claim": "Paraphrasing defenses remain generally effective against simple/pre-defined LLM steganography schemes",
+    "url": "https://aclanthology.org/2025.ijcnlp-long.34.pdf",
+    "verdict": "overstated",
+    "detail": "Advisory only \u2014 the claim as scoped holds and is counted as supported. The quote is verbatim and the marker correctly attributes it as Mathew et al. describing Roger & Greenblatt (2023). However, the citing paper's own headline finding is the opposite direction: 'we find that standard mitigations \u2014 both passive oversight of model outputs and active mitigation through communication paraphrasing \u2014 are not fully effective at preventing this steganographic communication.' Using this source as a 'better' marker without that context risks reading as cherry-picking; consider adding a one-line caveat that the same paper shows paraphrasing fails against emergent (non-pre-defined) schemes.",
+    "action": "keep_with_note"
+   }
+  ]
+ },
+ {
+  "id": "multi-agent-safety-challenges",
+  "checked": 8,
+  "supported": 6,
+  "note": "All 8 claims (2 markers + 6 cases) checked against downloaded page bodies. Verified clean: the Piedrahita/Yang/Jin AI Alignment Forum post (quote verbatim, 22 Apr 2025); the Schmidt Sciences funding call (quote verbatim; funders Schmidt Sciences, Google DeepMind, ARIA, Cooperative AI Foundation, Google.org all confirmed; Tier 2 is $300,000-$1,000,000, so 'up to $1M/project' is accurate); Gu et al. 2402.08567 (verbatim, 'up to one million LLaVA-1.5 agents', ICML 2024, Feb 2024); Cohen/Bitton/Nassi 2403.02817 (verbatim, submitted 5 Mar 2024); Lee & Tiwari 2410.07283 (verbatim, submitted 9 Oct 2024); Cooperative AI Foundation report page (verbatim). One note: the alignmentforum page does not itself mention COLM 2025, so that venue attribution could not be confirmed from the cited URL, though it is not contradicted.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "Individually-benign LLM pricing agents collude when interacting \u2014 quote 'the work explores how LLMs, when deployed for economic things...'",
+    "url": "https://arxiv.org/abs/2404.00806",
+    "verdict": "quote_not_found",
+    "detail": "The quote appears neither on the arXiv abstract page nor anywhere in the full 60-page PDF (checked normalized, plus the substring 'demonstrate signs of collusion' \u2014 zero hits). The phrasing ('economic things like bidding and pricing') reads like a third-party paraphrase from a talk or blog post, not the paper. The underlying case claim IS supported; use the actual abstract sentence: 'In oligopoly settings, LLM-based pricing agents quickly and autonomously reach supracompetitive prices and profits.'",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "Interacting agents can deceive a shared overseer \u2014 'the first to formalize and investigate secret collusion among frontier foundation models'",
+    "url": "https://arxiv.org/abs/2402.07510",
+    "verdict": "quote_not_found",
+    "detail": "Not present on arXiv 2402.07510; the current v5 abstract (rewritten Jul 2025) does not contain this sentence. The quote appears verbatim on the NeurIPS 2024 proceedings page for the same paper ('Our work is the first to formalize and investigate secret collusion among frontier foundation models, identifying it as a critical area in AI Safety...'). Point the URL at https://proceedings.neurips.cc/paper_files/paper/2024/hash/861f7dad098aec1c3560fb7add468d41-Abstract-Conference.html",
+    "action": "re-source"
+   }
+  ]
+ },
+ {
+  "id": "jailbreaks-prompt-injections",
+  "checked": 18,
+  "supported": 15,
+  "note": "All 5 markers and 13 cases were downloaded and read in full (curl + Tavily for Dark Reading, which blocks curl; arXiv PDFs pulled and pdftotext'd). Convention used: for arXiv /abs/ landing pages, a quote verified in the paper's own full text (HTML/PDF) counts as supported. Fully verified with no issues: OWASP LLM01:2025 (#1 rank confirmed), Anthropic Constitutional Classifiers 86%->4.4%/95% (verbatim), Cisco/CSO multi-turn ASR figures (Gemini 3 Pro 18.10/73.35, GPT-5.4 2.74/24.68, Opus 4.6 3.64/16.20, Grok 4.1 Fast NR 88.30 \u2014 all exact, May 27 2026), StakeBench 41.67-68.16%/>79% and the 3,168-run/264-case/'Robust Behavior unpopulated' case (Jun 12 2026), Willison 2022, AIID #622 (incident date 2023-12-18, Chevrolet of Watsonville, $76,000 Tahoe), Wikipedia Sydney/Kevin Liu, Fortune EchoLeak (Jun 11 2025, Aim Security, LLM scope violation), Zenity AgentFlayer (Aug 6 2025), HiddenLayer Policy Puppetry (Apr 24 2025), CSO SearchLeak (Jun 19 2026 \u2014 CVE-2026-42824 confirmed present on the page), Dark Reading PromptFiction (Jul 15 2026, Oasis Security, claude:// URI, fixed in 1.1.2321), Infosecurity/Cato GPT-5.5 (Jul 16 2026, ~40 min to admin, full lifecycle incl. exfiltration).",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "CMU and Center for AI Safety researchers (Zou et al.) introduced Greedy Coordinate Gradient, automatically generating gibberish",
+    "url": "https://arxiv.org/abs/2307.15043",
+    "verdict": "quote_not_found",
+    "detail": "FABRICATED QUOTE (substance is fine, wording is not). The quote 'the same prompts transfer to black-box, publicly released ... chatbots such as ChatGPT, Claude, Bard, and LLaMA-2.' appears nowhere on the arXiv abs page, nowhere in the full paper PDF (2307.15043v2, checked with pdftotext), and nowhere on the project site llm-attacks.org. The paper actually says: 'the adversarial prompts generated by our approach are quite transferable, including to black-box, publicly released LLMs... the resulting attack suffix is able to induce objectionable content in the public interfaces to ChatGPT, Bard, and Claude, as well as open source LLMs such as LLaMA-2-Chat, Pythia, Falcon, and others.' Note the invented quote also miscategorizes LLaMA-2 as a black-box chatbot when the paper explicitly treats it as open-source. The underlying claim (automated suffixes transfer to ChatGPT/Claude/Bard) IS supported by the abstract.",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "Microsoft disclosed 'Skeleton Key,' a simple multi-turn technique that asks a model to 'augment' rather",
+    "url": "https://www.microsoft.com/en-us/security/blog/2024/06/26/mitigating-skeleton-key-a-new-type-of-generative-ai-jailbreak-technique/",
+    "verdict": "quote_not_found",
+    "detail": "STITCHED QUOTE with an invented tail. The page says 'All the affected models complied fully and without censorship for these tasks, though with a warning note prefixing the output as requested.' The trailing fragment in our quote, 'using the Skeleton Key jailbreak technique', does not appear anywhere on the page in any form. Everything else in the case body (multi-turn 'augment' framing, the tested model list: Llama3-70b-instruct, Gemini Pro, GPT-3.5 Turbo, GPT-4o, Mistral Large, Claude 3 Opus, Cohere Commander R Plus, Apr-May 2024) is accurate.",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "Microsoft's 'Skeleton Key' jailbreak defeats every major model tested",
+    "url": "https://www.microsoft.com/en-us/security/blog/2024/06/26/mitigating-skeleton-key-a-new-type-of-generative-ai-jailbreak-technique/",
+    "verdict": "overstated",
+    "detail": "The case TITLE says the jailbreak 'defeats every major model tested', but the same Microsoft post states: 'GPT-4 demonstrated resistance to Skeleton Key, except when the behavior update request was included as part of a user-defined system message, rather than as a part of the primary user input... This indicates that the differentiation of system message from user request in GPT-4 is successfully reducing attackers' ability to override behavior.' GPT-4 was a major model tested and it was not defeated through the normal user-input path. The blog's own careful wording is 'All the AFFECTED models complied fully'.",
+    "action": "reword"
+   },
+   {
+    "kind": "marker",
+    "claim": "Adaptive attacks bypassed 12 recent jailbreak/prompt-injection defenses with over 90% attack success, despite those defenses",
+    "url": "https://arxiv.org/abs/2510.09023",
+    "verdict": "overstated",
+    "detail": "Quantifiers dropped. The abstract (verified verbatim, Nasr/Carlini/Tramer et al., submitted 10 Oct 2025) says '...we bypass 12 recent defenses (based on a diverse set of techniques) with attack success rate above 90% FOR MOST; importantly, THE MAJORITY of defenses originally reported near-zero attack success rates.' Our marker reads as if all 12 were broken at >90% ASR and all 12 originally reported near-zero. Fix by restoring 'for most' and 'the majority of'.",
+    "action": "reword"
+   }
+  ]
+ },
+ {
+  "id": "latent-data-erasure",
+  "checked": 14,
+  "supported": 9,
+  "note": "All 3 markers and 11 cases downloaded and read (ar5iv HTML, OJS PDFs via pdftotext, Springer, arXiv HTML, ACL Anthology PDF, Tavily for nature.com). Fully verified with no issues: Dodge et al. C4 blocklist marker (ar5iv, verbatim) and the Dodge EMNLP 2021 PDF case quote (verbatim in the Rutgers PDF); 'The Paternalistic Filter' marker (Kimi K2 76.7% Low Tier vs 62.2% baseline/Roma, 14.5pp gap \u2014 verbatim, arXiv:2607.11292v1, four LLMs, N=1,800, five personas all confirmed); Dias Oliva et al. drag-queens/Perspective (verbatim in Springer abstract, Sexuality & Culture 25:700-732, 2021); Dorn et al. 2406.00020v1 'F1 <= 0.24' (verbatim \u2014 the initial mismatch was MathML \\leq duplication, a false alarm); 'Un-Straightening Generative AI' (quote absent from the /abs/ page but verified verbatim in arxiv.org/html/2503.09805v1 body \u2014 counted supported under the arXiv-landing-page convention); AAAI-26 Stranisci & Hardmeier (quote verbatim in abstract; PDF confirms 55 technical reports, seven filtering strategies, 'women are always the most' affected, 'a general lack of awareness'); GLAAD 'Build for Everyone' (June 17 2026, 'inordinate censorship of LGBTQ content' verbatim, 'fringe'/'controversial' training-data framing confirmed); ACL 2026 Khorramrouz & Levy selective refusal bias (verbatim in the Findings PDF).",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "When Tumblr deployed automated filtering to purge adult content, its classifiers repeatedly mislabeled non-sexual LGBTQ material",
+    "url": "https://www.nbcnews.com/feature/nbc-out/i-fear-loss-community-tumblr-s-new-adult-content-rules-n944196",
+    "verdict": "claim_unsupported",
+    "detail": "WRONG SOURCE, not just a wrong quote. The cited NBC article (John Paul Brammer, Dec. 5, 2018) is a reaction/feature piece published BEFORE the policy took effect ('Tumblr's new policy does not officially go into effect until Dec. 17'). It is not a study, contains no measurement, and the quote 'posts... that merely mention LGBTQ content displayed a tendency to be tagged as sensitive more frequently than similar straight content' appears nowhere in it. It also does not support the case's specifics: no 'selfies of trans users', no 'health and recovery posts', and nothing about the filter 'missing actual nudity'. The only supporting content is anecdotal user testimony (one artist reporting 'drawings that feature LGBTQ+ flags' being flagged). The case is titled 'Study:' but the source is not a study.",
+    "action": "re-source"
+   },
+   {
+    "kind": "marker",
+    "claim": "Cultural/linguistic underrepresentation persists: even the best LLM (GPT-4o) shows a 12.0-19.9% absolute",
+    "url": "https://ojs.aaai.org/index.php/AAAI/article/view/34996/37151",
+    "verdict": "wrong_entity",
+    "detail": "MISATTRIBUTION. The quote and the 12.0-19.9% figure ARE verbatim in the PDF at this URL, but the paper is NOT by Ojo et al. It is 'Bridging the Gap: Enhancing LLM Performance for Low-Resource African Languages with New Benchmarks, Fine-Tuning, and Cultural Adjustments' by Tuka Alhanai, Adam Kasumovic, Mohammad M. Ghassemi, Aven Zitzelberger (Ghamut Corporation) and Jessica M. Lundin, Guillaume Chabot-Couture (Bill and Melinda Gates Foundation), AAAI-25. The string 'Ojo' occurs in the PDF exactly once, as a co-author inside a cited reference (Adelani, D. I.; Ojo, J.; ...). Ojo et al. is a different paper on African-language LLM evaluation.",
+    "action": "re-source"
+   },
+   {
+    "kind": "case",
+    "claim": "A Nature Computational Science feature documented how well-intentioned safety-filtering systems across AI companies have disproportionately",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/39317758",
+    "verdict": "quote_not_found",
+    "detail": "WRONG URL for the quote (substance verified elsewhere). The PubMed record downloaded in full states 'No abstract available' \u2014 it contains only the title, Sophia Chen, Nat Comput Sci 2024 Sep;4(9):629-632, DOI 10.1038/s43588-024-00695-4 and a reference list. The quoted sentence is therefore not on the cited page. I verified it verbatim as the article standfirst on nature.com/articles/s43588-024-00695-4: 'Many AI companies implement safety systems... Though well intentioned, these filters can exacerbate existing inequalities, and data shows that they have disproportionately removed LGBTQ+ content.' Claim substance is correct; only the link needs changing.",
+    "action": "re-source"
+   },
+   {
+    "kind": "case",
+    "claim": "Sap et al. showed widely used toxicity/hate-speech models were up to twice as likely to label",
+    "url": "https://news.cs.washington.edu/2019/10/09/allen-school-researchers-find-racial-bias-built-into-hate-speech-detection/",
+    "verdict": "quote_not_found",
+    "detail": "COSMETIC \u2014 quote is a silent paraphrase, not verbatim; the numbers and substance are fully correct. The page reads: 'the tool PROCESSING THE TWEETS mistakenly reported 46% of non-offensive tweets written in African American English (AAE)-COMMONLY SPOKEN BY BLACK PEOPLE IN THE US-as offensive, versus nine percent in general American English.' Our quote silently deletes two spans without ellipses. (Separately, the source's disparity is ~5x, 46% vs 9% and 26% vs 5%, so the case text's 'up to twice as likely' understates rather than overstates.)",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "gave marginalized learners contested geopolitical framings (e.g. 'coup theory') at roughly one-third the rate",
+    "url": "https://arxiv.org/html/2607.11292v1",
+    "verdict": "wrong_entity",
+    "detail": "Wrong comparison group. The paper's 3x coup-theory gap is measured against the Romanian middle-class BASELINE persona, not the affluent/elite persona: 'the baseline receives this framing in 7.9% of responses. Roma Minority receives it in 4.3%, and Low Tier in 2.6%-a 3-fold reduction.' The five personas are Etnia Romana (middle-class baseline), Roma Minority, Hungarian control, Top Tier (elite) and Low Tier; no Top-Tier coup-theory rate is reported. Saying 'one-third the rate of affluent peers' attributes the comparison to a persona the figure does not come from. Everything else in this case (four LLMs, 1,800 API calls, five personas, refusal asymmetry) checks out.",
+    "action": "reword"
+   }
+  ]
+ },
+ {
+  "id": "pretraining-misaligned-models",
+  "checked": 14,
+  "supported": 13,
+  "note": "All 6 markers and 8 cases fetched and read. Verbatim quotes confirmed (normalized) for Carlini 2202.07646, Nature s41586-025-09937-5 (pub. 14 Jan 2026), Nature Comms s41467-026-68603-0 (pub. 29 Jan 2026), Anthropic pretraining-data-filtering (19 Aug 2025), Kandpal ICML 2022, Stanford AI Index 2025 RAI chapter, Carlini 2012.07805, Abid 2101.05783, MIT Tech Review Galactica, 404 Media, TechCrunch (Hachette/Cengage/Elsevier/Turow/S.C.R.I.B.E., SDNY, Google Books/Play, '$10Bs-$100Bs in potential fines' all confirmed in body text). The NYT article is paywalled beyond a preview; the accessible portion does confirm the suit, defendants and 27 Dec 2023 date, so the case is counted supported, but the near-verbatim-regurgitation detail is only in the paywalled body / the complaint PDF \u2014 consider citing nytco-assets.nytimes.com/2023/12/NYT_Complaint_Dec2023.pdf as a publicly readable alternative.",
+  "problems": [
+   {
+    "kind": "marker",
+    "claim": "Pretraining-data filtering can strip harmful (CBRN) knowledge out of a base model with",
+    "url": "https://alignment.anthropic.com/2025/pretraining-data-filtering",
+    "verdict": "overstated",
+    "detail": "The quoted TLDR is verbatim and accurate, but the underlying result is a modest reduction, not a stripping-out of harmful knowledge. The post states: 'we reduced performance on a harmful-capabilities evaluation by 33% relative compared to a random baseline from 33.7\u00b10.4% to 30.8\u00b10.4%, where a random baseline is 25%'. That is a 2.9 percentage-point absolute drop (8.7pp above chance -> 5.8pp above chance). Anthropic's own summary language is 'without severely compromising usefulness', not 'no loss of capability'. 'Strip harmful (CBRN) knowledge out of a base model' overstates the direction and magnitude.",
+    "action": "reword"
+   }
+  ]
+ },
+ {
+  "id": "reasoning-capabilities-understanding-lacking",
+  "checked": 15,
+  "supported": 13,
+  "note": "All 5 markers and 10 cases fetched and read. Confirmed verbatim: both GSM-Symbolic markers on arxiv.org/html/2410.05229v1; Chen et al. 2505.05410 ('25% for Claude 3.7 Sonnet and 39% for DeepSeek R1' in context of overall faithfulness scores); arXiv 2603.22582 abstract (39.7% Seed-1.6-Flash to 89.9% DeepSeek-V3.2-Speciale; 87.5% vs 28.6% thinking-token vs answer-text gap; 12 models / 9 families / 41,832 runs / six hint categories all check out); METR TH1.1 (131 vs 165 days, plus the 170->228 task expansion, Vivaria->Inspect move and 14 re-estimated models all verified in body text); Berglund 2309.12288; Nezhurina 2406.02061; Apple Illusion of Thinking (June 2025); Song/Han/Goodman 2602.06176 (submitted 5 Feb 2026, TMLR + Survey Certification confirmed). The International AI Safety Report quote required pdftotext on the PDF; once extracted, 'how a system performs in pre-deployment evaluations like benchmark testing often seems to overstate its practical utility' appears verbatim.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "many models, including Phi and Mistral, experience accuracy drops of up to 13% on GSM1k",
+    "url": "https://arxiv.org/abs/2405.00332",
+    "verdict": "wrong_number",
+    "detail": "The cited URL serves v4 (NeurIPS 2024 camera-ready), whose abstract reads: 'When evaluating leading open- and closed-source LLMs on GSM1k, we observe accuracy drops of up to 8%, with several families of models showing evidence of systematic overfitting across almost all model sizes.' The 13% figure and the Phi/Mistral naming only appear in the withdrawn-in-substance v1 (May 2024), and even there the sentence is not the quote as written ('accuracy drops of up to 13%, with several families of models (e.g., Phi and Mistral) showing evidence of systematic overfitting'). The authors themselves revised the headline number down from 13% to 8% and the Spearman r^2 from 0.32 to 0.36. Both the quote and the 'what' narrative ('up to 13% worse') carry the superseded number.",
+    "action": "reword"
+   },
+   {
+    "kind": "case",
+    "claim": "changing only the numerical values... performance degrades... models exhibit noticeable variance when",
+    "url": "https://arxiv.org/abs/2410.05229",
+    "verdict": "quote_not_found",
+    "detail": "None of the three ellipsis-separated fragments appears verbatim on the page. The abstract says 'LLMs exhibit noticeable variance when responding to different instantiations of the same question' (not 'models exhibit') and 'the performance of all models declines when only the numerical values in the question are altered' (not 'changing only the numerical values' / 'performance degrades'). The substance of the case is fully supported by the abstract, including the up-to-65% drop from an added irrelevant clause; only the quotation is a stitched paraphrase presented as a direct quote.",
+    "action": "requote"
+   }
+  ]
+ },
+ {
+  "id": "military-ai-chatbots",
+  "checked": 16,
+  "supported": 12,
+  "note": "All 4 markers verified against downloaded pages (DefenseScoop NIPRGPT 700k+/Dec-31 sunset; Defense News quoting OpenAI CISO Dane Stuckey verbatim; Air & Space Forces 'surpassed one million unique users' with GenAI.mil launched December; DefenseScoop Agent Designer 3 million employees). Quote for the arXiv wargame case ('All models show signs of sudden and hard-to-predict escalations.') is NOT on the /abs/ landing page but IS verbatim in the paper body (fetched via ar5iv); author affiliations Georgia Tech / Stanford / Northeastern / Hoover and the 'five LLMs, rare nuclear deployment' framing all check out \u2014 counted as supported, no action needed. api.army.mil PDF and 972mag were Cloudflare/Akamai-blocked to curl but retrieved successfully via Tavily extract.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "An official U.S. Army Command and General Staff College paper on integrating CamoGPT and NIPRGPT",
+    "url": "https://api.army.mil/e2/c/downloads/2025/03/07/840ed7cf/25-958-enhancing-military-operational-effectiveness-through-the-integration-of-camo-and-nipr-gpt.pdf",
+    "verdict": "wrong_entity",
+    "detail": "The quote is verbatim in the document, but the publisher is the Center for Army Lessons Learned (CALL), Fort Leavenworth (masthead: 'Center for Army Lessons Learned ... leads the Army Lessons Learned Program'), not the Command and General Staff College \u2014 the string 'command and general staff' appears zero times in the document. The paper also carries a disclaimer that it 'was produced with the assistance of GPT-based AI services for research, drafting, and/or editing'.",
+    "action": "reword"
+   },
+   {
+    "kind": "case",
+    "claim": "The Wall Street Journal reported, and Reuters and the Guardian confirmed, that the US military used",
+    "url": "https://www.theguardian.com/technology/2026/feb/14/us-military-anthropic-ai-model-claude-venezuela-raid",
+    "verdict": "overstated",
+    "detail": "The Guardian piece is headlined 'US military used Anthropic's AI model Claude in Venezuela raid, report says' and attributes everything to the WSJ citing anonymous sources. It explicitly states Anthropic 'declined to comment on whether Claude was used in the operation', 'The US defence department did not comment on the claims' and 'Palantir refused to comment'. So it reports, it does not confirm \u2014 and it makes no Reuters confirmation claim. The added superlative 'first publicly known use of a commercial chatbot in a classified lethal operation' appears nowhere in the source.",
+    "action": "reword"
+   },
+   {
+    "kind": "case",
+    "claim": "the department designated the company a supply chain risk ... and contracted with OpenAI instead",
+    "url": "https://www.cnbc.com/2026/03/09/anthropic-trump-claude-ai-supply-chain-risk.html",
+    "verdict": "claim_unsupported",
+    "detail": "The CNBC article supports the designation, the contractor-certification requirement, the N.D. Cal. filing, the 'hundreds of millions of dollars' figure and the safeguard dispute (DoD wanted 'unfettered access ... across all lawful purposes'; Anthropic wanted assurances against fully autonomous weapons / domestic mass surveillance). It never mentions a substitute OpenAI contract \u2014 'OpenAI instead' / 'turned to OpenAI' return no hits. That detail IS supported by the Just Security piece already cited elsewhere in this risk. Low severity.",
+    "action": "re-source"
+   },
+   {
+    "kind": "case",
+    "claim": "the first sworn government acknowledgement of a general-purpose chatbot inside a lethal targeting chain",
+    "url": "https://www.justsecurity.org/146544/civilian-protection-military-ai-congress",
+    "verdict": "overstated",
+    "detail": "Everything else in this case is verbatim-supported (June 2026 filing, CDAO sworn declaration, Grok government version in Maven Smart System, 'over 2,000 munitions to 2,000 distinct targets within 96 hours'). But the source never characterises it as a first \u2014 no 'first sworn' / 'first time' / 'first public' language appears. Low severity editorial superlative.",
+    "action": "keep_with_note"
+   }
+  ]
+ },
+ {
+  "id": "military-ai-decision-support",
+  "checked": 17,
+  "supported": 14,
+  "note": "All 6 markers (5 worse + the REAIM 'better' marker) verified verbatim and substantively: Maggie Gray $25.2B FY25 / tripled from ~$7B in 2019 (source does caveat this is a keyword-search figure and that Austin's summary listed only $1.8B explicitly for AI); CSIS 179 data sources; KOLD ~1,000 targets in 24h attributed by the Pentagon to Maven; SpaceNews $2.3B over five years, up from ~$1.3B through 2029, and $58.5B FY2027 AI-tied; CNBC/Reuters ~60 countries REAIM blueprint, China out. Cases for the Gospel, Thunderforge, Maven program-of-record (March 9 Feinberg letter, NGA-to-CDAO transfer within 30 days, Army contracting, effective end of FY in September), NPR Minab school (165 dead, Feb 28 2026 strike, outdated target-list reporting) and the SASC FY2027 NDAA framework (marked up June 10) all check out verbatim. 972mag was Cloudflare-blocked to curl; retrieved via Tavily extract.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "US Central Command used Maven computer-vision algorithms to narrow targets for more than 85 airstrikes",
+    "url": "https://www.the-independent.com/news/world/americas/project-maven-ai-us-airstrike-iraq-anthropic-b2929138.html",
+    "verdict": "claim_unsupported",
+    "detail": "The Schuyler Moore quote 'the benefit that you get from algorithms is speed' is present verbatim, but the cited Independent page contains no '85' and no mention of 'Syria' at all \u2014 it covers the early-February 2024 strikes in Iraq (al-Qaim) and notes CENTCOM later said it 'did not know' whether AI had been involved. The '85 airstrikes in Iraq and Syria' figure comes from Bloomberg's Feb 2024 reporting, which is named in the src field but not linked.",
+    "action": "re-source"
+   },
+   {
+    "kind": "case",
+    "claim": "Ukraine deployed software such as GIS Arta and Kropyva that fuse drone, radar and sensor feeds",
+    "url": "https://www.hscentre.org/uncategorized/lesson-ai-ukraine/",
+    "verdict": "date_mismatch",
+    "detail": "Source is cited as 'Human Security Centre, 2024' but the article is bylined 'Leo Gardner, 21 September, 2025' (page metadata 2025-09-21) and discusses Operation Spider's Web (June 2025).",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "GIS Arta and Kropyva ... route targets to gunners within minutes ... drastically shortening sensor-to-shooter time",
+    "url": "https://www.hscentre.org/uncategorized/lesson-ai-ukraine/",
+    "verdict": "claim_unsupported",
+    "detail": "The article only says Kropyva and GIS Arta are 'still used by the Ukrainian military for artillery targeting calculations and battlefield coordination' \u2014 it gives no timing figure for either, and never uses 'minutes', 'sensor-to-shooter' or the 'Uber for artillery' nickname in the case title. The broader kill-chain-compression point IS supported elsewhere in the piece (Griselda processes data 'in just 30 seconds' into the Delta battle management system), so this is a specificity problem, not a false claim.",
+    "action": "reword"
+   },
+   {
+    "kind": "case",
+    "claim": "UN chief Guterres said the practice 'blurs accountability.'",
+    "url": "https://www.972mag.com/lavender-ai-israeli-army-gaza",
+    "verdict": "claim_unsupported",
+    "detail": "The +972/Local Call investigation fully supports the rest of the case \u2014 the quoted subhead is verbatim, and the 37,000 / 'tens of thousands' marked-for-assassination figures appear repeatedly. But 'Guterres' and 'blurs accountability' return zero hits; that remark was made separately by the UN Secretary-General and is not in the cited source.",
+    "action": "re-source"
+   }
+  ]
+ },
+ {
+  "id": "superalignment-time-pressure",
+  "checked": 16,
+  "supported": 15,
+  "note": "All 6 markers and 10 cases fetched and read in full (arXiv HTML, both FLI PDFs + FLI landing page, METR blog posts, Canada.ca, Fortune, Guardian, ssi.inc, Substack, ai-2027.com, BBC, Al Jazeera). FLI Summer 2025 verified: 7 firms, Existential Safety row = D/F/D-/F/F/F/F (none above D). FLI Summer 2026 verified: 9 companies, Anthropic C+/2.66, three F grades (xAI, DeepSeek, Mistral), Existential Safety row = D+/D+/D/F/F/F/F/F/F so D+ (Anthropic, OpenAI) is indeed the industry high. METR 12-company list, 16 Seoul signatories, and the 10 launch jurisdictions all confirmed verbatim. Only one numeric mismatch found.",
+  "problems": [
+   {
+    "kind": "marker",
+    "claim": "Capability is racing ahead: the length of tasks frontier models complete at 50% reliability has",
+    "url": "https://arxiv.org/html/2503.14499v1",
+    "verdict": "wrong_number",
+    "detail": "The parenthetical \"and about every 4 months for 2024-only models\" is not what the paper says. Kwa et al. state: \"restricting our data further to 2024-only models produced a different trend with time horizon doubling about every three months\" and, separately, \"the doubling time predicted by HCAST + SWAA + RE-bench using 2024 models is 104 days\" (~3.4 months). The paper's own words for the 2024-only cohort are \"about every three months\", not four. The main \"doubling time of approximately seven months\" figure and its quote are fully supported; only the parenthetical is off.",
+    "action": "reword"
+   }
+  ]
+ },
+ {
+  "id": "surveillance-diffusion",
+  "checked": 12,
+  "supported": 11,
+  "note": "All 4 markers and 8 cases attempted; 11 fetched and verified. Confirmed verbatim: OpenAI Oct-2025 \"over 40 networks ... authoritarian regimes to control populations\" (quote match broke only on an injected markdown link, both halves present); Freedom on the Net 2024 \"14th consecutive year\" plus the content-indicator low; Guardian/Mijente 11 vendors, doubled 2024->2025 to $310m, record $513m in 2026, Palantir/Anduril driven; EU AI Act page lists exactly eight prohibited practices effective 2 February 2025 including the untargeted-scraping ban; Staab et al., TechCrunch 133,000-example dataset, OpenAI Feb-2025 'Peer Review' PDF, CNN Oct 7 2025 Uyghur proposal, ImmPolicyTracking 'Catch and Revoke' (announced 6 Mar 2025, hundreds of revocations), Business Insider 2 Mar 2026. Only the NYT page could not be retrieved.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "Leaked documents show Chinese firm building AI to predict future dissidents",
+    "url": "https://www.nytimes.com/2026/06/01/us/politics/china-ai-predicting-dissent.html",
+    "verdict": "unreachable",
+    "detail": "nytimes.com returned HTTP 403 to curl with a browser UA, to WebFetch (blocked domain), to Tavily extract (\"Failed to fetch url\"), to headless Playwright (403), and to the r.jina.ai text proxy (domain-blocked). The article body was never retrieved, so the quoted lede sentence could not be verified against the primary source. NOT a fabrication signal: a Tavily web search confirms the article exists at that exact URL, dated 2026-06-01, headlined \"China Aims A.I. at Predicting Who Could Pose a Political Risk\", and multiple independent secondary reports (Moneycontrol, NDTV Profit, The Times, Chosun Biz) describe the same Geedge Networks leaked-documents story about AI predicting future government critics. A human should open the page in a logged-in browser to confirm the exact wording.",
+    "action": "needs_playwright"
+   }
+  ]
+ },
+ {
+  "id": "sycophancy-ai-psychosis",
+  "checked": 17,
+  "supported": 14,
+  "note": "All 17 source pages downloaded successfully (curl for most; Tavily extract for openai.com which is JS-gated). Three apparent quote misses (Perez 2212.09251, Futurism, TechCrunch FrontierMath) were FALSE ALARMS caused by HTML entities (&#39;, &#8220;) injecting digits into the normalized text \u2014 all three quotes verified present verbatim. GPT-5 system card numbers (0.145 / 0.052 / 0.040, -69% free, -75% paid), Nature warmth paper (vol 652 pp1159-1165, 29 Apr 2026, five models, +10-30pp, sadness effect), ELEPHANT 47% face-preservation on OEQ, PMC12863933 case report (26-y-o woman, deceased brother, antipsychotics, relapse), Guardian/Morrin (20 media reports, Lancet Psychiatry, grandiose delusions), TechCrunch Gemini (Jonathan Gavalas, 36, died 2 Oct 2025), Bloomberg Law (14 Apr 2026, Chief Judge Seeborg, Soelberg estate, Colorado River doctrine), Gizmodo (published 24 Jun 2026, amplification spiral, linguistic alignment + hyperpersonalization + sycophancy) all substantively confirmed.",
+  "problems": [
+   {
+    "kind": "marker",
+    "claim": "Across GPT-4o, Gemini, Claude-Sonnet and ChatGPT, 58.19% of responses to user rebuttals",
+    "url": "https://arxiv.org/pdf/2502.08177",
+    "verdict": "wrong_entity",
+    "detail": "The quote and both numbers (58.19%, 14.66% regressive, 43.52% progressive) are verbatim correct. But SycEval evaluated THREE models, not four: the abstract says 'sycophantic behavior in ChatGPT-4o, Claude-Sonnet, and Gemini-1.5-Pro'. The claim double-counts the same model as both 'GPT-4o' and 'ChatGPT'. (The corresponding case entry gets this right \u2014 'ChatGPT-4o, Claude and Gemini'.)",
+    "action": "reword"
+   },
+   {
+    "kind": "case",
+    "claim": "Raine v. OpenAI: wrongful-death suit over validating a suicidal teen \u2014 'the first wrongful-death suit",
+    "url": "https://www.cnn.com/2025/08/26/tech/openai-chatgpt-teen-suicide-lawsuit",
+    "verdict": "overstated",
+    "detail": "The quoted sentence and all core facts (16-year-old Adam Raine, parents suing OpenAI, ChatGPT validating self-destructive thoughts) are confirmed on the page. But our framing 'the first wrongful-death suit tying sycophantic validation directly to a death' is contradicted by the same article: 'The Raines' lawsuit marks the LATEST legal claim by families accusing artificial intelligence chatbots of contributing to their children's self-harm or suicide. Last year, Florida mother Megan [Garcia]...' \u2014 i.e. Garcia v. Character.AI preceded it. It is the first such suit against OpenAI, not the first overall.",
+    "action": "reword"
+   },
+   {
+    "kind": "case",
+    "claim": "First major peer-reviewed review of 'AI psychosis' published in Lancet Psychiatry",
+    "url": "https://www.theguardian.com/technology/2026/mar/14/ai-chatbots-psychosis",
+    "verdict": "overstated",
+    "detail": "PLAUSIBLE, not confirmed-false. Every substantive element checks out: Dr Hamilton Morrin (King's College London), 'analyzed 20 media reports on so-called AI psychosis', Lancet Psychiatry, sycophantic responses latching onto grandiose delusions, call for clinical testing alongside mental health professionals, and the quote verbatim. The source does not characterize it as 'first' or 'major' \u2014 it says only 'a new scientific review' / 'a summary of existing evidence'. The superlative in our title is unsourced rather than contradicted.",
+    "action": "reword"
+   }
+  ]
+ },
+ {
+  "id": "test-set-contamination",
+  "checked": 19,
+  "supported": 18,
+  "note": "All 19 source pages downloaded (curl for arXiv/GitHub-pages/PDFs; Tavily extract for VentureBeat, which is behind a Vercel security checkpoint). Two apparent quote misses were FALSE ALARMS: phi-CTNL (arXiv 2309.08632) uses an ellipsis ('phi-CTNL...achieves perfect results') \u2014 the full sentence is verbatim in the abstract; the TechCrunch FrontierMath quote failed only due to HTML entity encoding of the apostrophe and is verbatim present. Both VentureBeat quotes verified in the Tavily extract, including the ~32% figure (8.5% false accepts + 24% false rejects, article states 'A 32% error rate'), 113 tasks / 91 repos, GPT-5.5 at 70% sixteen points clear, dated 26 May 2026. Verified numerically: LiveMathematicianBench 43.5% \u2192 17.6% vs 20% random baseline; TRACER F1 0.92 binary / 0.91 fine-grained / 42%-217%; CCV perfect separation, contamination binary, 33% prior labels false positives; IRT audit 95% precision top-200, seven benchmarks, 114 models, 78% vs 38%; eval-meta-knowledge paper; benbench Qwen-1.8B 223/67/25; LiveBench 'added and updated on a monthly basis'.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "GSM1K reveals models memorized grade-school math benchmark \u2014 'accuracy drops of up to 13%",
+    "url": "https://arxiv.org/abs/2405.00332",
+    "verdict": "quote_not_found",
+    "detail": "The cited page now serves v4 (revised 22 Nov 2024), whose abstract reads 'accuracy drops of up to 8%, with several families of models showing evidence of systematic overfitting'. The 13% figure and the '(e.g., Phi and Mistral)' specificity exist ONLY in v1 (verified at arxiv.org/abs/2405.00332v1) \u2014 the authors themselves revised the number down. This also creates an internal contradiction on our site: the 'worse' marker cites 8% and this case cites 13% from the identical URL. Re-sourcing to v1 would cite a figure the authors superseded; update to 8% instead (and drop the Phi/Mistral naming, which is v1-only).",
+    "action": "requote"
+   }
+  ]
+ },
+ {
+  "id": "unforeseen-capability-jumps",
+  "checked": 18,
+  "supported": 17,
+  "note": "All 17 other quotes verified present on the downloaded pages after normalization, and the numbers/entities/dates hold: METR TH1.1 (108.9->88.6 days for >=2024, 170->228 tasks, Vivaria->Inspect), UK AISI GPT-5.5 Expert pass rates (71.4/68.6/52.4/48.6, Apr 30 2026), Epoch GPT-5 25x/36x plus the 'intermediate releases muted the sense of a single leap' framing, ARC Prize o3 (75.7% / 87.5% high-compute / GPT-4o 5%), Apollo (five of six models scheming, o1 confesses <20%), METR arXiv 2503.14499 (both the ~7-month/6-year and the 'may have accelerated in 2024' sentences), International AI Safety Report 2026 PDF (quote verbatim in the key-developments list; Bengio is Chair; Expert Advisory Panel nominated by over 30 countries), POLITICO Fable 5 (verified 'the same underlying model' as Mythos, cyber/bio routed to Opus 4.8, Mythos 5 for Project Glasswing, 'strongest cybersecurity capabilities of any model in the world'), VentureBeat Kimi K3 (2.8T params, 1M-token context, always-on 'thinking mode', July 16 2026). The GPT-4/TaskRabbit case was scrutinized closely because the cited source (Melanie Mitchell) is a debunking piece, but what it debunks is the 'GPT-4 autonomously hired a human' framing, which this case does not assert; the quote is verbatim and ARC's own 'it emerged organically in our investigation' supports the case as written. Not reported. Fetch methods: curl for most; Tavily extract for POLITICO (Cloudflare interstitial) and VentureBeat; pdftotext for the 8.5MB International AI Safety Report PDF.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "In game 2 against world champion Lee Sedol, DeepMind's AlphaGo played a fifth-line",
+    "url": "https://en.wikipedia.org/wiki/AlphaGo_versus_Lee_Sedol",
+    "verdict": "claim_unsupported",
+    "detail": "Downloaded the full Wikipedia article (129k chars of text). The '1-in-10,000' figure is absent \u2014 no match for '10,000', '10000', 'one in ten', '1/10', or 'probability that a human'. 'fifth line' is also absent. And the page does not say commentators assumed the move was a blunder: Michael Redmond (9p) called move 37 'creative' and 'unique', a move 'most professional players would not have considered'; An Younggil (8p) called it 'a rare and intriguing shoulder hit'. The nearest supporting text is generic \u2014 'AlphaGo showed anomalies and moves ... which professional Go players described as looking like mistakes at first sight but an intentional strategy in hindsight' \u2014 which is not about move 37 specifically. The 1/10,000 figure is real but comes from DeepMind's policy-network estimate reported elsewhere (e.g. Wired / DeepMind commentary), not from this URL.",
+    "action": "re-source"
+   }
+  ]
+ },
+ {
+  "id": "values-encoding-unclear",
+  "checked": 15,
+  "supported": 13,
+  "note": "Verified against downloaded pages: Rozado PLOS ONE (11 political orientation tests x 24 conversational LLMs, published July 31 2024, quote verbatim); Oversight Board (10 commercial models from six providers, queried from an Australian IP, 14% vs 34% refusal, published July 16 2026 \u2014 date confirmed on page); OpenAI Model Spec 2025-02-12 (CC0 dedication verbatim, page dated February 12, 2025); Anthropic Collective Constitutional AI (~1,000 members of the American public, 'roughly 50% overlap in concepts and values', 'outsized role we as developers play'); Durmus et al. arXiv 2306.16388 (abstract quote verbatim; skew toward 'the USA, and some European and South American countries' \u2014 'certain wealthy nations' is a loose paraphrase but not a factual error, so not reported); Al Jazeera (Pichai quote verbatim, Google announced Feb 22 2024 pause, Nazi-uniform and Black founding-fathers images); Guardian DeepSeek (Jan 28 2025, quote verbatim); NPR Grok/MechaHitler (July 9 2025, quote verbatim); Nature HSSC (published 25 March 2026, 50 geopolitical questions, GPT-4o vs DeepSeek-R1, quote verbatim); TechXplore/PNAS Nexus (April 14 2026, Zenil, Goedel/Turing argument, open models showed wider spectrum than proprietary); Federal Register FTC (notice dated 07/07/2026, explicitly names 'Colorado's recently revised Artificial Intelligence Act' and applies section 5 deception to ideologically steered outputs). Guardian and TechXplore required Tavily extract; the rest resolved with curl.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "Anthropic replaced the May 2023 constitution with a new document that not only instructs",
+    "url": "https://www.anthropic.com/news/claudes-constitution",
+    "verdict": "claim_unsupported",
+    "detail": "The quote ('Update, Jan 21, 2026: We've published a new version of Claude's constitution...') is present verbatim, and the headline claim that a rewritten constitution was published on 2026-01-21 is supported. But the cited URL is still the May 9, 2023 constitution page \u2014 it only announces and links the new document. The descriptive detail in the case is not on this page: 'genuinely helpful', 'broadly safe', 'broadly ethical' and 'reasoning behind' all return zero matches across the 22k-char page. Those four pillars live on the linked new-constitution page, not here.",
+    "action": "re-source"
+   },
+   {
+    "kind": "case",
+    "claim": "David Rozado administered political-orientation tests to 24 conversational LLMs in PLOS ONE",
+    "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0306621",
+    "verdict": "overstated",
+    "detail": "The paper does say left-of-center skew 'does not appear to be the case for five additional base (i.e. foundation) models', so 'base/foundation models did not' is directionally right \u2014 but the very next sentence withdraws it: 'However, the weak performance of the base models at coherently answering the tests' questions makes this subset of results inconclusive.' Our case states the base-model contrast flatly, dropping the author's own inconclusive caveat. Low severity; the 24-LLM / 11-test / left-of-center core is fully accurate.",
+    "action": "keep_with_note"
+   }
+  ]
+ },
+ {
+  "id": "socioeconomic-impacts-disruptive",
+  "checked": 17,
+  "supported": 14,
+  "note": "Downloaded all 11 sources (Stanford PDF, Yale PDF, IASR PDF, Anthropic index, Reuters, FastCompany, NYT, Axios, ABC, CNN, Al Jazeera, IMF). IMF blog 403'd on curl/WebFetch/Tavily; verified via Wayback capture of the same URL - quote and both 40%/60% figures confirmed verbatim (Georgieva, Jan 14 2024). Reuters/Klarna/NYT/Axios/ABC/Anthropic/IASR all fully check out including secondary details (Amazon 14k Oct + 16k Jan = ~30k, 'largest in three decades'; Meta 8,000 = 10% + 7,000 reassigned + 4 a.m. Singapore emails; ABC suit filed late Monday July 13 in federal court in Oakland, incl. Meta's 'made by people, not AI' statement; Anthropic 10% own-job-loss figure and April 2026 survey launch). Both Stanford PDF marker quotes are verbatim in the Nov 13 2025 paper. The Al Jazeera IBM quote differs only as '30%' vs page's '30 percent' - trivial rendering, counted as supported.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "generative AI could expose the equivalent of 300 million full-time jobs to automation.",
+    "url": "https://www.cnn.com/2023/03/29/tech/chatgpt-ai-automation-jobs-impact-intl-hnk",
+    "verdict": "quote_not_found",
+    "detail": "The quote is a paraphrase and appears nowhere on the CNN page. CNN actually says: 'As many as 300 million full-time jobs around the world could be automated in some way by the newest wave of artificial intelligence.' (The substance of the claim - 300M jobs, ~two-thirds of US/European jobs 'exposed to some degree of AI automation', 18% of work globally - IS supported by the page.)",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "early career workers in the most AI-exposed occupations\u2014like software engineering, marketing, and customer service\u2014have experienced a 16% relative decline",
+    "url": "https://digitaleconomy.stanford.edu/publications/canaries-in-the-coal-mine/",
+    "verdict": "quote_not_found",
+    "detail": "This wording is TIME's paraphrase (the src field even says 'reported by TIME'), but the URL points to Stanford's publication page, where the text reads: 'early-career workers (ages 22-25) in the most AI-exposed occupations have experienced a 16 percent relative decline in employment even after controlling for firm-level shocks.' The page also dates the paper 11/13/2025, not the case's 'August 2025'. Note 'marketing' is only weakly in the paper (Appendix: marketing and sales managers, 4th exposure quintile, 'smaller magnitudes').",
+    "action": "requote"
+   },
+   {
+    "kind": "marker",
+    "claim": "Yale Budget Lab finds that measures of AI exposure, automation and augmentation show no relationship",
+    "url": "https://budgetlab.yale.edu/sites/default/files/page_to_pdf/1334/publication_1334.pdf",
+    "verdict": "wrong_number",
+    "detail": "The quote is present verbatim (split across a two-column PDF layout). But the '~33 months after ChatGPT's launch' figure is ours, not the source's: the PDF states no month count anywhere. This edition is the 'November/December CPS Update' published Jan 28, 2026, with a Nov 2022 baseline - i.e. roughly 36-37 months of data, not ~33. Low severity; the substantive 'no relationship' finding is fully supported.",
+    "action": "reword"
+   }
+  ]
+ },
+ {
+  "id": "state-pressure-on-ai-limits",
+  "checked": 11,
+  "supported": 7,
+  "note": "Downloaded all 7 sources. TechCrunch (Google pledge + Llama), Intercept, CSA research note, Baker McKenzie, Just Security, White House EO, Warren letter PDF fetched by curl; ASIS and Palantir newsroom needed Tavily. Both CSA marker quotes ('any lawful use' / March 5 2026 Supply-Chain Risk designation) are verbatim. Just Security quote verified in two segments across its ellipsis. White House page confirms Executive Order 14319, July 23, 2025, and the DEI/neutrality quote. Warren-letter quote itself is verbatim (only a footnote marker interrupts it), as is the 'no contractor, supplier, or partner ... may conduct any commercial activity' detail.",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "Meta ... is making its large language models, called Llama, available to U.S. government agencies and contractors",
+    "url": "https://techcrunch.com/2024/11/04/meta-says-its-making-its-llama-models-available-for-us-national-security-applications/",
+    "verdict": "quote_not_found",
+    "detail": "That exact sentence (Bloomberg's phrasing) is not on the TechCrunch page. TechCrunch says: 'Meta today said that it's making its Llama series of AI models available to U.S. government agencies and contractors in national security.' The claim's substance is supported - the page lists Lockheed Martin, Booz Allen, Palantir et al. and states 'Meta's policy normally forbids developers from using Llama for any projects related to military, warfare, or espionage missions. But the company's making an exception.'",
+    "action": "requote"
+   },
+   {
+    "kind": "case",
+    "claim": "Alongside the DoD designation, President Trump directed federal agencies to 'immediately cease' use of Anthropic's",
+    "url": "https://www.warren.senate.gov/wp-content/uploads/media/doc/letters_redesignationofanthropicasnationalsecurityrisk.pdf",
+    "verdict": "wrong_entity",
+    "detail": "The phrase 'immediately cease' does not appear in the letter, and no Trump directive to federal agencies is described. The letter attributes the action entirely to DoD/Hegseth: a policy 'effective immediately and covering [a]ll DoD procurements', and a March 6 notice that Anthropic's tools be removed from DoD systems within 180 days and that DoD partners/contractors cease using them for DoD-contract work. Trump's only role in the letter is a Feb 27 Truth Social post calling Anthropic a 'RADICAL LEFT, WOKE COMPANY'. The case is also dated February 27, 2026 while the letter is dated March 23, 2026.",
+    "action": "reword"
+   },
+   {
+    "kind": "case",
+    "claim": "After Anthropic refused to drop two contractual red lines ... Hegseth designated the company a 'Supply-Chain Risk to National Security'",
+    "url": "https://www.asisonline.org/security-management-magazine/latest-news/today-in-security/2026/february/Anthropic-Refusal",
+    "verdict": "claim_unsupported",
+    "detail": "The Amodei quote is verbatim, but this article is dated 27 February 2026 and reports only the threat, not the designation: 'Hegseth had threatened to designate the company as a supply chain risk and to invoke the Defense Production Act', and 'If the DOD designates Anthropic as a supply-chain risk, it will initiate a time-consuming process...'. The article never mentions Huawei and never says it would be the first time applied to an American firm. (Those elements are supported by the CSA note and Warren letter already cited elsewhere in this risk.)",
+    "action": "re-source"
+   },
+   {
+    "kind": "marker",
+    "claim": "For the first time, the US used export controls to force suspension of a US company's own deployed",
+    "url": "https://connectontech.bakermckenzie.com/thought-for-the-week-us-government-order-forces-commercial-suspension-of-two-frontier-ai-models/",
+    "verdict": "overstated",
+    "detail": "Quote verbatim and the 12 June 2026 Commerce order plus company-wide suspension are supported. But the article never asserts this was a first: it calls the order 'unilateral and unexpected' and business-continuity planning for model unavailability 'a novel thread'. It also never names the developer or states it is a US company ('a leading artificial intelligence developer'). The 'first time' novelty framing is our addition, not the source's.",
+    "action": "keep_with_note"
+   }
+  ]
+ },
+ {
+  "id": "safety-performance-tradeoffs",
+  "checked": 19,
+  "supported": 17,
+  "note": "Downloaded and normalized every cited source. All 6 worse-markers and both better-markers verified verbatim (OR-Bench v2 HTML, Safety Tax abs, XSTest v3 HTML, Goodfire, Axios July 2026 via Tavily, arXiv 2605.05427 v2 HTML). Numeric spot-checks all held: OR-Bench v2 really says 25 LLMs/8 families while the current /abs/ (later version) says 32, so marker and case are each consistent with the version they cite; Safety Tax Table 1 gives LRM avg 63.40 -> SafeChain 56.31 (~7 pts) and -> DirectRefusal 32.49 (~31 pts) on AIME24/GPQA/MATH500, matching the case; Goodfire's 92% vs 69% (Claude Haiku 4.5, Fortress) and 'up to 34%' compliance increase both confirmed; RSP v3.0 page confirms Feb 24, 2026; both Axios articles confirmed (Jul 7 2026 and Mar 3 2026) including the Pentagon/OpenAI pivot; FLI 'Summer 2026' edition name confirmed on futureoflife.org. Only two problems, both sourcing nits where the quote lives in the paper body but the cited URL is the /abs/ landing page (abstract only).",
+  "problems": [
+   {
+    "kind": "case",
+    "claim": "XSTest: Llama-2 refuses the majority of perfectly safe prompts \u2014 \"The model fully refuses 38% of prompts",
+    "url": "https://arxiv.org/abs/2308.01263",
+    "verdict": "quote_not_found",
+    "detail": "The cited /abs/ landing page contains only the abstract, which never mentions 38% or 21.6% (it only says XSTest comprises 250 safe and 200 unsafe prompts). The quote IS genuine \u2014 verified verbatim in the full text at https://arxiv.org/html/2308.01263v3 ('We find that Llama2.0 exhibits substantial exaggerated safety. The model fully refuses 38% of prompts in XSTest, and partially refuses another 21.6%'), and the model is indeed Llama-2-70b-chat-hf. Purely a URL problem, and internally inconsistent: this risk's XSTest marker already cites the /html/v3 URL.",
+    "action": "re-source"
+   },
+   {
+    "kind": "case",
+    "claim": "GPT-4 report: RLHF post-training \"hurts calibration significantly\"",
+    "url": "https://arxiv.org/abs/2303.08774",
+    "verdict": "quote_not_found",
+    "detail": "Neither 'after the post-training process, the calibration is reduced' nor 'The post-training hurts calibration significantly' appears on the cited /abs/ page (abstract only; it says the opposite-flavoured 'post-training alignment process results in improved performance on measures of factuality'). Both sentences are verbatim present in the full report at https://arxiv.org/html/2303.08774v6, so the claim itself is correct. Same inconsistency as above: the scale-effects risk already cites /html/2303.08774v6 for this paper.",
+    "action": "re-source"
+   }
+  ]
+ },
+ {
+  "id": "scale-effects-not-characterized",
+  "checked": 11,
+  "supported": 8,
+  "note": "All quotes verified verbatim on the cited pages after normalization: CSET explainer (both marker quotes present), GPT-4 v6 HTML ('1/1,000th the compute'), METR arXiv 2503.14499v1 ('doubling approximately every seven months since 2019', in context of the 50% time horizon), METR blog Time Horizon 1.1 (dated January 29, 2026; '109 days under TH1 ... 89 days under TH1.1'), and all six case abstracts (Kaplan, Wei, Grokking, Chinchilla, Inverse Scaling Prize, Mirage). Problems are a source-year error repeated across the two CSET markers and one unverifiable number in the Kaplan case description.",
+  "problems": [
+   {
+    "kind": "marker",
+    "claim": "Aggregate loss scaling still fails to tell you which specific downstream abilities will appear",
+    "url": "https://cset.georgetown.edu/article/emergent-abilities-in-large-language-models-an-explainer",
+    "verdict": "date_mismatch",
+    "detail": "Cited as 'CSET Georgetown, Emergent Abilities Explainer, 2023'. The page byline reads 'Thomas Woodside, April 16, 2024' and the schema metadata says datePublished 2024-04-16 (dateModified 2025-12-19). No 2023 date appears anywhere on the page. The quote itself is present and correctly rendered (note it is CSET quoting Wei et al.), so only the year attribution is wrong.",
+    "action": "keep_with_note"
+   },
+   {
+    "kind": "marker",
+    "claim": "Expert forecasts of what scale would deliver have been badly wrong, indicating scale effects remain",
+    "url": "https://cset.georgetown.edu/article/emergent-abilities-in-large-language-models-an-explainer",
+    "verdict": "date_mismatch",
+    "detail": "Same source-year error: cited as 2023, page is dated April 16, 2024. Quote verified verbatim. Minor secondary caveat for the note: the very next sentence in the source qualifies the claim \u2014 'The predictions they made in 2022 were much more accurate for 2023' \u2014 so 'badly wrong' describes the 2021 forecasts specifically, not forecasting generally.",
+    "action": "keep_with_note"
+   },
+   {
+    "kind": "case",
+    "claim": "OpenAI researchers trained 200+ transformers and found loss falls as a smooth power-law",
+    "url": "https://arxiv.org/abs/2001.08361",
+    "verdict": "claim_unsupported",
+    "detail": "The '200+ transformers' figure is not stated in the paper. Checked the abstract on the cited page and the full text via ar5iv: the paper says only 'we train a wide variety of models, varying ... model size (768 to 1.5 billion non-embedding parameters), dataset size (22 million to 23 billion tokens), shape ...' and the abstract's 'trends span more than seven orders of magnitude'. No model count of any kind appears. The number is not shown to be false, just absent from the source.",
+    "action": "reword"
+   }
+  ]
+ }
+]
