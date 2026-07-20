@@ -409,3 +409,23 @@ asserting on known-good cases is what surfaced them, not reading the code.
 (campus is superuser, so nothing breaks today). Flagged rather than edited, to avoid stepping on
 a live session. Their README asks for "a feed set" of real-URL feeds — the 149 verified org RSS
 feeds in `alignment_orgs` are exactly that, available via `research_feeds.org_feeds()`.
+
+### Update — government/funder slice re-ran, 331 orgs final
+
+The government+frontier-lab+funder agent returned a fuller second pass (53 entries), taking the
+registry to **331 orgs / 62 countries**. Additional renames it caught:
+
+- **Open Philanthropy → Coefficient Giving** (Nov 2025); openphilanthropy.org 301s
+- **International Network of AI Safety Institutes → NAAIMES** (renamed Dec 2025)
+- **xAI → SpaceXAI** — SpaceX acquired xAI (incl. Grok and X) 2 Feb 2026; rebrand 6 Jul 2026
+- Cohere For AI → Cohere Labs; Zhipu AI → Z.ai; US AISI → NIST CAISI
+- Honest negative findings recorded rather than padded: **Kenya, the Netherlands and Italy have no
+  AI safety institute** — the listed bodies are AI Act supervisors or network representatives.
+  Korea's `aisi.re.kr` refuses connections from outside Korea.
+
+**Known-stale, deliberately NOT auto-fixed:** the atlas carries 67 `xAI` mentions across 11 risks
+and zero `SpaceXAI`. Most are historically correct (the "MechaHitler" incident was xAI in July 2025,
+and verbatim source quotes say "xAI"), so a find-replace would falsify quotes and rewrite history.
+The two cases worth a human decision are the risk *titles* that read as present-tense company
+identity: `generative-ncii-csam` ("Grok / xAI") and `model-ideological-steering`
+("Owner-Controlled Ideological Steering"). Left for review.

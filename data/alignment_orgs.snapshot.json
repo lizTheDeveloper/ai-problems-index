@@ -165,6 +165,44 @@
   "slug": "aesia"
  },
  {
+  "name": "Agenzia per l'Italia Digitale",
+  "acronym": "AgID",
+  "url": "https://www.agid.gov.it/en/intervention-areas/artificial-intelligence",
+  "feed_url": "https://www.agid.gov.it/it/notizie",
+  "feed_kind": "page",
+  "country": "Italy",
+  "org_type": "government",
+  "founded": "2012",
+  "focus": "Designated under Italian Law 132/2025 as the AI notification authority, defining procedures for assessing, accrediting and monitoring AI conformity-assessment bodies.",
+  "risk_vectors": [
+   "llm-governance-lacking"
+  ],
+  "confirmed": true,
+  "notes": "HONEST FINDING: Italy has NO AI safety institute and is NOT a member of the international network. AgID founded 2012; its AI mandate dates from Law 132/2025, in force 10 October 2025. No RSS.",
+  "discovered_by": "gov",
+  "slug": "agid"
+ },
+ {
+  "name": "Agenzia per la Cybersicurezza Nazionale",
+  "acronym": "ACN",
+  "url": "https://www.acn.gov.it/portale/linee-guida-ia",
+  "feed_url": "https://www.acn.gov.it/portale/notizie-ed-eventi",
+  "feed_kind": "page",
+  "country": "Italy",
+  "org_type": "government",
+  "founded": "2021",
+  "focus": "Italy's AI market-surveillance authority under Law 132/2025, with inspection and sanctioning powers; publishes AI security guidelines and hosted the EU ADCO AI market-surveillance cooperation group.",
+  "risk_vectors": [
+   "ai-enabled-hacking",
+   "llm-governance-lacking",
+   "llm-systems-untrustworthy"
+  ],
+  "confirmed": true,
+  "notes": "Founded 2021; AI mandate from Law 132/2025. A real RSS exists at acn.gov.it/portale/feedrss/-/journal/rss/20119/723192 but it is 'RSS Csirt Italia' carrying vulnerability advisories, not AI or corporate news \u2014 hence the listing page is used instead. Banca d'Italia, CONSOB and IVASS are sectoral AI market-surveillance authorities.",
+  "discovered_by": "gov",
+  "slug": "acn"
+ },
+ {
   "name": "AI & Democracy Foundation",
   "acronym": "AIDF",
   "url": "https://aidemocracyfoundation.org/",
@@ -1115,6 +1153,27 @@
   "slug": "geotech"
  },
  {
+  "name": "Australia's AI Safety Institute",
+  "acronym": null,
+  "url": "https://www.industry.gov.au/science-technology-and-innovation/technology/artificial-intelligence/ai-safety-institute",
+  "feed_url": "https://www.industry.gov.au/news",
+  "feed_kind": "page",
+  "country": "Australia",
+  "org_type": "government",
+  "founded": "2025",
+  "focus": "Monitors and analyses frontier-model capabilities including autonomous AI agents, tests new AI models and applications, and works with the Australian Signals Directorate and CSIRO, disseminating guidance through the National AI Centre.",
+  "risk_vectors": [
+   "agentic-llms-novel-risks",
+   "capabilities-difficult-estimate",
+   "evaluations-confounded-biased",
+   "frontier-misuse-risk"
+  ],
+  "confirmed": false,
+  "notes": "Announced 25 November 2025 with A$29.9m, operational from early 2026. Sits in the Department of Industry, Science and Resources; it is NOT a rename of the pre-existing National AI Centre. VERIFICATION CAVEAT: industry.gov.au is unreachable from this host via curl and WebFetch; page content confirmed live via Tavily extraction, but no direct HTTP 200 was obtained.",
+  "discovered_by": "gov",
+  "slug": "australia-s-ai-safety-institute"
+ },
+ {
   "name": "Axiom Math",
   "acronym": "",
   "url": "https://axiommath.ai/",
@@ -1505,30 +1564,6 @@
   "slug": "cais"
  },
  {
-  "name": "Center for AI Standards and Innovation",
-  "acronym": "CAISI",
-  "url": "https://www.nist.gov/caisi",
-  "feed_url": "https://www.nist.gov/news-events/news/rss.xml",
-  "feed_kind": "rss",
-  "country": "United States",
-  "org_type": "government",
-  "founded": "2023",
-  "focus": "Evaluates US and adversary-nation frontier AI systems for security vulnerabilities, agent hijacking and jailbreak robustness, and develops NIST measurement standards and guidelines for AI system security.",
-  "risk_vectors": [
-   "ai-enabled-hacking",
-   "dual-use-capabilities",
-   "evaluations-confounded-biased",
-   "frontier-misuse-risk",
-   "jailbreaks-prompt-injections",
-   "llm-governance-lacking",
-   "state-pressure-on-ai-limits"
-  ],
-  "confirmed": true,
-  "notes": "Renamed 3 June 2025 from 'U.S. Artificial Intelligence Safety Institute' (US AISI, est. November 2023) to 'Center for AI Standards and Innovation'. Sits inside NIST, Department of Commerce. No CAISI-specific RSS; NIST news feed is the closest verified feed.",
-  "discovered_by": "gov+policy",
-  "slug": "caisi"
- },
- {
   "name": "Center for Artificial Intelligence, University of Sao Paulo",
   "acronym": "C4AI",
   "url": "https://c4ai.inova.usp.br/",
@@ -1899,6 +1934,25 @@
   "notes": "Site returns 403 to non-browser clients (Cloudflare); the Responsible AI and Society programme and 2025 UN AI governance analysis confirmed via search rather than direct fetch. No verifiable RSS.",
   "discovered_by": "policy",
   "slug": "chatham-house"
+ },
+ {
+  "name": "China AI Safety & Development Association",
+  "acronym": "CnAISDA",
+  "url": "https://cnaisi.cn/",
+  "feed_url": "https://cnaisi.cn/cyzx",
+  "feed_kind": "page",
+  "country": "China",
+  "org_type": "government",
+  "founded": "2025",
+  "focus": "Umbrella consortium of Chinese state-linked research bodies \u2014 Tsinghua University, Shanghai AI Laboratory, BAAI, Peking University, Shanghai Qi Zhi Institute, CAICT and the CAS Institute of Automation \u2014 that represents China in dialogue with foreign AI safety institutes.",
+  "risk_vectors": [
+   "frontier-misuse-risk",
+   "llm-governance-lacking"
+  ],
+  "confirmed": true,
+  "notes": "CORRECTION: launched February 2025 at a Paris AI Action Summit side event, not December 2024. NAME MISMATCH: the English navigation uses 'China AI Safety & Development Association (CnAISDA)' but the Chinese name \u4e2d\u56fd\u4eba\u5de5\u667a\u80fd\u53d1\u5c55\u4e0e\u5b89\u5168\u7814\u7a76\u7f51\u7edc reads 'China AI Development and Safety Research Network'. Site is JS-rendered and thin; no RSS. Not a member of the international network.",
+  "discovered_by": "gov",
+  "slug": "cnaisda"
  },
  {
   "name": "CIFAR",
@@ -3343,25 +3397,26 @@
   "slug": "import-ai"
  },
  {
-  "name": "IndiaAI Mission (MeitY)",
-  "acronym": "IndiaAI",
+  "name": "IndiaAI Safety Institute",
+  "acronym": null,
   "url": "https://indiaai.gov.in/",
-  "feed_url": "https://indiaai.gov.in/research-reports",
+  "feed_url": "https://indiaai.gov.in/news",
   "feed_kind": "page",
   "country": "India",
   "org_type": "government",
-  "founded": 2020,
-  "focus": "Indian government AI mission including the Safe & Trusted AI pillar, which funds deepfake detection, bias mitigation and AI governance guidelines work, and hosts the India AI Safety Institute.",
+  "founded": "2025",
+  "focus": "Operates a hub-and-spoke model in which partner institutions each maintain an IndiaAI Safety Institute Cell receiving work allocated by expertise, with research oriented to Indian datasets and India's linguistic diversity.",
   "risk_vectors": [
    "ai-impacts-democracy",
    "cultural-exclusion",
    "deepfakes-information-trust",
+   "evaluations-confounded-biased",
    "llm-governance-lacking"
   ],
   "confirmed": true,
-  "notes": "No RSS; /research-reports verified 200.",
-  "discovered_by": "policy",
-  "slug": "indiaai"
+  "notes": "Announced 30 January 2025 by MeitY Minister Ashwini Vaishnaw under the IndiaAI Mission's Safe & Trusted pillar. NO standalone website \u2014 indiaai.gov.in is the mission site. A May 2025 call for partnerships PDF is hosted on indiaai S3. No RSS (/rss and /feed 404).",
+  "discovered_by": "gov+policy",
+  "slug": "indiaai-safety-institute"
  },
  {
   "name": "Information Futures Lab",
@@ -3403,6 +3458,26 @@
   "notes": "Feed verified as valid RSS. Included as a deliberate counterweight perspective in the policy landscape.",
   "discovered_by": "policy",
   "slug": "itif"
+ },
+ {
+  "name": "Institut national pour l'\u00e9valuation et la s\u00e9curit\u00e9 de l'intelligence artificielle",
+  "acronym": "INESIA",
+  "url": "https://www.sgdsn.gouv.fr/nos-missions/anticiper-et-prevenir/evaluer-et-securiser-lia",
+  "feed_url": "https://www.sgdsn.gouv.fr/publications",
+  "feed_kind": "page",
+  "country": "France",
+  "org_type": "government",
+  "founded": "2025",
+  "focus": "Coordinates ANSSI, Inria, LNE and PEReN to evaluate the performance and reliability of AI models, analyse systemic AI risks from a national-security angle, and support EU AI Act implementation.",
+  "risk_vectors": [
+   "evaluations-confounded-biased",
+   "frontier-misuse-risk",
+   "llm-governance-lacking"
+  ],
+  "confirmed": true,
+  "notes": "Announced 31 January 2025 under SGDSN and DGE. Not a new legal entity and has NO standalone website \u2014 inesia.fr and inesia.gouv.fr do not resolve; the SGDSN mission page is the official home. A 'Feuille de route INESIA 2026-2027' PDF is published on sgdsn.gouv.fr. No RSS.",
+  "discovered_by": "gov",
+  "slug": "inesia"
  },
  {
   "name": "Institute for AI Policy and Strategy",
@@ -3551,6 +3626,31 @@
   "slug": "icrc"
  },
  {
+  "name": "International Network for Advanced AI Measurement, Evaluation and Science",
+  "acronym": "NAAIMES",
+  "url": "https://www.nist.gov/news-events/news/2026/02/international-network-advanced-ai-measurement-evaluation-and-science",
+  "feed_url": "https://www.gov.uk/search/news-and-communications.atom?keywords=International+Network+for+Advanced+AI+Measurement",
+  "feed_kind": "rss",
+  "country": "International",
+  "org_type": "government",
+  "founded": "2024",
+  "focus": "Ten-government body that coordinates joint testing exercises on foundation models and harmonised risk-assessment methodology; in February 2026 it published agreed consensus areas on practices for automated AI evaluations.",
+  "risk_vectors": [
+   "ai-enabled-hacking",
+   "capabilities-difficult-estimate",
+   "dual-use-capabilities",
+   "evaluations-confounded-biased",
+   "frontier-misuse-risk",
+   "jailbreaks-prompt-injections",
+   "llm-governance-lacking",
+   "state-pressure-on-ai-limits"
+  ],
+  "confirmed": true,
+  "notes": "IMPORTANT RENAME: launched November 2024 in San Francisco as the 'International Network of AI Safety Institutes'; renamed 'International Network for Advanced AI Measurement, Evaluation and Science' in December 2025. Verified against the NIST page title directly. Members: Australia, Canada, EU, France, Japan, Kenya, South Korea, Singapore, UK, US. No dedicated website; UK is now Network Coordinator. The feed is a GOV.UK keyword search Atom feed, not a network-owned feed.",
+  "discovered_by": "gov+gov+policy",
+  "slug": "naaimes"
+ },
+ {
   "name": "Internet Watch Foundation",
   "acronym": "IWF",
   "url": "https://www.iwf.org.uk/",
@@ -3648,6 +3748,26 @@
   "notes": "Live but very thin site (/about, /hiring only). No feed.",
   "discovered_by": "field",
   "slug": "kairos"
+ },
+ {
+  "name": "Korea AI Safety Institute",
+  "acronym": "K-AISI",
+  "url": "https://www.aisi.re.kr/eng",
+  "feed_url": "https://www.aisi.re.kr/kor/article/ATCL75b4fb0a5",
+  "feed_kind": "page",
+  "country": "South Korea",
+  "org_type": "government",
+  "founded": "2024",
+  "focus": "Publishes a quarterly AI Safety Forecast Report applying network-centrality analysis to global AI-safety news to derive scenarios, and runs three offices covering safety policy and external cooperation, safety evaluation, and a safety research lab.",
+  "risk_vectors": [
+   "capabilities-difficult-estimate",
+   "evaluations-confounded-biased",
+   "llm-governance-lacking"
+  ],
+  "confirmed": true,
+  "notes": "Korean name \uc778\uacf5\uc9c0\ub2a5\uc548\uc804\uc5f0\uad6c\uc18c. Established November 2024, affiliated with ETRI under the Ministry of Science and ICT. The English site has no news section; the Korean news board is the only publication listing. No RSS.",
+  "discovered_by": "gov",
+  "slug": "k-aisi"
  },
  {
   "name": "Krueger AI Safety Lab",
@@ -4180,6 +4300,26 @@
   "slug": "miles-s-substack"
  },
  {
+  "name": "Ministry of Information, Communications and the Digital Economy (Kenya)",
+  "acronym": "MoICDE",
+  "url": "https://www.ict.go.ke/",
+  "feed_url": "https://www.ict.go.ke/news",
+  "feed_kind": "page",
+  "country": "Kenya",
+  "org_type": "government",
+  "founded": "2024",
+  "focus": "Represents Kenya in the international AI evaluation network via the Office of the Special Envoy for Technology, and published the Kenya National AI Strategy 2025-2030 which commits to local AI ethics and safety standards enforced through conformity assessments and safety audits.",
+  "risk_vectors": [
+   "cultural-exclusion",
+   "llm-governance-lacking",
+   "socioeconomic-impacts-disruptive"
+  ],
+  "confirmed": true,
+  "notes": "HONEST FINDING: Kenya has NO AI safety institute. It joined the network in November 2024 represented by Ambassador Philip Thigo, Special Envoy for Technology. The National AI Strategy says Kenya *may* later create a national AI risk and safety institute. Technical standardisation sits with KEBS (KS 3007:2025). Founded year refers to Kenya's network participation, not the ministry.",
+  "discovered_by": "gov",
+  "slug": "moicde"
+ },
+ {
   "name": "Mistral AI",
   "acronym": null,
   "url": "https://mistral.ai/news",
@@ -4469,6 +4609,27 @@
   "notes": "Child-protection body established under US federal mandate. /rss returns HTML; blog listing page verified 200.",
   "discovered_by": "harms",
   "slug": "ncmec"
+ },
+ {
+  "name": "National Cybersecurity Standardization Technical Committee",
+  "acronym": "TC260",
+  "url": "https://www.tc260.org.cn/",
+  "feed_url": "https://www.tc260.org.cn/portal/cms/catalog/1",
+  "feed_kind": "page",
+  "country": "China",
+  "org_type": "government",
+  "founded": "2002",
+  "focus": "Published China's AI Safety Governance Framework (September 2024) and its bilingual 2.0 update, plus Ethics-Safety Guidelines for AI Applications 1.0 and draft sector AI-security guides for finance, health and media.",
+  "risk_vectors": [
+   "dual-use-capabilities",
+   "llm-governance-lacking",
+   "llm-systems-untrustworthy",
+   "poisoning-backdoors-vulnerability"
+  ],
+  "confirmed": true,
+  "notes": "Committee founded 2002; AI safety work from 2024. Name appears in sources both as \u5168\u56fd\u4fe1\u606f\u5b89\u5168\u6807\u51c6\u5316\u6280\u672f\u59d4\u5458\u4f1a (National Information Security Standardization Technical Committee) and \u5168\u56fd\u7f51\u7edc\u5b89\u5168\u6807\u51c6\u5316\u6280\u672f\u59d4\u5458\u4f1a (Cybersecurity) \u2014 the site's own branding uses the latter. TRAP: tc260.org.cn/rss.xml returns 200 but serves HTML, not a feed.",
+  "discovered_by": "gov",
+  "slug": "tc260"
  },
  {
   "name": "National Deep Inference Fabric",
@@ -5201,9 +5362,7 @@
   "org_type": "funder",
   "founded": "2024",
   "focus": "Builds time-bound thesis-driven pooled funds; its AI vehicle is the $9M AI for Math Fund launched December 2024 with XTX Markets, which funds AI tools to accelerate mathematics research.",
-  "risk_vectors": [
-   "reasoning-capabilities-understanding-lacking"
-  ],
+  "risk_vectors": [],
   "confirmed": true,
   "notes": "CAVEAT: this is a capability/science-acceleration funder, not an AI safety funder \u2014 the AI for Math Fund does not fund safety work. Included for completeness with that framing. Founded May 2024, CEO Tom Kalil; reports $533M catalyzed. /feed/ 404s; the Squarespace ?format=rss feed works.",
   "discovered_by": "gov",
@@ -5272,6 +5431,25 @@
   "notes": "'RAI' is a heavily overloaded initialism (Responsible AI generally, RAI Institute, various corporate RAI teams); the logo wall's title attribute resolves it to Responsible Artificial Intelligence Institute. Originally founded as AI Global (~2016) and later rebranded; year not confirmed from a primary source. WordPress /feed verified.",
   "discovered_by": "caaac",
   "slug": "rai"
+ },
+ {
+  "name": "Rijksinspectie Digitale Infrastructuur",
+  "acronym": "RDI",
+  "url": "https://www.rdi.nl/onderwerpen/kunstmatige-intelligentie",
+  "feed_url": "https://www.rdi.nl/actueel/nieuws",
+  "feed_kind": "page",
+  "country": "Netherlands",
+  "org_type": "government",
+  "founded": "2023",
+  "focus": "One of two coordinating Dutch AI supervisors, handling technical and product supervision under the EU AI Act \u2014 conformity assessment, product safety and market surveillance \u2014 while the Autoriteit Persoonsgegevens covers fundamental rights.",
+  "risk_vectors": [
+   "llm-governance-lacking",
+   "llm-systems-untrustworthy"
+  ],
+  "confirmed": true,
+  "notes": "HONEST FINDING: the Netherlands has NO AI safety institute. RDI is the AI Act technical supervisor. Renamed from Agentschap Telecom on 1 January 2023. rdi.nl/service/rss exists but lists no feed URLs; all RSS paths tried return 404.",
+  "discovered_by": "gov",
+  "slug": "rdi"
  },
  {
   "name": "RIKEN AIP - AI Safety and Reliability Unit",
@@ -5553,6 +5731,28 @@
   "notes": "Small site (25KB), research shown as an on-page anchor; no separate research index or feed. Closely linked to Astera Institute (Astera Substack hosts a Simplex explainer). Has a London hiring page.",
   "discovered_by": "technical",
   "slug": "simplex"
+ },
+ {
+  "name": "Singapore AI Safety Institute",
+  "acronym": "Singapore AISI",
+  "url": "https://sgaisi.sg/",
+  "feed_url": "https://sgaisi.sg/resources/",
+  "feed_kind": "page",
+  "country": "Singapore",
+  "org_type": "government",
+  "founded": "2024",
+  "focus": "Runs multilingual and multicultural AI evaluation and agentic-AI testing via the Moonshot toolkit, studies emotional dependency and cognitive offloading in AI use, and ran the Singapore AI Safety Red-Teaming Challenge.",
+  "risk_vectors": [
+   "agentic-llms-novel-risks",
+   "cultural-exclusion",
+   "jailbreaks-prompt-injections",
+   "overreliance-automation-bias",
+   "sycophancy-ai-psychosis"
+  ],
+  "confirmed": true,
+  "notes": "Operated by the Digital Trust Centre (DTC) at Nanyang Technological University in partnership with IMDA; designated Singapore's AI Safety Institute on 22 May 2024. DTC itself launched 1 November 2022 with a S$50m IMDA/NRF grant. Distinct from the AI Verify Foundation entry. TRAPS: dtc.ntu.edu.sg does not exist; sgaisi.sg/feed/ returns 200 but serves a 404 HTML page.",
+  "discovered_by": "gov",
+  "slug": "singapore-aisi"
  },
  {
   "name": "Softmax",
