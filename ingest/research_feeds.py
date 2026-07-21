@@ -176,7 +176,28 @@ _HREF = re.compile(r'<a\b[^>]*href=["\']([^"\'#]+)["\'][^>]*>(.*?)</a>', re.I | 
 _SKIP_PATH = re.compile(
     r'/(tag|tags|category|categories|author|page|search|login|signin|subscribe|privacy|terms|'
     r'cookie|contact|about|team|careers|jobs|donate|rss|feed)(/|$)', re.I)
-_ASSET = re.compile(r'\.(png|jpe?g|gif|svg|webp|pdf|zip|mp4|mp3|css|js|ico)(\?|$)', re.I)
+_ASSET = re.compile(r'\.(png|jpe?g|gif|svg|webp|zip|mp4|mp3|css|js|ico)(\?|$)', re.I)
+# Venues that ARE the publication for many labs, not third-party citations.
+_PUB_HOST = re.compile(
+    r'^(arxiv\.org|ar5iv\.org|aclanthology\.org|openreview\.net|proceedings\.neurips\.cc|'
+    r'proceedings\.mlr\.press|.*\.substack\.com|lesswrong\.com|www\.lesswrong\.com|'
+    r'alignmentforum\.org|www\.alignmentforum\.org|distill\.pub|biorxiv\.org|www\.biorxiv\.org|'
+    r'transformer-circuits\.pub|arxiv\.org)$', re.I)
+
+
+def _registrable(host):
+    """Crude eTLD+1: enough to treat blog.example.com and example.com as one site."""
+    parts = [p for p in (host or '').split('.') if p]
+    if len(parts) < 2:
+        return host
+    # handle common two-part suffixes (co.uk, ac.uk, org.uk, gov.uk, com.au…)
+    if len(parts) >= 3 and parts[-2] in ('co', 'ac', 'org', 'gov', 'com', 'net') and len(parts[-1]) == 2:
+        return '.'.join(parts[-3:])
+    return '.'.join(parts[-2:])
+
+
+def _same_site(a, b):
+    return _registrable(a) == _registrable(b)
 
 
 def scrape_listing(page_url, source, feed_label, limit=25):
@@ -208,7 +229,12 @@ def scrape_listing(page_url, source, feed_label, limit=25):
         if not full.startswith('http'):
             continue
         h = urllib.parse.urlsplit(full)
-        if h.netloc.lower().replace('www.', '') != host:   # same-site only
+        link_host = h.netloc.lower().replace('www.', '')
+        # Accept the org's own domain INCLUDING subdomains (blog.tilderesearch.com belongs to
+        # tilderesearch.com) and the venues labs actually publish to. A strict same-host rule
+        # dropped everything for orgs that host their writing on arXiv, LessWrong or a blog
+        # subdomain — Cadenza Labs, Tilde Research and AE Studio all scraped to zero because of it.
+        if not (_same_site(link_host, host) or _PUB_HOST.search(link_host)):
             continue
         path = h.path.rstrip('/')
         if not path or path == listing_path:               # self / index links
@@ -416,13 +442,29 @@ NAV_TITLES = {
 
 
 def prefilter(item):
+    """Two gates, because the sources differ in how much we already know.
+
+    CURATED (feed label org:/page:/sitemap:) — the item came from an organization we verified
+    is an alignment/safety body. Requiring an AI keyword on top of that is redundant and costs
+    real recall: 'Cluster-Norm for Unsupervised Probing of Knowledge' (Cadenza Labs) and
+    'Parallax: Parameterized Local Linear Attention' (Tilde) name no AI term at all yet are
+    exactly what we want. For these, drop only boilerplate, hiring and admin chatter.
+
+    UNCURATED (arXiv queries, LessWrong/AF firehose) — anything can appear, so keep the full
+    AI-signal AND research-signal requirement.
+    """
     title = (item.get('title') or '').strip()
     text = f"{title} {item.get('blurb','')}"
-    # site furniture: an exact nav-word title with nothing else to it
+
     if re.sub(r'[^a-z ]', '', title.lower()).strip() in NAV_TITLES:
         return False
     if RESEARCH_NOISE.search(text) or JOBS_ADMIN.search(text):
         return False
+
+    feed = item.get('feed') or ''
+    if feed.startswith(('org:', 'page:', 'sitemap:')):
+        return len(title) >= 18          # already source-vetted; just skip stubs
+
     return bool(AI_SIGNAL.search(text) and RESEARCH_SIGNAL.search(text))
 
 
