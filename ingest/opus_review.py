@@ -51,6 +51,9 @@ SYSTEM = (
 "  what:  1-2 sentences on what concretely happened and why it belongs to THIS risk\n"
 "  pol:   'better' (good news / defensive win / mitigation) | 'worse' (bad news / harm or capability "
 "advancing) | 'neutral' (mixed)\n\n"
+"CSAM / child-sexual-abuse: if a candidate touches this, keep ALL wording reported/alleged, cite "
+"only the mainstream report or official investigation, include NO graphic detail — describe the "
+"regulatory/reporting/enforcement fact, not the content.\n\n"
 "Reply ONLY JSON: {\"decisions\":[{\"id\":<candidate id>,\"keep\":true|false,\"reason\":\"<short>\","
 "\"norm\":{\"title\":\"\",\"when\":\"\",\"what\":\"\",\"pol\":\"\"}}]}  (omit norm when keep=false).")
 

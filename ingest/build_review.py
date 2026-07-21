@@ -7,13 +7,10 @@ atlas; this is the queue you eyeball before running apply.py.
 Publishes to /x/ai-atlas-review (pages table, -U school). Optionally pings Matrix.
 Run:  python3 build_review.py
 """
-import os, sys, json, html
+import os, sys, json, html, subprocess
 sys.path.insert(0, os.path.dirname(__file__))
-from pipeline import psql, sq, _load_env
+from pipeline import psql, sq, _load_env, _LOCAL, SSH, PGC, DB
 _load_env()
-SSH = os.environ.get("AIPI_SSH_HOST", "hetzner")
-PGC = os.environ.get("AIPI_PG_CONTAINER", "")
-DB  = os.environ.get("AIPI_DB", "")
 PAGES_ROLE = os.environ.get("AIPI_PAGES_ROLE", "school")
 RISKS = {r["id"]: r["title"] for r in json.load(open(os.path.join(os.path.dirname(__file__), "risks.json")))}
 POL = {"better": ("#2ea043", "GOOD NEWS"), "worse": ("#e5484d", "BAD NEWS"), "neutral": ("#8b94a0", "MIXED")}
@@ -84,9 +81,9 @@ def run():
     sql = ("\\set ON_ERROR_STOP on\nBEGIN;\nDELETE FROM pages WHERE slug='ai-atlas-review';\n"
            "INSERT INTO pages (slug,title,content_html,page_type,status,renderer,published_at,created_at,updated_at) "
            f"VALUES ('ai-atlas-review','AI Atlas — review queue',{tag}{page}{tag},'landing','published','html',now(),now(),now());\nCOMMIT;\n")
-    import subprocess
-    r = subprocess.run(["ssh", SSH, f"docker exec -i {PGC} psql -U {PAGES_ROLE} -d {DB} -q"],
-                       input=sql, capture_output=True, text=True)
+    run = (["docker", "exec", "-i", PGC, "psql", "-U", PAGES_ROLE, "-d", DB, "-q"] if _LOCAL
+           else ["ssh", SSH, f"docker exec -i {PGC} psql -U {PAGES_ROLE} -d {DB} -q"])
+    r = subprocess.run(run, input=sql, capture_output=True, text=True)
     if r.returncode != 0:
         print("publish FAILED:", r.stderr[:300]); return
     print(f"✓ review queue published: https://themultiverse.school/x/ai-atlas-review  ({len(rows)} items, {len(by)} risks)")

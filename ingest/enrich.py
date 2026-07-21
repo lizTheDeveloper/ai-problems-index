@@ -34,18 +34,32 @@ def meta_desc(body):
     m = re.search(r'<meta[^>]+(?:name|property)=["\'](?:description|og:description)["\'][^>]*content=["\']([^"\']{40,400})', body, re.I)
     return html.unescape(m.group(1)).strip() if m else ""
 
+_BOILER = re.compile(
+    r"sign in|sign up|subscribe|newsletter|cookie|advertisement|getty images|view image|"
+    r"in fullscreen|photograph:|illustration:|reuters|shutterstock|all rights reserved|"
+    r"pdt|pst|gmt|·|read more|share this|follow us|^\W*\d{1,2}:\d{2}|webinars|resources intelligence",
+    re.I)
 def pick_quote(body, title):
-    """A short verbatim quote: prefer a substantive sentence; fall back to meta description."""
+    """A short verbatim quote from the article BODY — skips nav/bylines/captions/boilerplate.
+    Prefers a real sentence; falls back to the meta description (usually the clean dek)."""
+    # meta description first — it's the clean article summary, not page chrome
+    md = meta_desc(body)
     text = visible_text(body)
-    # candidate sentences with signal words, 40–240 chars
-    sig = re.compile(r"\b(AI|artificial intelligence|model|agent|deepfake|attack|breach|exploit|"
-                     r"researchers?|found|report|according|percent|%|study|court|regulator|banned?)\b", re.I)
+    sig = re.compile(r"\b(said|found|reported|according|study|researchers?|attack|breach|exploit|"
+                     r"vulnerab|lawsuit|court|regulator|banned?|percent|deepfake|model|agent|AI)\b", re.I)
+    best = ""
     for sent in re.split(r"(?<=[.!?])\s+", text):
         s = sent.strip()
-        if 40 <= len(s) <= 240 and sig.search(s) and not s.lower().startswith(("subscribe", "sign up", "cookie")):
-            return s
-    md = meta_desc(body)
-    return md[:240] if md else ""
+        if not (55 <= len(s) <= 240): continue
+        if _BOILER.search(s): continue
+        if s.count(" ") < 7: continue           # too few words → likely a label
+        letters = sum(c.isalpha() or c == ' ' for c in s)
+        if letters / max(len(s), 1) < 0.75: continue   # too much punctuation/markup
+        if sig.search(s):
+            best = s; break
+    if best: return best
+    if md and not _BOILER.search(md): return md[:240]
+    return ""
 
 def run(limit=None):
     lim = f" LIMIT {int(limit)}" if limit else ""
