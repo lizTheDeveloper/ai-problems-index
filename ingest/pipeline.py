@@ -26,21 +26,28 @@ def _load_env():
                 if ln and not ln.startswith("#") and "=" in ln:
                     k, v = ln.split("=", 1); os.environ.setdefault(k, v.strip().strip('"'))
 _load_env()
-SSH = os.environ.get("AIPI_SSH_HOST", "hetzner")
+SSH = os.environ.get("AIPI_SSH_HOST", "hetzner")   # 'local'/'' → run docker exec here (no ssh)
 PGC = os.environ.get("AIPI_PG_CONTAINER", "")
 DB  = os.environ.get("AIPI_DB", "")
 KB_ROLE = os.environ.get("AIPI_KB_ROLE", "school")
+_LOCAL = SSH in ("", "local", "localhost")
 
 def psql(sql, want_out=True):
-    cmd = f"docker exec -i {PGC} psql -U {KB_ROLE} -d {DB} -At -c \"{sql}\""
-    r = subprocess.run(["ssh", SSH, cmd], capture_output=True, text=True)
+    if _LOCAL:  # docker exec here, sql passed as a single argv element (no shell quoting)
+        run = ["docker", "exec", "-i", PGC, "psql", "-U", KB_ROLE, "-d", DB, "-At", "-c", sql]
+    else:       # one shell command sent over ssh
+        run = ["ssh", SSH, f'docker exec -i {PGC} psql -U {KB_ROLE} -d {DB} -At -c "{sql}"']
+    r = subprocess.run(run, capture_output=True, text=True)
     if r.returncode != 0:
         raise RuntimeError(r.stderr.strip())
     return r.stdout.strip() if want_out else ""
 
 def psql_stdin(sql):
-    r = subprocess.run(["ssh", SSH, f"docker exec -i {PGC} psql -U {KB_ROLE} -d {DB} -q"],
-                       input=sql, capture_output=True, text=True)
+    if _LOCAL:
+        run = ["docker", "exec", "-i", PGC, "psql", "-U", KB_ROLE, "-d", DB, "-q"]
+    else:
+        run = ["ssh", SSH, f"docker exec -i {PGC} psql -U {KB_ROLE} -d {DB} -q"]
+    r = subprocess.run(run, input=sql, capture_output=True, text=True)
     if r.returncode != 0:
         raise RuntimeError(r.stderr.strip())
     return r.stdout
