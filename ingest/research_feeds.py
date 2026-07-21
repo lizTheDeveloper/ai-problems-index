@@ -133,8 +133,9 @@ def parse_feed(xml_text, source, feed_label):
 def org_feeds(limit=None):
     """Pull every alignment_orgs row with an RSS feed. Writes feed health back."""
     rows = [r for r in psql(
-        "SELECT slug||E'\\t'||name||E'\\t'||coalesce(feed_url,'') FROM alignment_orgs "
-        "WHERE feed_kind='rss' AND coalesce(feed_url,'')<>'' ORDER BY slug").splitlines() if r]
+        "SELECT slug||E'\\t'||name||E'\\t'||coalesce(feed_url,'')||E'\\t'||coalesce(org_type,'') "
+        "FROM alignment_orgs WHERE feed_kind='rss' AND coalesce(feed_url,'')<>'' "
+        "ORDER BY slug").splitlines() if r]
     if limit:
         rows = rows[:limit]
     out, health = [], []
@@ -143,9 +144,12 @@ def org_feeds(limit=None):
         if len(parts) < 3:
             continue
         slug, name, feed_url = parts[0], parts[1], parts[2]
+        otype = parts[3] if len(parts) > 3 else ""
         status, n = "ok", 0
         try:
             items = parse_feed(_get(feed_url), name, f"org:{slug}")
+            for it in items:
+                it["org_type"] = otype
             n = len(items)
             if n == 0:
                 status = "empty"
@@ -178,6 +182,9 @@ _SKIP_PATH = re.compile(
     r'cookie|contact|about|team|careers|jobs|donate|rss|feed)(/|$)', re.I)
 _ASSET = re.compile(r'\.(png|jpe?g|gif|svg|webp|zip|mp4|mp3|css|js|ico)(\?|$)', re.I)
 # Venues that ARE the publication for many labs, not third-party citations.
+_CONTENT_PATH = re.compile(
+    r'/(publications?|blog|news|posts?|reports?|articles?|research|papers?|work|writing)/', re.I)
+_DATE_PATH = re.compile(r'/(19|20)\d{2}[/-]')
 _PUB_HOST = re.compile(
     r'^(arxiv\.org|ar5iv\.org|aclanthology\.org|openreview\.net|proceedings\.neurips\.cc|'
     r'proceedings\.mlr\.press|.*\.substack\.com|lesswrong\.com|www\.lesswrong\.com|'
@@ -244,11 +251,18 @@ def scrape_listing(page_url, source, feed_label, limit=25):
         if full in seen:
             continue
         seen.add(full)
-        out.append(dict(title=title, url=full, blurb="", source=source,
-                        published="", feed=feed_label))
-        if len(out) >= limit:
-            break
-    return out
+        # Rank rather than take-the-first-N. Nav and menu links appear FIRST in the DOM, so a
+        # plain cap returned "Cookie notice / About us / Our Team" and never reached the actual
+        # publications (this emptied the Alan Turing Institute's list entirely). Links whose path
+        # looks like content — /publications/, /blog/, /news/, or a /2026/ date segment — win.
+        score = (2 if _CONTENT_PATH.search(path + '/') else 0) \
+              + (2 if _DATE_PATH.search(path + '/') else 0) \
+              + (1 if path.count('/') >= 2 else 0)
+        out.append((score, dict(title=title, url=full, blurb="", source=source,
+                                published="", feed=feed_label)))
+
+    out.sort(key=lambda x: -x[0])
+    return [d for s, d in out if s > 0][:limit] or [d for s, d in out][:limit]
 
 
 _SITEMAP_CONTENT = re.compile(r'/(blog|research|news|posts?|publications?|papers?|articles?|work)/', re.I)
@@ -296,10 +310,17 @@ def sitemap_urls(root, max_urls=25):
 
 
 def page_feeds(limit=None):
-    """Scrape listing pages for orgs that publish no RSS."""
+    """Scrape listing pages for orgs that publish no RSS.
+
+    Covers feed_kind='page' AND feed_kind='none'. The 'none' bucket was originally skipped
+    entirely, on the assumption those sites were unreachable — but most of them are perfectly
+    fetchable and simply have no RSS (SafeAI ETH alone yields 30 papers). For those we fall back
+    to the homepage URL as the listing page.
+    """
     rows = [r for r in psql(
-        "SELECT slug||E'\\t'||name||E'\\t'||coalesce(feed_url,'') FROM alignment_orgs "
-        "WHERE feed_kind='page' AND coalesce(feed_url,'')<>'' ORDER BY slug").splitlines() if r]
+        "SELECT slug||E'\\t'||name||E'\\t'||coalesce(nullif(feed_url,''),url)||E'\\t'||coalesce(org_type,'') "
+        "FROM alignment_orgs WHERE feed_kind IN ('page','none') "
+        "AND coalesce(nullif(feed_url,''),url) IS NOT NULL ORDER BY slug").splitlines() if r]
     if limit:
         rows = rows[:limit]
     out, health = [], []
@@ -308,6 +329,7 @@ def page_feeds(limit=None):
         if len(parts) < 3:
             continue
         slug, name, page_url = parts[0], parts[1], parts[2]
+        otype = parts[3] if len(parts) > 3 else ""
         try:
             items = scrape_listing(page_url, name, f"page:{slug}")
             status = "ok"
@@ -320,6 +342,8 @@ def page_feeds(limit=None):
                     status = "sitemap" if items else "empty"
                 else:
                     status = "empty"
+            for it in items:
+                it["org_type"] = otype
             out += items
             health.append((slug, status, len(items)))
         except Exception:
@@ -415,7 +439,12 @@ AI_SIGNAL = re.compile(
     r"\b(ai|a\.i\.|artificial intelligence|llms?|language models?|foundation models?|"
     r"frontier models?|machine learning|deep learning|neural networks?|neural|transformers?|"
     r"agents?|agentic|chatbots?|gpt|claude|gemini|llama|mistral|qwen|deepseek|"
-    r"reinforcement learning|rlhf|diffusion models?|generative)\b", re.I)
+    r"reinforcement learning|rlhf|diffusion models?|generative|"
+    # the vocabulary advocacy/policy orgs actually use for AI systems — without these,
+    # "Facial recognition surveillance expands in UK policing" reads as non-AI
+    r"facial recognition|face recognition|biometrics?|algorithmic|automated decision|"
+    r"predictive policing|deepfakes?|synthetic media|recommender systems?|"
+    r"autonomous weapons?|automated systems?)\b", re.I)
 RESEARCH_NOISE = re.compile(
     r"\b(webinar|newsletter signup|we're hiring|job opening|apply now|donate|"
     r"annual gala|conference registration|save the date)\b", re.I)
@@ -462,8 +491,22 @@ def prefilter(item):
         return False
 
     feed = item.get('feed') or ''
-    if feed.startswith(('org:', 'page:', 'sitemap:')):
-        return len(title) >= 18          # already source-vetted; just skip stubs
+    curated = feed.startswith(('org:', 'page:', 'sitemap:'))
+    otype = item.get('org_type') or ''
+
+    # Relax the AI-keyword requirement ONLY for orgs whose entire output is AI research —
+    # technical labs and academic centers, whose paper titles are often terse and domain-specific
+    # ("Cluster-Norm for Unsupervised Probing of Knowledge").
+    #
+    # Broad-mandate organizations get no such pass. Coefficient Giving (ex-Open Philanthropy)
+    # funds farm-animal welfare, lead paint and TB testing alongside AI; Brookings, HRW, Amnesty
+    # and the UN are similar. Waving those through on "it came from a vetted org" would inject
+    # chickens and vaccines into an AI-risk queue.
+    if curated and otype in ('technical-lab', 'academic-center'):
+        return len(title) >= 18
+
+    if curated:
+        return bool(AI_SIGNAL.search(text))
 
     return bool(AI_SIGNAL.search(text) and RESEARCH_SIGNAL.search(text))
 
