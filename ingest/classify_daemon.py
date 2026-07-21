@@ -16,6 +16,9 @@ _load_env()
 
 OLLAMA = os.environ.get("AIPI_OLLAMA_URL", "http://localhost:11434")
 MODEL  = os.environ.get("AIPI_QWEN_MODEL", "qwen3:4b")
+MAX_TOKENS = int(os.environ.get("AIPI_MAX_TOKENS", "160"))
+# Qwen3 is a reasoning model; leave thinking ON and it never emits content. Default OFF.
+NO_THINK = os.environ.get("AIPI_NO_THINK", "1") not in ("0", "false", "no")
 RISKS  = json.load(open(os.path.join(os.path.dirname(__file__), "risks.json")))
 RISK_IDS = [r["id"] for r in RISKS]
 RISK_MENU = "\n".join(f"- {r['id']}: {r['title']}" for r in RISKS)
@@ -33,13 +36,24 @@ Also judge polarity for that risk:
 Reply ONLY compact JSON: {{"risk":"<id or none>","pol":"better|worse|neutral","why":"<=8 words"}}""")
 
 def classify(title, blurb):
-    body = json.dumps({"model": MODEL, "stream": False, "options": {"temperature": 0, "num_predict": 120},
-                       "messages": [{"role": "system", "content": SYS},
-                                    {"role": "user", "content": f"Headline: {title}\nBlurb: {blurb or '(none)'}"}]}).encode()
+    payload = {"model": MODEL, "stream": False,
+               "options": {"temperature": 0, "num_predict": 120},   # Ollama
+               "temperature": 0, "max_tokens": MAX_TOKENS,          # OpenAI-compatible (MLX, vLLM)
+               "messages": [{"role": "system", "content": SYS},
+                            {"role": "user", "content": f"Headline: {title}\nBlurb: {blurb or '(none)'}"}]}
+    # Qwen3 is a REASONING model: left in thinking mode it spends the whole budget on <think>
+    # and returns a message with a `reasoning` key and EMPTY `content` (finish_reason='length'),
+    # so every classification silently comes back None. Turning thinking off yields clean JSON
+    # in ~35 tokens. Ollama ignores this field; MLX/vLLM honour it.
+    if NO_THINK:
+        payload["chat_template_kwargs"] = {"enable_thinking": False}
+    body = json.dumps(payload).encode()
     req = urllib.request.Request(OLLAMA + "/v1/chat/completions", data=body,
                                  headers={"Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=300) as r:
-        content = json.load(r)["choices"][0]["message"]["content"]
+        msg = json.load(r)["choices"][0]["message"]
+    # some servers put the answer in `reasoning`/`reasoning_content` when thinking is on
+    content = msg.get("content") or msg.get("reasoning_content") or msg.get("reasoning") or ""
     m = re.search(r"\{.*\}", content, re.S)
     if not m: return None
     try:

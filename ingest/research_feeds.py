@@ -72,6 +72,47 @@ def _clean(t):
     return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", t or "")).strip()
 
 
+# How far back a run reaches. This is a FEED, not an archive dump: without a window, one pass
+# pulled 8,766 RSS items — whole back catalogues — and 5,835 survived filtering. The downstream
+# Qwen router runs ~75s/item on a CPU box, i.e. about five days of work for a single run.
+# Items with no parseable date are kept (we cannot tell) but are capped per source.
+FEED_WINDOW_DAYS = int(os.environ.get("AIPI_FEED_WINDOW_DAYS", "120"))
+MAX_ITEMS_PER_ORG = int(os.environ.get("AIPI_MAX_ITEMS_PER_ORG", "20"))
+
+
+def _parse_date(s):
+    s = (s or "").strip()
+    if not s:
+        return None
+    try:
+        from email.utils import parsedate_to_datetime
+        return parsedate_to_datetime(s)
+    except Exception:
+        pass
+    for fmt in (None, "%Y-%m-%d", "%Y/%m/%d", "%d %B %Y", "%B %d, %Y"):
+        try:
+            if fmt is None:
+                import datetime as _dt
+                return _dt.datetime.fromisoformat(s.replace("Z", "+00:00"))
+            import datetime as _dt
+            return _dt.datetime.strptime(s[:len(fmt) + 6].strip(), fmt)
+        except Exception:
+            continue
+    return None
+
+
+def _recent(item, days=None):
+    """True if the item is inside the window, or has no usable date."""
+    import datetime as _dt
+    d = _parse_date(item.get("published"))
+    if d is None:
+        return True
+    if d.tzinfo is None:
+        d = d.replace(tzinfo=_dt.timezone.utc)
+    age = (_dt.datetime.now(_dt.timezone.utc) - d).days
+    return age <= (days if days is not None else FEED_WINDOW_DAYS)
+
+
 # ---------------------------------------------------------------- feed parsing
 def parse_feed(xml_text, source, feed_label):
     """Parse RSS 2.0 or Atom. Returns the standard item dicts.
@@ -150,6 +191,11 @@ def org_feeds(limit=None):
             items = parse_feed(_get(feed_url), name, f"org:{slug}")
             for it in items:
                 it["org_type"] = otype
+            # Window + per-org cap: a feed run should surface new work, not whole archives.
+            # EXCEPTION: technical labs are the point of this feed — we want their complete
+            # research output, not a trailing window — so they are exempt from both.
+            if otype != 'technical-lab':
+                items = [i for i in items if _recent(i)][:MAX_ITEMS_PER_ORG]
             n = len(items)
             if n == 0:
                 status = "empty"
@@ -331,7 +377,8 @@ def page_feeds(limit=None):
         slug, name, page_url = parts[0], parts[1], parts[2]
         otype = parts[3] if len(parts) > 3 else ""
         try:
-            items = scrape_listing(page_url, name, f"page:{slug}")
+            items = scrape_listing(page_url, name, f"page:{slug}",
+                                   limit=200 if otype == 'technical-lab' else 25)
             status = "ok"
             if not items:  # client-rendered listing → fall back to the sitemap
                 base = re.match(r'(https?://[^/]+)', page_url)
@@ -344,6 +391,8 @@ def page_feeds(limit=None):
                     status = "empty"
             for it in items:
                 it["org_type"] = otype
+            if otype != 'technical-lab':
+                items = items[:MAX_ITEMS_PER_ORG]
             out += items
             health.append((slug, status, len(items)))
         except Exception:
