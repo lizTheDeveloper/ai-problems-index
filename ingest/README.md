@@ -28,7 +28,14 @@ Human gate: Opus-gated → review report → you run `deploy.sh ingest-apply`. N
 
 **Now built & tested (this session):** enrich.py (real-URL resolve + verbatim quote — tested on live URLs), opus_review.py run end-to-end (correctly DROPPED aggregator-stats items as off-bar), build_review.py (review-queue page), apply.py (merge + deploy, standalone so it doesn't touch deploy.sh). news_queue gained final_url + qwen_quote columns.
 
-**Remaining before going autonomous:**
+**DONE — now autonomous (this session):**
+- real-URL feeds (outlet RSS + HN + arXiv + GDELT; Google News dropped), local mode, run_cycle.sh orchestrator.
+- Deployed to the DB host `/opt/ai-atlas-ingest/`: **systemd timer** runs local-Qwen classify every 30 min; **cron** runs the full cycle Wed + Sun 04:00 UTC. Ends at the `/x/ai-atlas-review` queue — publishing stays the manual `apply.py` gate.
+- Full chain validated end-to-end on the host: it correctly resolves real URLs + captures quotes, drops unresolved redirects, and Opus drops commentary/hype (keeps only concrete, on-risk incidents).
+
+**Ops:** `systemctl status ai-atlas-classify.timer` · cycle log `/var/log/ai-atlas-ingest.log` · review at /x/ai-atlas-review · apply: `python3 ingest/apply.py <ids>` (from the repo).
+
+**Superseded notes:**
 1. **Real-URL feed volume.** enrich.py already drops opaque Google-News redirects; the live coverage should come from real-URL feeds (GDELT / HN / arXiv / outlet RSS — an agent is supplying a feed set). Point feeds.py at those (drop Google News).
 2. **Near-dup dedupe.** One event surfaces from many outlets; URL-hash alone won't catch it. Have Opus dedupe within each risk batch ("these may be the same event — keep the best-sourced") and check against `status='approved'`-but-unpublished rows.
 3. **Run the Opus gate once** end-to-end on a real batch; confirm the `decisions[]`/`norm` shape.
