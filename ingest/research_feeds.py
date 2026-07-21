@@ -166,6 +166,148 @@ def org_feeds(limit=None):
     return out
 
 
+# ------------------------------------------------------- 1b. listing-page scrape
+# Most modern lab sites (Webflow / Framer / Next.js) publish no RSS at all — Apollo Research,
+# FAR.AI, Transluce, Goodfire, Timaeus and ~140 others. Ignoring them would silently exclude a
+# large share of the most relevant labs, so for feed_kind='page' we scrape the listing page for
+# same-site article links. Recall-oriented and noisy by design; Qwen + the Opus gate are the
+# precision stages. Anchor text is the title, which is usually exactly the paper/post name.
+_HREF = re.compile(r'<a\b[^>]*href=["\']([^"\'#]+)["\'][^>]*>(.*?)</a>', re.I | re.S)
+_SKIP_PATH = re.compile(
+    r'/(tag|tags|category|categories|author|page|search|login|signin|subscribe|privacy|terms|'
+    r'cookie|contact|about|team|careers|jobs|donate|rss|feed)(/|$)', re.I)
+_ASSET = re.compile(r'\.(png|jpe?g|gif|svg|webp|pdf|zip|mp4|mp3|css|js|ico)(\?|$)', re.I)
+
+
+def scrape_listing(page_url, source, feed_label, limit=25):
+    """Pull plausible article links out of a publications/blog listing page."""
+    out, seen = [], set()
+    try:
+        html_text = _get(page_url)
+    except Exception:
+        return out
+    base = re.match(r'(https?://[^/]+)', page_url)
+    if not base:
+        return out
+    root = base.group(1)
+    host = root.split('//', 1)[1].lower().replace('www.', '')
+    listing_path = urllib.parse.urlsplit(page_url).path.rstrip('/')
+
+    for href, inner in _HREF.findall(html_text):
+        title = _clean(inner)
+        # Nav words are short; whole paragraphs are long. The upper bound is generous because
+        # card-style links wrap the title AND its summary in one <a>.
+        if not (18 <= len(title) <= 400):
+            continue
+        # Resolve every form of href, including bare relative ones ("2026/some-post/").
+        # Handling only "/..." and "http..." silently skipped every link on sites that use
+        # relative paths — which is how Anthropic's Alignment Science index is built.
+        if href.startswith(('mailto:', 'javascript:', 'tel:')):
+            continue
+        full = urllib.parse.urljoin(page_url, href)
+        if not full.startswith('http'):
+            continue
+        h = urllib.parse.urlsplit(full)
+        if h.netloc.lower().replace('www.', '') != host:   # same-site only
+            continue
+        path = h.path.rstrip('/')
+        if not path or path == listing_path:               # self / index links
+            continue
+        if _SKIP_PATH.search(path) or _ASSET.search(path):
+            continue
+        if full in seen:
+            continue
+        seen.add(full)
+        out.append(dict(title=title, url=full, blurb="", source=source,
+                        published="", feed=feed_label))
+        if len(out) >= limit:
+            break
+    return out
+
+
+_SITEMAP_CONTENT = re.compile(r'/(blog|research|news|posts?|publications?|papers?|articles?|work)/', re.I)
+
+
+def sitemap_urls(root, max_urls=25):
+    """Fallback for fully client-rendered sites (Webflow/Next/Framer) whose listing pages contain
+    no anchors in the served HTML — Apollo Research and friends. Sitemaps are static XML and list
+    every post. Follows one level of <sitemapindex>. Titles are derived from the URL slug, which is
+    crude but adequate: the downstream enrich step fetches the real page and quotes it."""
+    out = []
+    try:
+        body = _get(root.rstrip('/') + '/sitemap.xml', timeout=15)
+    except Exception:
+        return out
+    locs = re.findall(r'<loc>\s*([^<\s]+)\s*</loc>', body)
+    # follow nested sitemap indexes (post-sitemap.xml etc.), skipping tag/category maps
+    nested = [l for l in locs if l.endswith('.xml')]
+    if nested:
+        for n in nested[:4]:
+            if re.search(r'(tag|category|author)', n, re.I):
+                continue
+            try:
+                locs += re.findall(r'<loc>\s*([^<\s]+)\s*</loc>', _get(n, timeout=15))
+            except Exception:
+                pass
+            time.sleep(0.2)
+    seen = set()
+    for u in locs:
+        if u.endswith('.xml') or u in seen:
+            continue
+        if not _SITEMAP_CONTENT.search(u):
+            continue
+        path = urllib.parse.urlsplit(u).path.rstrip('/')
+        slug = path.rsplit('/', 1)[-1]
+        if not slug or len(slug) < 8:
+            continue
+        seen.add(u)
+        title = re.sub(r'[-_]+', ' ', slug).strip()
+        title = title[:1].upper() + title[1:]
+        out.append(dict(title=title, url=u, blurb="", source="", published="", feed=""))
+        if len(out) >= max_urls:
+            break
+    return out
+
+
+def page_feeds(limit=None):
+    """Scrape listing pages for orgs that publish no RSS."""
+    rows = [r for r in psql(
+        "SELECT slug||E'\\t'||name||E'\\t'||coalesce(feed_url,'') FROM alignment_orgs "
+        "WHERE feed_kind='page' AND coalesce(feed_url,'')<>'' ORDER BY slug").splitlines() if r]
+    if limit:
+        rows = rows[:limit]
+    out, health = [], []
+    for row in rows:
+        parts = row.split("\t")
+        if len(parts) < 3:
+            continue
+        slug, name, page_url = parts[0], parts[1], parts[2]
+        try:
+            items = scrape_listing(page_url, name, f"page:{slug}")
+            status = "ok"
+            if not items:  # client-rendered listing → fall back to the sitemap
+                base = re.match(r'(https?://[^/]+)', page_url)
+                if base:
+                    items = sitemap_urls(base.group(1))
+                    for it in items:
+                        it["source"], it["feed"] = name, f"sitemap:{slug}"
+                    status = "sitemap" if items else "empty"
+                else:
+                    status = "empty"
+            out += items
+            health.append((slug, status, len(items)))
+        except Exception:
+            health.append((slug, "fetch_error", 0))
+        time.sleep(0.25)
+    if health:
+        vals = ",".join("('%s','%s',%d)" % (s.replace("'", "''"), st, n) for s, st, n in health)
+        psql_stdin(
+            "BEGIN;\nUPDATE alignment_orgs o SET feed_status=v.st, feed_items_seen=v.n, "
+            "feed_checked_at=now(), updated_at=now() FROM (VALUES %s) AS v(slug,st,n) "
+            "WHERE o.slug=v.slug;\nCOMMIT;\n" % vals)
+    return out
+
+
 # ---------------------------------------------------------------- 2. arXiv
 # Targeted queries, NOT whole categories — whole-category pulls are ~99% irrelevant.
 ARXIV_QUERIES = [
@@ -287,7 +429,7 @@ def prefilter(item):
 # ---------------------------------------------------------------- collect
 def collect_all():
     items = []
-    for fn in (org_feeds, arxiv, community):
+    for fn in (org_feeds, page_feeds, arxiv, community):
         try:
             got = fn()
             items += got
