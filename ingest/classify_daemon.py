@@ -33,14 +33,40 @@ Also judge polarity for that risk:
 - "better": good news — a defensive win, a working mitigation/safeguard, an incident caught/disrupted, regulation that bites, evidence the risk is smaller than feared.
 - "neutral": genuinely mixed / context.
 
-Reply ONLY compact JSON: {{"risk":"<id or none>","pol":"better|worse|neutral","why":"<=8 words"}}""")
+Also produce an EVENT KEY: a canonical fingerprint of the underlying event so two headlines about
+the SAME event collapse together, even when worded very differently. Rules for the key:
+- lowercase; the specific named entities involved (companies/models/people/countries) PLUS the
+  core action verb, as space-separated tokens
+- sort the entity tokens alphabetically; put the action verb last
+- drop filler ("the", "a", "says", "reportedly"), outlet framing, and adjectives
+- normalize synonyms of the action to one word: hack/breach/compromise->breach,
+  sue/lawsuit/files suit->lawsuit, ban/restrict/prohibit->ban, release/launch/unveil->release
+Example: "OpenAI model hacks Hugging Face" and "Hugging Face hacked by rogue AI model" must BOTH
+give "huggingface openai breach" (same entities + same normalized action -> same key).
+If no concrete event, key is "".
 
-def classify(title, blurb):
+CRITICAL — PREFER TO CLUSTER: you will be shown a list of event keys already assigned to recent
+stories. Lean HARD toward reusing one. Different outlets rewrite the same event with different
+words, entities in a different order, and more or fewer details — these are the SAME story and
+must share a key. Before inventing a new key, scan the list and ask "could this plausibly be the
+same underlying event as one of these?" — if yes, REUSE that key verbatim. When two keys share
+the main entity and a compatible action, that is a match. Only mint a new key when the event is
+clearly absent from the list. A false split (two keys for one event) is worse than a slightly
+loose merge.
+
+Reply ONLY compact JSON:
+{{"risk":"<id or none>","pol":"better|worse|neutral","why":"<=8 words","event_key":"<=6 tokens"}}""")
+
+def classify(title, blurb, recent_keys=None):
+    ctx = ""
+    if recent_keys:
+        ctx = ("RECENT EVENT KEYS (reuse one verbatim if this is the same event):\n"
+               + "\n".join(f"- {k}" for k in recent_keys) + "\n\n")
     payload = {"model": MODEL, "stream": False,
                "options": {"temperature": 0, "num_predict": 120},   # Ollama
                "temperature": 0, "max_tokens": MAX_TOKENS,          # OpenAI-compatible (MLX, vLLM)
                "messages": [{"role": "system", "content": SYS},
-                            {"role": "user", "content": f"Headline: {title}\nBlurb: {blurb or '(none)'}"}]}
+                            {"role": "user", "content": f"{ctx}Headline: {title}\nBlurb: {blurb or '(none)'}"}]}
     # Qwen3 is a REASONING model: left in thinking mode it spends the whole budget on <think>
     # and returns a message with a `reasoning` key and EMPTY `content` (finish_reason='length'),
     # so every classification silently comes back None. Turning thinking off yields clean JSON
@@ -64,13 +90,29 @@ def classify(title, blurb):
     if risk not in RISK_IDS: risk = "none"
     pol = d.get("pol", "worse")
     if pol not in ("better", "worse", "neutral"): pol = "worse"
-    return {"risk": risk, "pol": pol, "why": (d.get("why") or "")[:120]}
+    # canonicalize the event key so string comparison is meaningful: lowercase, sorted unique
+    # tokens, punctuation stripped. Clustering (dedup_events.py) does the fuzzy matching.
+    ek = re.sub(r"[^a-z0-9 ]", " ", (d.get("event_key") or "").lower())
+    ek = " ".join(sorted(set(t for t in ek.split() if len(t) > 1)))
+    return {"risk": risk, "pol": pol, "why": (d.get("why") or "")[:120], "event_key": ek[:200]}
+
+RECENT_KEYS_N = int(os.environ.get("AIPI_RECENT_KEYS", "100"))
 
 def run(limit=None):
+    from collections import deque
     lim = f" LIMIT {int(limit)}" if limit else ""
     rows = psql(f"SELECT id, replace(title,'|',' '), replace(coalesce(blurb,''),'|',' ') "
                 f"FROM news_queue WHERE status='new' ORDER BY id{lim}").splitlines()
     print(f"to classify: {len(rows)} (model={MODEL})")
+
+    # Rolling window of recent event keys, shown to the model so it REUSES an existing key when a
+    # new story is the same event (dedup at classification time, not just post-hoc clustering).
+    # Seed from keys already in the queue so a fresh run still sees prior events.
+    seed = [k for k in psql(
+        "SELECT DISTINCT qwen_event_key FROM news_queue WHERE coalesce(qwen_event_key,'')<>'' "
+        f"ORDER BY qwen_event_key DESC LIMIT {RECENT_KEYS_N}").splitlines() if k]
+    recent = deque(seed, maxlen=RECENT_KEYS_N)
+
     done = dropped = 0
     for ln in rows:
         parts = ln.split("|", 2)
@@ -79,18 +121,22 @@ def run(limit=None):
         blurb = parts[2] if len(parts) > 2 else ""
         t0 = time.time()
         try:
-            res = classify(title, blurb)
+            res = classify(title, blurb, recent_keys=list(recent))
         except Exception as e:
             print(f"  #{rid} ERROR {e}"); continue
         if not res:
             print(f"  #{rid} unparseable, skip"); continue
+        ek = res.get("event_key", "")
+        if ek and ek not in recent:
+            recent.append(ek)
         status = "classified" if res["risk"] != "none" else "dropped"
         if status == "classified": done += 1
         else: dropped += 1
         psql_stdin(
-            "BEGIN;\nUPDATE news_queue SET qwen_risk='{}', qwen_pol='{}', qwen_why='{}', qwen_model='{}', "
-            "status='{}', updated_at=now() WHERE id={};\nCOMMIT;\n".format(
-                sq(res["risk"]), sq(res["pol"]), sq(res["why"]), sq(MODEL), status, int(rid)))
+            "BEGIN;\nUPDATE news_queue SET qwen_risk='{}', qwen_pol='{}', qwen_why='{}', qwen_event_key='{}', "
+            "qwen_model='{}', status='{}', updated_at=now() WHERE id={};\nCOMMIT;\n".format(
+                sq(res["risk"]), sq(res["pol"]), sq(res["why"]), sq(res.get("event_key","")),
+                sq(MODEL), status, int(rid)))
         print(f"  #{rid} [{int(time.time()-t0)}s] {res['risk']} / {res['pol']}  ← {title[:60]}")
     print(f"✓ classified={done} dropped(none)={dropped}")
 
