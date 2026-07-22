@@ -33,26 +33,34 @@ Also judge polarity for that risk:
 - "better": good news — a defensive win, a working mitigation/safeguard, an incident caught/disrupted, regulation that bites, evidence the risk is smaller than feared.
 - "neutral": genuinely mixed / context.
 
-Also produce an EVENT KEY: a canonical fingerprint of the underlying event so two headlines about
-the SAME event collapse together, even when worded very differently. Rules for the key:
-- lowercase; the specific named entities involved (companies/models/people/countries) PLUS the
-  core action verb, as space-separated tokens
-- sort the entity tokens alphabetically; put the action verb last
-- drop filler ("the", "a", "says", "reportedly"), outlet framing, and adjectives
-- normalize synonyms of the action to one word: hack/breach/compromise->breach,
-  sue/lawsuit/files suit->lawsuit, ban/restrict/prohibit->ban, release/launch/unveil->release
-Example: "OpenAI model hacks Hugging Face" and "Hugging Face hacked by rogue AI model" must BOTH
-give "huggingface openai breach" (same entities + same normalized action -> same key).
-If no concrete event, key is "".
+Also produce a DEDUP KEY that identifies THIS SPECIFIC item so that only genuine duplicates —
+the same event or the same paper — share a key. The key must be SPECIFIC, never a topic label.
 
-CRITICAL — PREFER TO CLUSTER: you will be shown a list of event keys already assigned to recent
-stories. Lean HARD toward reusing one. Different outlets rewrite the same event with different
-words, entities in a different order, and more or fewer details — these are the SAME story and
-must share a key. Before inventing a new key, scan the list and ask "could this plausibly be the
-same underlying event as one of these?" — if yes, REUSE that key verbatim. When two keys share
-the main entity and a compatible action, that is a match. Only mint a new key when the event is
-clearly absent from the list. A false split (two keys for one event) is worse than a slightly
-loose merge.
+There are two kinds of item, and they key differently:
+
+(1) NEWS EVENT (an incident, launch, lawsuit, breach, ruling): key = the named entities involved
+    (companies/models/people/countries) + the core action verb, lowercased, entities sorted
+    alphabetically, action last. Normalize the action: hack/breach/compromise->breach,
+    sue/lawsuit->lawsuit, ban/restrict->ban, release/launch/unveil->release.
+    "OpenAI model hacks Hugging Face" and "Hugging Face hacked by rogue AI model" BOTH ->
+    "huggingface openai breach". Many outlets, one event -> one key. Cluster these aggressively.
+
+(2) RESEARCH OUTPUT (a paper, report, blog post, benchmark): key = 2-4 of the most DISTINCTIVE
+    words from ITS OWN title/finding — the ones that identify this exact work and no other.
+    "Open-minded updatelessness" -> "updatelessness openminded". "SLEIGHT-Bench: Finding Blind
+    Spots in AI Monitors" -> "sleightbench monitors". Do NOT key on the research FIELD — two
+    different papers about multi-agent safety are DIFFERENT items and must get DIFFERENT keys.
+    Only the identical paper reposted (arXiv + blog + LessWrong) should share a key.
+
+NEVER emit a generic field/topic key like "ai multiagent", "alignment deception", or
+"center longterm risk" — those collide across unrelated works. If you cannot make a specific
+key, prefer a distinctive one drawn from the exact title over a generic one. If truly no
+concrete subject, key is "".
+
+REUSE — but only for true duplicates: you will be shown recent keys. Reuse one ONLY if this item
+is the SAME event or the SAME paper as one of them. For news events, lean toward reusing (outlets
+rewrite the same story). For research, reuse only for an identical paper reposted elsewhere —
+never merge two different papers because they share a topic.
 
 Reply ONLY compact JSON:
 {{"risk":"<id or none>","pol":"better|worse|neutral","why":"<=8 words","event_key":"<=6 tokens"}}""")
