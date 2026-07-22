@@ -33,48 +33,45 @@ Also judge polarity for that risk:
 - "better": good news — a defensive win, a working mitigation/safeguard, an incident caught/disrupted, regulation that bites, evidence the risk is smaller than feared.
 - "neutral": genuinely mixed / context.
 
-Also produce a DEDUP KEY that identifies THIS SPECIFIC item so that only genuine duplicates —
-the same event or the same paper — share a key. The key must be SPECIFIC, never a topic label.
+Also produce a DEDUP KEY. Read this GOAL first, or the key will be useless:
+Our pipeline pulls the SAME news story from many different sources — one incident written up by
+several outlets, one company announcement reposted and rewritten. The key exists ONLY to catch
+those duplicates so we keep a single copy. Two items about the SAME news event MUST get the
+IDENTICAL key, even when the headlines are worded completely differently.
 
-There are two kinds of item, and they key differently:
+ONLY news events get a key. A news event is a dated thing that happened: an incident, breach,
+lawsuit, ruling, fine, product launch, company/policy announcement, partnership. A research paper,
+preprint, technical report, benchmark, or academic blog post is NOT a news event — it is a unique
+work, there is nothing to deduplicate, so its key MUST be "". When in doubt (is this a paper or a
+news story?), leave the key "".
 
-(1) NEWS EVENT (an incident, launch, lawsuit, breach, ruling): key = the named entities involved
-    (companies/models/people/countries) + the core action verb, lowercased, entities sorted
-    alphabetically, action last. Normalize the action: hack/breach/compromise->breach,
-    sue/lawsuit->lawsuit, ban/restrict->ban, release/launch/unveil->release.
-    "OpenAI model hacks Hugging Face" and "Hugging Face hacked by rogue AI model" BOTH ->
-    "huggingface openai breach". Many outlets, one event -> one key. Cluster these aggressively.
+For a news event, key = "<YYYY-MM> <entities> <action>":
+- begin with the year-month from the DATE line below (e.g. 2026-07)
+- then the named entities (companies/models/people/countries), lowercased, sorted alphabetically
+- then ONE normalized action verb: hack/breach/compromise->breach, sue/lawsuit->lawsuit,
+  ban/restrict->ban, launch/release/introduce/unveil->release, fine/penalize->fine,
+  partner/deal->partnership, investigate/probe->probe
+Example: "OpenAI model hacks Hugging Face" and "Hugging Face hacked by rogue AI model" (both dated
+July 2026) BOTH -> "2026-07 huggingface openai breach". Two outlets, one event, one key.
 
-(2) RESEARCH OUTPUT (a paper, report, blog post, benchmark): key = 2-4 of the most DISTINCTIVE
-    words from ITS OWN title/finding — the ones that identify this exact work and no other.
-    "Open-minded updatelessness" -> "updatelessness openminded". "SLEIGHT-Bench: Finding Blind
-    Spots in AI Monitors" -> "sleightbench monitors". Do NOT key on the research FIELD — two
-    different papers about multi-agent safety are DIFFERENT items and must get DIFFERENT keys.
-    Only the identical paper reposted (arXiv + blog + LessWrong) should share a key.
-
-NEVER emit a generic field/topic key like "ai multiagent", "alignment deception", or
-"center longterm risk" — those collide across unrelated works. If you cannot make a specific
-key, prefer a distinctive one drawn from the exact title over a generic one. If truly no
-concrete subject, key is "".
-
-REUSE — but only for true duplicates: you will be shown recent keys. Reuse one ONLY if this item
-is the SAME event or the SAME paper as one of them. For news events, lean toward reusing (outlets
-rewrite the same story). For research, reuse only for an identical paper reposted elsewhere —
-never merge two different papers because they share a topic.
+You will be shown recent keys; if THIS item is the same news event as one of them, REUSE that key
+verbatim. Never invent a topic/field key like "ai safety" or a publisher key like "center long
+risk term" — those are not events.
 
 Reply ONLY compact JSON:
-{{"risk":"<id or none>","pol":"better|worse|neutral","why":"<=8 words","event_key":"<=6 tokens"}}""")
+{{"risk":"<id or none>","pol":"better|worse|neutral","why":"<=8 words","event_key":"<news key or '' for papers>"}}""")
 
-def classify(title, blurb, recent_keys=None):
+def classify(title, blurb, date_ym="", recent_keys=None):
     ctx = ""
     if recent_keys:
-        ctx = ("RECENT EVENT KEYS (reuse one verbatim if this is the same event):\n"
+        ctx = ("RECENT NEWS KEYS (reuse one verbatim if this is the same news event):\n"
                + "\n".join(f"- {k}" for k in recent_keys) + "\n\n")
+    datel = f"DATE: {date_ym}\n" if date_ym else "DATE: (unknown)\n"
     payload = {"model": MODEL, "stream": False,
                "options": {"temperature": 0, "num_predict": 120},   # Ollama
                "temperature": 0, "max_tokens": MAX_TOKENS,          # OpenAI-compatible (MLX, vLLM)
                "messages": [{"role": "system", "content": SYS},
-                            {"role": "user", "content": f"{ctx}Headline: {title}\nBlurb: {blurb or '(none)'}"}]}
+                            {"role": "user", "content": f"{ctx}{datel}Headline: {title}\nBlurb: {blurb or '(none)'}"}]}
     # Qwen3 is a REASONING model: left in thinking mode it spends the whole budget on <think>
     # and returns a message with a `reasoning` key and EMPTY `content` (finish_reason='length'),
     # so every classification silently comes back None. Turning thinking off yields clean JSON
@@ -98,18 +95,42 @@ def classify(title, blurb, recent_keys=None):
     if risk not in RISK_IDS: risk = "none"
     pol = d.get("pol", "worse")
     if pol not in ("better", "worse", "neutral"): pol = "worse"
-    # canonicalize the event key so string comparison is meaningful: lowercase, sorted unique
-    # tokens, punctuation stripped. Clustering (dedup_events.py) does the fuzzy matching.
-    ek = re.sub(r"[^a-z0-9 ]", " ", (d.get("event_key") or "").lower())
-    ek = " ".join(sorted(set(t for t in ek.split() if len(t) > 1)))
-    return {"risk": risk, "pol": pol, "why": (d.get("why") or "")[:120], "event_key": ek[:200]}
+    # canonicalize the news key: keep a leading YYYY-MM date prefix in place, then lowercase +
+    # sort the remaining entity/action tokens so two orderings compare equal. Empty for papers.
+    raw = (d.get("event_key") or "").strip().lower()
+    dm = re.match(r"\s*((?:19|20)\d{2}-\d{2})\b(.*)", raw)
+    prefix, rest = (dm.group(1), dm.group(2)) if dm else ("", raw)
+    rest = re.sub(r"[^a-z0-9 ]", " ", rest)
+    body_toks = " ".join(sorted(set(t for t in rest.split() if len(t) > 1)))
+    ek = (f"{prefix} {body_toks}".strip() if prefix else body_toks)[:200]
+    return {"risk": risk, "pol": pol, "why": (d.get("why") or "")[:120], "event_key": ek}
 
 RECENT_KEYS_N = int(os.environ.get("AIPI_RECENT_KEYS", "100"))
+
+_MON = {m: f"{i:02d}" for i, m in enumerate(
+    ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"], 1)}
+def _year_month(published):
+    """Normalize a freeform feed date to 'YYYY-MM' for the news key prefix, else ''."""
+    s = (published or "").strip()
+    if not s:
+        return ""
+    m = re.search(r"\b((?:19|20)\d{2})-(\d{2})", s)             # ISO 2026-07-...
+    if m:
+        return f"{m.group(1)}-{m.group(2)}"
+    m = re.search(r"\b(\d{1,2})\s+([A-Za-z]{3})[a-z]*\s+((?:19|20)\d{2})", s)   # 15 Jul 2026 / RFC822
+    if m:
+        return f"{m.group(3)}-{_MON.get(m.group(2).lower(), '01')}"
+    m = re.search(r"\b([A-Za-z]{3})[a-z]*\s+\d{1,2},?\s+((?:19|20)\d{2})", s)   # Jul 15, 2026
+    if m:
+        return f"{m.group(2)}-{_MON.get(m.group(1).lower(), '01')}"
+    m = re.search(r"\b((?:19|20)\d{2})\b", s)                   # bare year fallback
+    return f"{m.group(1)}-01" if m else ""
 
 def run(limit=None):
     from collections import deque
     lim = f" LIMIT {int(limit)}" if limit else ""
-    rows = psql(f"SELECT id, replace(title,'|',' '), replace(coalesce(blurb,''),'|',' ') "
+    rows = psql(f"SELECT id, replace(title,'|',' '), replace(coalesce(blurb,''),'|',' '), "
+                f"replace(coalesce(published,''),'|',' ') "
                 f"FROM news_queue WHERE status='new' ORDER BY id{lim}").splitlines()
     print(f"to classify: {len(rows)} (model={MODEL})")
 
@@ -123,13 +144,14 @@ def run(limit=None):
 
     done = dropped = 0
     for ln in rows:
-        parts = ln.split("|", 2)
+        parts = ln.split("|", 3)
         if len(parts) < 2: continue
         rid, title = parts[0], parts[1]
         blurb = parts[2] if len(parts) > 2 else ""
+        date_ym = _year_month(parts[3]) if len(parts) > 3 else ""
         t0 = time.time()
         try:
-            res = classify(title, blurb, recent_keys=list(recent))
+            res = classify(title, blurb, date_ym=date_ym, recent_keys=list(recent))
         except Exception as e:
             print(f"  #{rid} ERROR {e}"); continue
         if not res:
