@@ -39,18 +39,31 @@ def _content_words(*texts):
     return frozenset(stem(t) for t in toks if len(t) > 2 and t not in STOP)
 
 
-# Tokens that distinguish INSTANCES of an otherwise-identical title: ordinals, years, versions.
-# "first" vs "second" hackathon, "2024" vs "2025" index, "GPT-4" vs "GPT-5" are DIFFERENT events
-# even though the rest of the title matches — so a difference here vetoes a merge.
+# Tokens that distinguish INSTANCES of an otherwise-identical (often templated) title. Corporate
+# announcements and newsletters reuse a template and vary only the payload — "Introducing gpt-oss"
+# vs "Introducing gpt-oss-safeguard", "data residency in Europe" vs "in Asia", "Disinfo Update
+# 15/07" vs "24/06". Jaccard sees the shared template as evidence, so a DIFFERENCE on any of these
+# discriminators must veto the merge.
 _ORD = {"first": 1, "1st": 1, "second": 2, "2nd": 2, "third": 3, "3rd": 3, "fourth": 4, "4th": 4,
-        "fifth": 5, "5th": 5, "sixth": 6, "seventh": 7, "eighth": 8, "ninth": 9, "tenth": 10,
-        "annual": 0}
+        "fifth": 5, "5th": 5, "sixth": 6, "seventh": 7, "eighth": 8, "ninth": 9, "tenth": 10}
+# region/jurisdiction — the most common payload swap in corporate/policy posts
+_REGION = {"uk", "us", "usa", "eu", "europe", "european", "asia", "asian", "australia", "australian",
+           "china", "chinese", "india", "indian", "africa", "african", "america", "american",
+           "britain", "british", "japan", "japanese", "korea", "korean", "germany", "german",
+           "france", "french", "canada", "canadian", "uae", "singapore", "brazil", "russia"}
+# product-variant suffixes that make a different release
+_VARIANT = {"codex", "safeguard", "mini", "pro", "turbo", "nano", "lite", "plus", "max", "base",
+            "instruct", "vision", "audio", "preview", "flash", "opus", "sonnet", "haiku", "thinking"}
 def _discriminators(title):
     t = title.lower()
-    ords = {_ORD[w] for w in re.findall(r"[a-z0-9]+", t) if w in _ORD and _ORD[w] > 0}
+    words = re.findall(r"[a-z0-9]+", t)
+    ords = {_ORD[w] for w in words if w in _ORD}
     years = set(re.findall(r"\b(?:19|20)\d{2}\b", t))
-    vers = set(re.findall(r"\b(?:v|gpt-?|claude-?|llama-?|o)(\d+(?:\.\d+)?)\b", t))
-    return ords, years, vers
+    vers = set(re.findall(r"\b(?:v|gpt-?|claude-?|llama-?|gemini-?|o)(\d+(?:\.\d+)?)\b", t))
+    dates = set(re.findall(r"\b\d{1,2}[/.-]\d{1,2}(?:[/.-]\d{2,4})?\b", t))  # 15/07/2026, 24-06
+    regions = {w for w in words if w in _REGION}
+    variants = {w for w in words if w in _VARIANT}
+    return ords, years, vers, dates, regions, variants
 
 
 def load():
@@ -84,9 +97,17 @@ def _same_story(a, b):
     ta, tb = a["titlewords"], b["titlewords"]
     if not (ta and tb):
         return False
-    # veto: same title but a different ordinal / year / model-version → different instance
-    oa, ya, va = a["disc"]; ob, yb, vb = b["disc"]
-    if (oa and ob and oa != ob) or (ya and yb and ya != yb) or (va and vb and va != vb):
+    # veto: templated titles that differ on a discriminator are different instances.
+    # disc = (ords, years, vers, dates, regions, variants)
+    oa, ya, va, da, ra, xa = a["disc"]; ob, yb, vb, db, rb, xb = b["disc"]
+    # ordinal/year/version/date: veto only when BOTH title carries one and they differ
+    # (a title that simply omits the year may still be the same story)
+    if (oa and ob and oa != ob) or (ya and yb and ya != yb) or \
+       (va and vb and va != vb) or (da and db and da != db):
+        return False
+    # region/product-variant: veto on ANY difference, incl. asymmetric — "X" and "X-Codex",
+    # "blueprint" and "EU blueprint" are different releases even when one side omits the token
+    if ra != rb or xa != xb:
         return False
     jac = len(ta & tb) / len(ta | tb)
     if jac >= TITLE_JACCARD:
