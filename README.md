@@ -167,6 +167,15 @@ every risk page breaks with "Couldn't load this page." `./deploy.sh atlas` publi
 Year-only sorting was not enough once timelines got dense — it put "April 2024" before
 "February 2024".
 
+### ⚠ Campus reads the detail bundle
+Biz, the Multiverse Games lead on campus.themultiverse.school, answers students' AI-risk questions
+from the live `ai-risk-atlas-detail` page (`multiversecampus` `server/src/services/mgCrew/riskIndex.ts`,
+tool `search_ai_risk_index`, cached 1 hour, read-only). It parses each `<article class="rx-page">`:
+`data-page`, `.rx-ptitle`, `.rx-psum`, the `.rx-pscore` Threat/Trend/Evidence spans, `.rx-assess`,
+the `.mk-up`/`.mk-down` marker lists and the `.ctl-item` timeline (latest = last), and links students to
+`/x/ai-problems-index#atlas/<id>`. If you rename those classes or the threat labels, update that parser
+in the same change: it fails closed (Biz says the index is unreachable) when fewer than 40 risks parse.
+
 ### ⚠ CSS-in-Python gotcha (cost us a real bug)
 The atlas builder's `STYLE` block **must be a raw string** (`r"""…"""`). A CSS
 `content:"\f058"` (Font Awesome glyph) inside a *non-raw* Python string becomes a literal
